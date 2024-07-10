@@ -1,0 +1,1321 @@
+
+
+@font-face {
+    font-family: "Inter";
+    src: url("../font/INTER.TTC");
+}
+
+@font-face {
+    font-family: "Inter-Regular";
+    src: url("../font/Inter-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Leelawad";
+    src: url("../font/leelawad.ttf");
+}
+
+@font-face {
+    font-family: "SpaceGrotesk";
+    src: url("../font/SpaceGrotesk-Bold.otf");
+}
+
+.main-body{
+    font-family: "Inter","Leelawad";
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: white;
+}
+/* .logo-body{
+    height: 35px;
+    padding: 2px;
+    padding-left: 15px;
+} */
+
+.logoMain{
+    background-image: url("../img/logo.png");
+    height: 35px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
+.logo{
+    background-image: url("../img/logo.png");
+    background-size: cover;
+    height: 35px;
+    width: 200px;
+    background-position: left;
+    background-repeat: no-repeat;
+    transform: scale(1);
+}
+
+.logoSM{
+    background-image: url("../img/logo-sm.jpg");
+    height: 11px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.background{
+    background-image: url("../img/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    width: 75%;
+}
+
+.auditViewBox{
+    background-color: #009982;
+    background-position: center;
+}
+
+.footer-background{
+    background-image: url("../img/footer-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: right;
+    height: max-content;
+}
+
+.smicon1{
+    background-image: url("../img/facebook.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 25px;
+    width: 25px;
+}
+.smicon2{
+    background-image: url("../img/twitter.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 25px;
+    width: 25px;
+}
+.smicon3{
+    background-image: url("../img/linkedin.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 25px;
+    width: 25px;
+}
+.smicon4{
+    background-image: url("../img/instergram.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 25px;
+    width: 25px;
+}
+.smicon5{
+    background-image: url("../img/youtube.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 25px;
+    width: 25px;
+}
+
+.modal-dialog-ca {
+    position: relative;
+    width: 800px;
+    margin: var(--bs-modal-margin);
+    pointer-events: none;
+  }
+
+.productBackground{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 70px;
+}
+
+.itemProductBackground{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 100px;
+}
+
+.productBackground2{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 250px;
+}
+
+.addProductBackground{
+    background-image: url("../img/addproduct.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 580px;
+}
+
+.addSingleProductBackground{
+    background-image: url("../img/addproduct.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 200px;
+    height: 200px;
+}
+
+.productImage{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    margin-bottom: 10px;
+}
+
+.footer-text{
+    background-image: url("../img/footer-text.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: right;
+    height: 40px;
+    width: 300px;
+    transform: scale(0.8);
+}
+
+.title01{
+    font-family: "Leelawad";
+    font-size: 28px;
+    letter-spacing: 0.5px;
+    color: #009982;
+    font-weight: bold;
+}
+
+.title02{
+    font-family: "Inter";
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #676161;
+}
+
+.title03{
+    font-family: "Inter";
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    color: #3300ff;
+}
+
+.title04{
+    font-family: "Inter";
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.title05{
+    font-family: "Inter";
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    font-weight: bold;
+}
+.title05:hover{
+    color: #2E2E2E;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+
+}
+
+.title055{
+    font-family: "Inter";
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    font-weight: bold;
+}
+.title055:hover{
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: medium;
+
+}
+
+.title06{
+    font-family: "Inter";
+    font-size: 25px;
+    text-align: left;
+    letter-spacing: 0.5px;
+    color: black;
+    font-weight: 900;
+}
+
+.title062{
+    font-family: "Inter";
+    font-size: 25px;
+    text-align: left;
+    letter-spacing: 0.5px;
+    color: rgb(255, 255, 255);
+    font-weight: 900;
+}
+
+.title063{
+    font-family: "Inter";
+    font-size: 13px;
+    text-align: left;
+    font-weight: bold;
+    letter-spacing: 0.1px;
+    color: #E6F630;
+}
+
+.title064{
+    font-family: "Inter";
+    font-size: 16px;
+    text-align: left;
+    font-weight: bold;
+    letter-spacing: 0.1px;
+    color: #ffffff;
+}
+
+.title07{
+    font-family: "Inter";
+    font-size: 13px;
+    text-align: left;
+    font-weight: bold;
+    letter-spacing: 0.1px;
+    color: #000000;
+}
+
+.title071{
+    font-family: "Inter";
+    font-size: 16px;
+    text-align: left;
+    font-weight: bold;
+    letter-spacing: 0.1px;
+    color: #000000;
+}
+
+.title08{
+    font-family: "Inter";
+    font-size: 9px;
+    letter-spacing: 0.1px;
+    font-weight: bold;
+    color: #676161;
+}
+
+.title09{
+    font-family: "Inter";
+    font-size: 12px;
+    letter-spacing: 0.1px;
+    font-weight: 900;
+    text-align: center;
+    color: #000000;
+}
+
+.title10{
+    font-family: "Inter";
+    font-size: 12px;
+    letter-spacing: 0.1px;
+    font-weight: 900;
+    text-align: center;
+    color: #ffffff;
+}
+
+.title11{
+    font-family: "Inter";
+    font-size: x-small;
+    letter-spacing: 0.1px;
+    font-weight: 900;
+    text-align: center;
+    color: #000000;
+    border-bottom: 2px solid #000000 ;
+
+}
+
+.title11 th{
+
+    margin-bottom: 50px;
+    padding-bottom: 25px;
+
+}
+
+.title12{
+    font-family: "Inter";
+    font-size: x-small;
+    letter-spacing: 0.1px;
+    text-align: center;
+    color: #000000;
+
+}
+
+.title13{
+    font-family: "Inter";
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    font-weight: 550;
+}
+
+.title14{
+    font-family: "Inter";
+    font-size: 36px;
+    letter-spacing: 0.1px;
+    text-align: center;
+    color: #000000;
+
+}
+
+.title15{
+    font-family: "Inter";
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color: #676161;
+    font-weight: 900;
+}
+
+.title16{
+    font-family: "Inter";
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    color: black;
+    font-weight: 900;
+    line-height: 100px;
+}
+
+.title17{
+    font-family: "Inter";
+    font-size: 13px;
+    letter-spacing: 1.2px;
+    color: black;
+    font-weight: 900;
+    line-height: 15px;
+}
+
+.title18{
+    font-family: "Inter";
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.title19{
+    font-family: "Inter";
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.title20{
+    font-family: "Inter";
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #009982;
+    line-height: 20px;
+}
+
+.title21{
+    font-family: "Inter";
+    font-size: 25px;
+    text-align: left;
+    letter-spacing: 0.5px;
+    color: black;
+    font-weight: 900;
+}
+.title21:hover{
+    color: #676161;
+    cursor: pointer;
+}
+
+
+.rowBg{
+    background-color: #DCEBE9;
+    border-bottom: 5px #ffffff solid;
+}
+
+.textA{
+    overflow: hidden;
+}
+
+.CardfeatureText{
+    display: flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.checkView{
+    color: #4ECB71;
+}
+
+.activeNav{
+    color: #ffffff;
+    font-family: 'Leelawad';
+    background-color: #676161;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+
+.input-s{
+    font-family: "Inter";
+    background-color: #D9D9D9;
+    color: #A2A1A1;
+    font-size: 15px;
+}
+
+.btn1{
+    background-color: #009982;
+    font-family: "Inter";
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.logOutbtn{
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #ffffff;
+    font-family: "Inter";
+    font-weight: bold;
+}
+
+.logOutbtn:hover{
+    background-color: #009982;
+    border: 2px solid #ffffff;
+    color: white;
+}
+
+.btn2{
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    font-family: "Inter";
+    font-weight: bold;
+    border: 1px solid #000000;
+}
+
+.btn3{
+    padding: 2px;
+    background-color: #E6DD00;
+    font-family: "Inter";
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+}
+
+.btn4{
+    padding: 5px;
+    background-color: #009982;
+    font-family: "Inter";
+    font-weight: bold;
+    border-radius: 2px;
+    text-align: center;
+    border: none;
+}
+
+.btn41{
+    font-family: "Inter";
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    background-image: url("../img/btn-bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 35px;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.5px;
+    color: white;
+}
+
+.btn5{
+    padding: 10px;
+    background-color: #666666;
+    font-family: "Inter";
+    border-radius: 5px;
+    text-align: center;
+    color: white;
+    border: none;
+}
+
+.btn6{
+    padding: 10px;
+    background-color: #CE2D2D;
+    font-family: "Inter";
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    border: none;
+}
+
+.btn7{
+    background-image: url("../img/btn-bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 10px;
+    height: 55px;
+    font-family: "Inter";
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    line-height: 18px;
+    border: none;
+}
+
+.btn8{
+    background-image: url("../img/btn-bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "Inter";
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    border: none;
+}
+
+.btn9{
+    padding: 20px;
+    background-color: #009982;
+    font-family: "Inter";
+    font-weight: bold;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    border: none;
+    color: white;
+}
+
+.btn10{
+    padding: 10px;
+    background-color: #ffffff;
+    font-family: "Inter";
+    font-weight: bold;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    border: none;
+    color: rgb(6, 6, 6);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.75);
+}
+.btn10:hover{
+    cursor: pointer;
+    background-color: #E6F630;
+}
+
+.btn10:active{
+    background-color: #E6F630;
+}
+
+.btnActive1{
+    background-color: #E6F630;
+}
+
+.btn11{
+    background-color: #ADCFF4;
+    background-image: none;
+    padding: 10px;
+    font-family: "Inter";
+    font-weight: bold;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    border: none;
+    color: rgb(6, 6, 6);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.75);
+}
+.btn11:hover{
+    cursor: pointer;
+    background-image: url("../img/btn-bg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.moreBtn{
+    background-image: url("../img/viewMoreArrow.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 30px;
+    height: 30px;
+    transform: scale(0.5);
+    border: none;
+}
+
+.editBtn{
+    background-image: url("../img/edit.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 20px;
+    border: none;
+}
+
+.editBtn2{
+    background-image: url("../img/edit.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 40px;
+    border: none;
+    transform: scale(0.6);
+}
+
+.deleteBtn2{
+    background-image: url("../img/delete.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 40px;
+    border: none;
+    transform: scale(0.6);
+}
+
+.btn2:hover{
+    background-color: #000000;
+    border: 2px solid #ffffff;
+    color: white;
+}
+
+
+.nav-bg{
+    background: linear-gradient(to right, #ffffff 25%, #009982 75%);
+    color: white;
+}
+
+.custom-modal {
+    width: 90%;
+}
+
+.cardView{
+    --bs-card-spacer-y: 1rem;
+    --bs-card-spacer-x: 1rem;
+    --bs-card-title-spacer-y: 0.5rem;
+    --bs-card-border-width: 1px;
+    --bs-card-border-color: var(--bs-border-color-translucent);
+    --bs-card-border-radius: 0.375rem;
+    --bs-card-box-shadow: ;
+    --bs-card-inner-border-radius: calc(0.375rem - 1px);
+    --bs-card-cap-padding-y: 0.5rem;
+    --bs-card-cap-padding-x: 1rem;
+    --bs-card-cap-bg: rgba(0, 0, 0, 0.03);
+    --bs-card-cap-color: ;
+    --bs-card-height: ;
+    --bs-card-color: ;
+    --bs-card-bg: #DCEBE9;
+    --bs-card-img-overlay-padding: 1rem;
+    --bs-card-group-margin: 0.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: var(--bs-card-height);
+    word-wrap: break-word;
+    background-color: var(--bs-card-bg);
+    background-clip: border-box;
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    border-radius: var(--bs-card-border-radius);
+    margin: 5px;
+}
+
+.footerBorder{
+    border-top: 1px solid #676161;
+}
+
+.cardViewHeaderBorder {
+    height: 300px;
+    padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+    color: var(--bs-card-cap-color);
+    background-color: var(--bs-card-cap-bg);
+    border-bottom: 2px solid #009982;
+}
+
+.cardViewHeader {
+    padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+    margin-bottom: 0;
+    color: var(--bs-card-cap-color);
+    font-family: "Inter-Regular";
+    font-weight: 700;
+}
+
+.cardViewHeaderTitle{
+    padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+    margin-bottom: 0;
+    color: #009982;
+    font-family: "Inter-Regular";
+    font-weight: 700;
+    height: 70px;
+}
+
+.cardViewBody {
+    flex: 1 1 auto;
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    color: var(--bs-card-color);
+}
+.cardViewTitle {
+    margin-bottom: var(--bs-card-title-spacer-y);
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.cardViewText {
+    margin-bottom: 0;
+    color: #676161;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.cardViewFooter {
+    padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+    color: var(--bs-card-cap-color);
+    background-color: var(--bs-card-cap-bg);
+    border-top: 2px solid #676161;
+}
+
+.horizontal-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+.productCardView{
+    --bs-card-spacer-y: 1rem;
+    --bs-card-spacer-x: 1rem;
+    --bs-card-title-spacer-y: 0.5rem;
+    --bs-card-border-width: 1px;
+    --bs-card-border-color: var(--bs-border-color-translucent);
+    --bs-card-border-radius: 0.375rem;
+    --bs-card-box-shadow: ;
+    --bs-card-inner-border-radius: calc(0.375rem - 1px);
+    --bs-card-cap-padding-y: 0.5rem;
+    --bs-card-cap-padding-x: 1rem;
+    --bs-card-cap-bg: rgba(0, 0, 0, 0.03);
+    --bs-card-cap-color: ;
+    --bs-card-height: ;
+    --bs-card-color: ;
+    --bs-card-bg: #ffffff;
+    --bs-card-img-overlay-padding: 1rem;
+    --bs-card-group-margin: 0.75rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: var(--bs-card-height);
+    word-wrap: break-word;
+    background-color: var(--bs-card-bg);
+    background-clip: border-box;
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    border-radius: var(--bs-card-border-radius);
+    margin: 5px;
+    width: 18rem;
+    flex-shrink: 0;
+    
+}
+
+.productCardViewBorder{
+    border: 1px solid #676161;
+}
+
+.productCardViewHeader {
+    padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+    margin-bottom: 0;
+    color: var(--bs-card-cap-color);
+    font-family: "Inter-Regular";
+    font-weight: 700;
+    justify-content: left;
+    align-items: start;
+    border-bottom: 2px solid #DCEBE9;
+}
+
+.productCardViewBody {
+    flex: 1 1 auto;
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+    color: var(--bs-card-color);
+    padding-bottom: 0px;
+}
+.productCardViewTitle {
+    margin-bottom: var(--bs-card-title-spacer-y);
+    text-align: center;
+    font-family: "Inter";
+    font-size: 10px;
+    letter-spacing: 0.1px;
+    font-weight: 900;
+    color: #000000;
+}
+
+.productCardViewText {
+    margin-bottom: 0;
+    color: #666666;
+    font-size: 13px;
+    font-weight: 900;
+    font-family: "Inter";
+    text-align: left;
+}
+
+::-webkit-scrollbar{
+    width: 5px;
+    background: #D9D9D9;
+}
+
+::-webkit-scrollbar-thumb{
+    background: #666666;
+    border-radius: 10px;
+}
+
+.scroll-bar{
+    overflow: auto;
+}
+
+.scroll-inner{
+    width: 100%;
+    height: 200px;
+    margin-bottom: 0;
+    font-family: "Inter";
+    color: #676161;
+    font-size: 12px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: start;
+}
+
+.scroll-inner,
+.scroll-bar:hover{
+    visibility: visible;
+}
+
+.productCardViewFooter {
+    color: var(--bs-card-cap-color);
+    margin-top: 0px;
+}
+
+.cardBoxView{
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); 
+    background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);    
+    border-radius: 5px;
+}
+
+.fa-square-twitter{
+    font-size: 50px;
+    color: skyblue;
+}
+
+.footerMedia{
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
+    justify-content: center;
+    align-content: center;
+}
+
+.productFeatureText{
+    font-family: "Inter";
+    font-size: 13px;
+    
+}
+
+
+.textBox1{
+    font-family: "Inter";
+    font-size: 13px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.priceInput {
+    width: 130px;
+    border: 1px solid #ccc;
+    padding: 2px;
+    font-size: 35px;
+    color: #868585;
+    text-align: center;
+}
+
+.center-table {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2px; 
+}
+
+.textArea1{
+    height: 100px;
+}
+
+.text01{
+    color: #ffffff;
+    text-align: center;
+}
+
+.text02{
+    color:#c50404;
+    font-size: 15px;
+    text-align: center;
+}
+
+.btn-unsubscribe{
+    color: #ffffff;
+    
+}
+
+.homeTitleHead1 {
+    color: #009982;
+    font-size: 45px;
+    font-weight: 600;
+    font-family: "Inter";
+    letter-spacing: 1px;
+    line-height: 50px;
+}
+
+.homeTitleHead2 {
+    font-size: 45px;
+    font-weight: bold;
+    background: linear-gradient(to right, #868585 10%, #000000 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 50px;
+}
+
+.homeTitleHead3 {
+    color: #000000;
+    font-size: 45px;
+    font-weight: 600;
+    font-family: "Inter";
+}
+
+.homeDescription {
+    color: #676161;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-family: "Inter";
+    line-height: 35px;
+}
+
+.ourProductBox {
+    background-color: #009982;
+    background-position: center;
+}
+
+.seeMoreBtn {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #E6DD00;
+    font-family: "Inter";
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.moreBtn2 {
+    background-image: url("../img/viewMoreArrow2.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+.homeBackground1 {
+    background-image: url("../img/homeBackground.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.homeProductView1{
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 350px;
+    width: 350px;
+}
+
+
+
+.homeProductTopic{
+    font-family: "Inter";
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    font-weight: 600;
+}
+
+.homeProductSubTopic{
+    font-family: "Inter";
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    color: #676161;
+    font-weight: 600;
+}
+
+.homeProductPrice{
+    font-family: "Inter";
+    font-size: 25px;
+    letter-spacing: 0.5px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.homeProductBtn{
+    font-family: "Inter";
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    font-weight: 600;
+    background-color: #009982;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.homeDescriptionText{
+    font-family: "Inter";
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    color: #676161;
+    font-weight: 600;
+}
+
+.HomeProductDetailedImage1{
+    background-image: url("../img/KasperskyStandard.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+}
+
+.HomeProductDetailedImage2{
+    background-image: url("../img/KasperskyPlus.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+}
+
+.HomeProductDetailedImage3{
+    background-image: url("../img/KasperskyPremium.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+}
+
+.HomeProductDetailedImage4{
+    background-image: url("../img/InternetSecurityAndroid.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+}
+
+.HomeProductDetailedImage5{
+    background-image: url("../img/SafeKids.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+}
+
+.HomeProductDetailedImage6{
+    background-image: url("../img/antivirus.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+}
+
+.HomeProductDetailedImage7{
+    background-image: url("../img/internetSecurity.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+}
+
+.HomeProductDetailedImage8{
+    background-image: url("../img/fullSecurity.jpg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 300px;
+    width: 300px;
+}
+
+.aboutText01{
+    font-family: "Inter";
+    color: #00E5FF;
+    font-size: 22px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.aboutText02{
+    font-family: "Inter";
+    color: #A298FD;
+    font-size: 22px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.aboutText03{
+    font-family: "Inter";
+    color:#70009B;
+    font-size: 22px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.aboutTitleHead1{
+    color: #009982;
+    font-size: 35px;
+    font-weight: 600;
+    font-family: "Inter"
+}
+.aboutTitleHead2{
+    color: #000000;
+    font-size: 35px;
+    font-weight: 600;
+    font-family: "Inter"
+}
+
+.about{
+    font-family: "Inter";
+    line-height: 2;
+    letter-spacing: 1px;
+}
+
+.td2{
+    font-size: x-small;
+    text-align: center;
+}
+
+.th2{
+    font-size: x-small;
+    text-align: center;
+}
+
+.outline-button {
+    border: 2px solid;  
+    background-color: transparent; 
+    color: #007bff;
+    border-radius: 20px; 
+    border-color: #007bff;
+    padding-left: 5px;
+    padding-right: 5px;  
+    font-family: "Inter";
+    text-align: center;
+    margin-left: 0px;
+    margin-right: 0px;
+    
+}
+
+.unsubscribe-button {
+    border: 2px solid;  
+    background-color: transparent; 
+    color: #c50404;
+    border-radius: 20px; 
+    border-color: #c50404; 
+    font-family: "Inter";
+    font-size: x-small;
+    text-align: center;
+}
+
+.unsubscribe-button:hover{
+    background-color: #c50404;
+    color: #ffffff;
+}
+
+.viewLicenseKey-Button{
+    color:rgb(56, 56, 222);
+    border: 2px solid;  
+    background-color: transparent; 
+    border-radius: 20px; 
+    border-color:rgb(56, 56, 222); 
+    font-family: "Inter";
+    font-size: x-small;
+    text-align: center;
+}
+.viewLicenseKey-Button:hover{
+    background-color: rgb(56, 56, 222);
+    color: white;
+}
+
+.email-Button{
+    color: #000000;
+    background-image: none;
+    background: none;
+    background-position: center;
+    border: none;
+    background-size: cover;
+    text-align: center;
+}
+
+.icon-button{
+    background-image: none;
+    background: none;
+    background-position: center;
+    border: none;
+    transform: scale(1.5);
+    background-size: cover;
+    color: #009982;
+
+}
+
+.text01{
+    color: #ffffff;
+    text-align: center;
+}
+
+.text02{
+    color:#c50404;
+    font-size: 15px;
+    text-align: center;
+}
+
+.text03{
+    color: #000000;
+    font-size: 15px;
+    text-align: center;
+}
+
+.text04{
+    color: #009982;
+    font-size: 15px;
+    text-align: center;
+}
