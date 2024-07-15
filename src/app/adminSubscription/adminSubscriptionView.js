@@ -57,8 +57,43 @@ export default function AdminSubscriptionView() {
         setSubscriptionId(subscription.SUBSCRIPTIONID);
     };
 
-    const handleSubscribeConfirm = () => {
-        alert("Unsubscribed");
+    const handleUnsubscribeConfirm = async () => {
+
+        let user = localStorage.getItem('customer_id');
+
+        try {
+
+            const payload = {
+                user,
+                subscriptionId,
+                licensekey,
+            };
+
+            const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "subsciptions/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const result = await patchData.json();
+            if (result.message === "Product Unsubscribed Successfully!") {
+                const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result.subscriptionId);
+                setSubscriptions(updatedSubscriptions);
+                successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
+
+                success_message_modal.addEventListener('hidden.bs.modal', () => {
+                    window.location.href = '/customerSubscription';
+                });
+
+                successMessageModal.show();
+            }
+
+        } catch (error) {
+            console.error('Error Unsubscribiung product:', error);
+        }
+
     };
 
     return (
@@ -70,7 +105,6 @@ export default function AdminSubscriptionView() {
                 <div className="col-12">
                     <div className="text-black row p-4">
                         {loading ? <p>Loading...</p> : <AdminSubscriptionTableRows adminSubscriptions={subscriptions} onAdminSubscriptionsClick={handleSubscriptionsClick} onCustomerSubscriptionsClick={handleSubscriptionsClick} onCustomerSubscriptionsUnsubscribeClick={handleSubscriptionsUnsubscribeClick} />}
-                        {/* <CustomerSubscriptionTableRows/> */}
                     </div>
                 </div>
             </div>
@@ -131,7 +165,7 @@ export default function AdminSubscriptionView() {
                                         <div className="row justify-content-center">
                                             <div class="col-4 p-3">
                                                 <div class="row justify-content-center">
-                                                    <button type="button" class="btn btn-danger" onClick={handleSubscribeConfirm}>
+                                                    <button type="button" class="btn btn-danger" onClick={handleUnsubscribeConfirm}>
                                                         YES</button>
                                                 </div>
                                             </div>

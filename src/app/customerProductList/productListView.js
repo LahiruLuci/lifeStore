@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Product from "./productView";
 import { getProductsProps } from './productView';
 import Image from "next/image";
+import WarningMessageModal from "../mod/WarningMessageModal";
 
 const secretKey = process.env.ACCESS_SECRET_CODE;
 
@@ -201,6 +202,7 @@ export default function ProductList() {
           </div>
         )}
       </div>
+      <WarningMessageModal />
 
     </>
   );
