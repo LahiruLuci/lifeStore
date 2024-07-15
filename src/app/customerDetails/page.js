@@ -13,4 +13,4 @@ const customerDetails = () => {
 
 }
 
-export default withAuth(customerDetails, [1]);
+export default withAuth(customerDetails, [1,2]);

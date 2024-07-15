@@ -20,6 +20,7 @@ export default function ProductList() {
   const [description, setDescription] = useState('');
   const [mainProductFeatures, setMainProductFeatures] = useState('');
   const [amount, setAmount] = useState('');
+  const [licensekey, setLicensekey] = useState('');
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,28 +55,18 @@ export default function ProductList() {
 
   const BuySelectedPtoduct = async () => {
 
+    let user = localStorage.getItem('customer_id');
+
       try {
 
-        let base64Image = null;
-        if (selectedFile) {
-          base64Image = await fileToBase64(selectedFile);
-        }
-
         const paycreate = {
-          productCode,
-          productCategory,
-          productTitle,
+          user,
           productName,
-          preDescription,
-          descriptionTitle,
-          description,
-          mainProductFeatures: mainProductFeatures.split('\n').join(' | '),
+          licensekey,
           amount,
-          productFeatures: selectedFeatures.join(' | '),
-          image: base64Image
         };
 
-        const postData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/products`, {
+        const postData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/customerSubscription`, {
           method: "POST",
           headers: {
             "Content-Type": "products/json",
@@ -84,10 +75,8 @@ export default function ProductList() {
         });
 
         const result = await postData.json();
-        if (result.message === "Product Brought successfully!") {
-          const updatedProducts = products.filter((p) => p.PRODUCTID !== result.productId);
-          setProducts(updatedProducts);
-          successMsgDescriptionHead.innerText = "Product Successfully Entered.";
+        if (result.message === "Product Subscribed Successfully!") {
+          successMsgDescriptionHead.innerText = "Product Subscribed Successfully.";
 
           success_message_modal.addEventListener('hidden.bs.modal', () => {
             window.location.href = '/productList';
@@ -130,6 +119,7 @@ export default function ProductList() {
         .then(response => response.json())
         .then(data => {
           console.log("Purchase successful:", data);
+          BuySelectedPtoduct();
         })
         .catch(error => {
           console.error("Error during purchase:", error);
