@@ -176,9 +176,9 @@ export default function ProductList() {
     productSubscribeWarningMessageModal = document.getElementById("product_subscribe_warning_message_modal");
     const subscribeWarningMsgDescriptionHead = document.getElementById("subscribeWarningMsgDescriptionHead");
     if (x>1) {
-      subscribeWarningMsgDescriptionHead.innerText = "You already subscribed to this item " + x + " times.\nDo you want to subscribe it again ?";
+      subscribeWarningMsgDescriptionHead.innerText = "You already subscribed this item " + x + " times.\nDo you want to subscribe it again ?";
     }else{
-      subscribeWarningMsgDescriptionHead.innerText = "You already subscribed to this item " + x + " time.\nDo you want to subscribe it again ?";
+      subscribeWarningMsgDescriptionHead.innerText = "You already subscribed this item " + x + " time.\nDo you want to subscribe it again ?";
     }
     swva = new bootstrap.Modal(productSubscribeWarningMessageModal);
     swva.show();

@@ -31,7 +31,7 @@ const Products = ({ products, onProductClick }) => {
                                 <div className="row justify-content-center text-center">
                                     <div className="col-12">
                                         <div className="row align-content-center justify-content-center ">
-                                            <Image src={product.IMAGELOCATION} alt="No picture" className=" container-fluid" width={400} height={400} />
+                                            <Image src={product.IMAGELOCATION} alt="No picture" className="container-fluid" width={400} height={400} />
                                         </div>
                                     </div>
                                     <div className="col-12" style={{height:"75px"}}>

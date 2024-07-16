@@ -29,9 +29,9 @@ const Products = ({ products, onProductClick }) => {
                         <div className=" col-12 bg-white rounded-3">
                             <div className="col-12 p-2">
                                 <div className="row justify-content-center text-center">
-                                    <div className="col-12 col-sm-8 col-md-6 col-lg-11">
-                                        <div className="row justify-content-center homeProductView1">
-                                            <Image src={product.IMAGELOCATION} alt="No picture" className="homeProductView1" width={300} height={300} />
+                                    <div className="col-12">
+                                        <div className="row align-content-center justify-content-center">
+                                            <Image src={product.IMAGELOCATION} alt="No picture" className="container-fluid" width={400} height={400} />
                                         </div>
                                     </div>
                                     <div className="col-12">

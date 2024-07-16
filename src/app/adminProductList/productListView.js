@@ -10,6 +10,7 @@ export default function ProductList() {
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [productName, setProductName] = useState('');
+  const [productTitle, setProductTitle] = useState('');
   const [productImageLocation, setProductImageLocation] = useState('/productImages/addproduct.png');
   const [descriptionTitle, setDescriptionTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -52,40 +53,39 @@ export default function ProductList() {
   }
 
   const BuySelectedPtoduct = async () => {
-
     let user = localStorage.getItem('customer_id');
 
-      try {
+    try {
 
-        const paycreate = {
-          user,
-          productName,
-          licensekey,
-          amount,
-        };
+      const paycreate = {
+        user,
+        productName,
+        licensekey,
+        amount,
+      };
 
-        const postData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/customerSubscription`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "products/json",
-          },
-          body: JSON.stringify(paycreate),
+      const postData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(paycreate),
+      });
+
+      const result = await postData.json();
+      if (result.message === "Product Subscribed Successfully!") {
+        successMsgDescriptionHead.innerText = "Product Subscribed Successfully.";
+
+        success_message_modal.addEventListener('hidden.bs.modal', () => {
+          window.location.href = '/productList';
         });
 
-        const result = await postData.json();
-        if (result.message === "Product Subscribed Successfully!") {
-          successMsgDescriptionHead.innerText = "Product Subscribed Successfully.";
-
-          success_message_modal.addEventListener('hidden.bs.modal', () => {
-            window.location.href = '/productList';
-          });
-
-          successMessageModal.show();
-        }
-
-      } catch (error) {
-        console.error('Error adding product:', error);
+        successMessageModal.show();
       }
+
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
 
   };
 
@@ -127,10 +127,73 @@ export default function ProductList() {
     }
   };
 
+  const handleBuyConfirmationClick = async () => {
+    let user = localStorage.getItem('customer_id');
+
+    try {
+
+      const payload = {
+        user,
+        productName,
+      };
+
+      const postData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscriptionCount`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await postData.json();
+      if (result.message === "Product Count!") {
+        if (result.subscriptionsCount >= 1) {
+          SubscriptionsWarningSubscribeViewAsk(result.subscriptionsCount);
+        } else {
+          SubscriptionsSubscribeViewAsk();
+        }
+
+      } else {
+        SubscriptionsSubscribeViewAsk();
+      }
+
+    } catch (error) {
+      console.error('Error adding product:', error);
+    }
+  }
+
   const hasFeature = (featuresString, feature) => {
     const regex = new RegExp(`\\b${feature}\\b`, 'i');
     return regex.test(featuresString);
   };
+
+  let aswva;
+  let productSubscribeWarningMessageModal;
+
+  const SubscriptionsWarningSubscribeViewAsk = (x) => {
+    productSubscribeWarningMessageModal = document.getElementById("admin_product_subscribe_warning_message_modal");
+    const subscribeWarningMsgDescriptionHead = document.getElementById("adminSubscribeWarningMsgDescriptionHead");
+    if (x>1) {
+      subscribeWarningMsgDescriptionHead.innerText = "You already subscribed this item " + x + " times.\nDo you want to subscribe it again ?";
+    }else{
+      subscribeWarningMsgDescriptionHead.innerText = "You already subscribed this item " + x + " time.\nDo you want to subscribe it again ?";
+    }
+    aswva = new bootstrap.Modal(productSubscribeWarningMessageModal);
+    aswva.show();
+  }
+
+  let assva;
+  let productSubscribeSelectionMessageModal;
+
+  function SubscriptionsSubscribeViewAsk() {
+
+      productSubscribeSelectionMessageModal = document.getElementById("admin_product_subscribe_selection_message_modal");
+      const subscribeselectionMsgDescriptionHead = document.getElementById("adminSubscribeselectionMsgDescriptionHead");
+      subscribeselectionMsgDescriptionHead.innerText = "Do you want to subscribe this product ? ";
+      assva = new bootstrap.Modal(productSubscribeSelectionMessageModal);
+      assva.show();
+
+  }
 
 
   return (
@@ -190,7 +253,7 @@ export default function ProductList() {
                             ))}
                       </div>
                     </div>
-                    <button className="col-lg-7 offset-lg-5 col-12 btn9 p-2" onClick={handleBuyNowClick}><span className="title10"></span>Buy Now</button>
+                    <button className="col-lg-7 offset-lg-5 col-12 btn9 p-2" onClick={handleBuyConfirmationClick}><span className="title10"></span>Buy Now</button>
                     </div>
                 </div>
               </div>
@@ -199,6 +262,81 @@ export default function ProductList() {
         </div>
       </div>
 
+      <div class="modal" tabindex="-1" id="admin_product_subscribe_selection_message_modal">
+        <div class="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
+          <div class="modal-content">
+            <div class="modal-header bg-success">
+              <h5 class="modal-title text01 w-100">
+                <i class="bi bi-question-circle msgHeaderTitle text-white"></i>&nbsp;<span>INFORMATION !</span>
+              </h5>
+              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row g-2">
+                <div class="col-12">
+                  <h3 class="form-label text-center">
+                    <span class="text03" id="adminSubscribeselectionMsgDescriptionHead"></span><br />
+                  </h3><br /><br />
+                  <div className="col-12">
+                    <div className="row justify-content-center">
+                      <div class="col-4 p-3">
+                        <div class="row justify-content-center">
+                          <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={handleBuyNowClick}>
+                            YES</button>
+                        </div>
+                      </div>
+                      <div class="col-4 p-3">
+                        <div class="row justify-content-center">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal" tabindex="-1" id="admin_product_subscribe_warning_message_modal">
+        <div class="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
+          <div class="modal-content">
+            <div class="modal-header bg-danger">
+              <h5 class="modal-title text01 w-100">
+                <i class="bi bi-question-circle msgHeaderTitle text-white"></i>&nbsp;<span>WARNING !</span>
+              </h5>
+              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row g-2">
+                <div class="col-12">
+                  <h3 class="form-label text-center">
+                    <span class="text03" id="adminSubscribeWarningMsgDescriptionHead"></span><br />
+                  </h3><br /><br />
+                  <div className="col-12">
+                    <div className="row justify-content-center">
+                      <div class="col-4 p-3">
+                        <div class="row justify-content-center">
+                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={SubscriptionsSubscribeViewAsk}>
+                            YES</button>
+                        </div>
+                      </div>
+                      <div class="col-4 p-3">
+                        <div class="row justify-content-center">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <WarningMessageModal />
     </>
   );
