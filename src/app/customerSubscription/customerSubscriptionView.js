@@ -68,7 +68,7 @@ export default function CustomerSubscriptionView() {
             const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
                 method: "PATCH",
                 headers: {
-                    "Content-Type": "subsciptions/json",
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(payload),
             });
@@ -123,7 +123,7 @@ export default function CustomerSubscriptionView() {
                                         <div className="row">
                                             <span className="title13 col-12 col-lg-4">Product Name</span>
                                             <div className="mb-1 col-12 col-lg-8">
-                                                <input type="text" className="form-control" id="licenseKeyProductName" value={productName} onChange={(e) => setProductName(e.target.value)} />
+                                                <input readOnly type="text" className="form-control" id="licenseKeyProductName" value={productName} onChange={(e) => setProductName(e.target.value)} />
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@ export default function CustomerSubscriptionView() {
                                         <div className="row">
                                             <span className="title13 col-12 col-lg-4">License Key</span>
                                             <div className="mb-1 col-12 col-lg-8">
-                                                <input type="text" className="form-control" id="productLicenseKey" value={licensekey} onChange={(e) => setLicensekey(e.target.value)} />
+                                                <input type="text" className="form-control" id="productLicenseKey" value={licensekey} onChange={(e) => setLicensekey(e.target.value)} readOnly />
                                             </div>
                                         </div>
                                     </div>

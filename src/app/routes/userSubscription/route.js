@@ -36,7 +36,7 @@ export async function POST(req) {
       const productId = productResult[0].PRODUCTID;
       let admin_id = localStorage.getItem('admin_id');
 
-      const subscriptionResult = [];
+      let subscriptionResult = [];
       if(admin_id){
         const insertSubscriptionQuery = "INSERT INTO subscription (USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         subscriptionResult = await db.execute(insertSubscriptionQuery, [user, productId, '2', licensekey, amount, '3', admin_id, admin_id]);

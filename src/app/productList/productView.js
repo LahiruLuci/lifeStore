@@ -249,7 +249,7 @@ const Products = ({ products, onProductClick }) => {
                                     </div>
                                     <div className="container mt-2">
                                         <button className="col-12 btn4 p-2" onClick={() => onSingleProductViewClick(product)} ><span className="title10">MONTHLY PLAN - LKR
-                                            &nbsp;{product.AMOUNT}0</span>
+                                            &nbsp;{product.AMOUNT}</span>
                                         </button>
                                     </div>
                                 </div>

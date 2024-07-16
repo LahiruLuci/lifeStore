@@ -126,7 +126,7 @@ export default function AdminSubscriptionView() {
                                         <div className="row">
                                             <span className="title13 col-12 col-lg-4">Product Name</span>
                                             <div className="mb-1 col-12 col-lg-8">
-                                                <input type="text" className="form-control" id="licenseKeyProductName" value={productName} onChange={(e) => setProductName(e.target.value)} />
+                                                <input readOnly type="text" className="form-control" id="licenseKeyProductName" value={productName} onChange={(e) => setProductName(e.target.value)} />
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +134,7 @@ export default function AdminSubscriptionView() {
                                         <div className="row">
                                             <span className="title13 col-12 col-lg-4">License Key</span>
                                             <div className="mb-1 col-12 col-lg-8">
-                                                <input type="text" className="form-control" id="productLicenseKey" value={licensekey} onChange={(e) => setLicensekey(e.target.value)} />
+                                                <input readOnly type="password" className="form-control" id="productLicenseKey" value={licensekey} onChange={(e) => setLicensekey(e.target.value)} />
                                             </div>
                                         </div>
                                     </div>
