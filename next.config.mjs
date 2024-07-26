@@ -9,7 +9,16 @@ const nextConfig = {
         'MYSQL_PASSWORD': 'Varnitha12345#',
         'NEXT_PUBLIC_URL': 'http://localhost:3000',
         'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
-        'ACCESS_SECRET_CODE': '6f121c75d39661a072a2fba9088056672e3f15dc996c0b3ec8a7a3f7a52544dcba60d2eb58f0e51d8fb5eb88f91a53719213b8cc4d4b122f127f0d50f8968ba95a82c0cbb6464f2d875d21f110b1',
+        'NEXT_PUBLIC_URL3': 'http://localhost:3000/routes/userSearch?SLTBBID=',
+        'NEXT_PUBLIC_URL4': 'http://localhost:3000/routes/userSearch?EMAIL=',
+        'NEXT_PUBLIC_URL5': 'http://localhost:3000/routes/systemUsers?SLTBBID=',
+        'NEXT_PUBLIC_URL6': 'http://localhost:3000/routes/systemUsers?EMAIL=',
+        'NEXT_PRIVATE_URL1': 'http://124.43.179.40:3000/api/auth/jwt-val?jwt=',
+        'NEXT_PRIVATE_URL2': 'http://124.43.179.40:3000/api/auth/jwt-rq',
+        'NEXT_PRIVATE_URL3': 'http://124.43.179.40:3000/api/auth/jwt-admin-rq',
+        'NEXT_PRIVATE_URL4': 'http://124.43.179.40:3000/api/auth/jwt-val?jwt=',
+        'EXPIRY_TIME1': '3,600,000',
+        'EXPIRY_TIME2': '10,000',
     },
     images:{
         remotePatterns:[

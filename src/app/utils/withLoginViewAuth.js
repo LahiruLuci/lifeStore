@@ -3,19 +3,16 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation'
 
-const withAuth = (WrappedComponent, allowedRoles) => {
+const withLoginViewAuth = (WrappedComponent, allowedRoles) => {
     return (props) => {
         const router = useRouter();
 
         useEffect(() => {
             const userRole = localStorage.getItem('userRole');
-            const userId = localStorage.getItem('user_id');
 
-            if (!userRole || !userId || !allowedRoles.includes(parseInt(userRole))) {
-                localStorage.setItem('customer_id', "");
-                localStorage.setItem('admin_id', "");
-                localStorage.setItem('super_admin_id', "");
-                localStorage.setItem('user_id', "");
+            if (!userRole == 1 || allowedRoles.includes(null)) {
+                router.replace('/');
+            }else{
                 router.replace('/logOutView');
             }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -25,4 +22,4 @@ const withAuth = (WrappedComponent, allowedRoles) => {
     };
 };
 
-export default withAuth;
+export default withLoginViewAuth;

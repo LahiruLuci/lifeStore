@@ -34,7 +34,7 @@ export async function PATCH(req) {
       await db.execute(updateAdminQuery, [email, userId]);
   
       db.release();
-      return NextResponse.json({ message: "Email updated successfully!" });
+      return NextResponse.json({ message: "Email updated successfully!", updateEmail: email });
     } catch (error) {
       return NextResponse.json({
         error: error.message,

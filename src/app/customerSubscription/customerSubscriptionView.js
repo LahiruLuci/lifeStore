@@ -1,4 +1,5 @@
 "use client"
+import SuccessMessageModal from "../mod/SuccessMessageModal";
 import CustomerSubscriptionTableRows from "./customerSubscriptionTable";
 import { useEffect, useState } from "react";
 
@@ -24,6 +25,10 @@ export default function CustomerSubscriptionView() {
     const [productName, setProductName] = useState('');
     const [createdDateTime, setCreatedDateTime] = useState('');
     const [licensekey, setLicensekey] = useState('');
+
+    let successMessageModal;
+    let success_message_modal = document.getElementById("success_message_modal");
+    let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
 
     useEffect(() => {
         const fetchUserSubscriptions = async () => {
@@ -56,13 +61,14 @@ export default function CustomerSubscriptionView() {
     const handleUnsubscribeConfirm = async () => {
 
         let user = localStorage.getItem('customer_id');
+        let stausId = 4;
 
         try {
-
             const payload = {
                 user,
                 subscriptionId,
                 licensekey,
+                stausId, 
             };
 
             const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
@@ -78,11 +84,10 @@ export default function CustomerSubscriptionView() {
                 const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result.subscriptionId);
                 setSubscriptions(updatedSubscriptions);
                 successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
-
+                successMessageModal = new bootstrap.Modal(success_message_modal);
                 success_message_modal.addEventListener('hidden.bs.modal', () => {
                     window.location.href = '/customerSubscription';
                 });
-
                 successMessageModal.show();
             }
 
@@ -106,7 +111,7 @@ export default function CustomerSubscriptionView() {
                 </div>
             </div>
 
-            <div className="modal fade" tabindex="-1" id="liceseKeyViewModal" role="dialog">
+            <div className="modal fade" tabIndex="-1" id="liceseKeyViewModal" role="dialog">
                 <div className="modal-dialog modal-lg" role="document">
 
                     {selectedsubscription && (
@@ -142,7 +147,7 @@ export default function CustomerSubscriptionView() {
                 </div>
             </div>
 
-            <div class="modal" tabindex="-1" id="product_unsubscribe_selection_message_modal">
+            <div class="modal" tabIndex="-1" id="product_unsubscribe_selection_message_modal">
                 <div class="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
                     <div class="modal-content">
                         <div class="modal-header bg-danger">
@@ -162,7 +167,7 @@ export default function CustomerSubscriptionView() {
                                         <div className="row justify-content-center">
                                             <div class="col-4 p-3">
                                                 <div class="row justify-content-center">
-                                                    <button type="button" class="btn btn-danger" onClick={handleUnsubscribeConfirm}>
+                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={handleUnsubscribeConfirm}>
                                                         YES</button>
                                                 </div>
                                             </div>
@@ -180,6 +185,7 @@ export default function CustomerSubscriptionView() {
                 </div>
             </div>
 
+            <SuccessMessageModal/>
         </>
     );
 

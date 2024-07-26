@@ -5,21 +5,42 @@ import React from "react";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import WarningMessageModal from "../mod/WarningMessageModal";
-let warningMessageModal;
 
 const Navbar = () => {
     const [userrole, setUserrole] = useState('');
     const [loading, setLoading] = useState(true);
     const [email, setEmail] = useState('');
     const [sltbbid, setSltbbid] = useState('');
+    const [userId, setUserId] = useState('');
+    const [userToken, setUserToken] = useState('');
+    let warningMessageModal;
 
     useEffect(() => {
         const role = localStorage.getItem('userRole');
+        const updatedNowString = localStorage.getItem('SignOutTime');
         if (role) {
-            setUserrole(role);
+            const now = new Date();
+            const updatedNow = updatedNowString ? new Date(updatedNowString) : null;
+            // alert(now + " and " + updatedNow);
+            if (updatedNow && now >= updatedNow) {
+                localStorage.removeItem('customer_id');
+                localStorage.removeItem('admin_id');
+                localStorage.removeItem('super_admin_id');
+                localStorage.removeItem('user_id');
+                localStorage.removeItem('userRole');
+                localStorage.removeItem('user_email');
+                localStorage.removeItem("customerToken");
+                localStorage.removeItem('SignOutTime');
+            } else {
+                setUserrole(role);
+                setEmail(localStorage.getItem('user_email'));
+                setSltbbid(localStorage.getItem('customer_id'));
+            }
+
         } else {
-            alert("No user found");
+            alert("No User Found");
         }
+
     }, []);
 
     let csm;
@@ -54,18 +75,99 @@ const Navbar = () => {
         customerSearchView(sltbbid);
     };
 
-    const handleSearchTwo = (sltbbid) => {
-        let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
-        let warning_message_modal = document.getElementById("warning_message_modal");
+    const handleSearchTwo = async (sltbbid) => {
+        const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
+        const warning_message_modal = document.getElementById("warning_message_modal");
 
         warningMessageModal = new bootstrap.Modal(warning_message_modal);
         if (!sltbbid) {
             warningMsgDescriptionHead.innerText = "Please enter a Broadband ID";
             warningMessageModal.show();
             return;
-        }
-        customerSearchView2(sltbbid);
+        } else {
+            try {
+                const adminId = localStorage.getItem("admin_id");
+                alert(sltbbid + " " + adminId);
+                const postData = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json",
+                        "Access-Control-Allow-Origin": "*",
+                        "X-Secret": "Za5awxYpg4Clx6uDsjWEg",
+                    },
+                    body: {
+                        "subscriberId": sltbbid,
+                        "adminId": adminId,
+                    },
+                });
+                alert("2");
+                const result = await postData.json();
+                alert("3");
+                if (result.success && result.jwt) {
+                    
+                    try {
+                        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                        const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${userId}`);
+                        const systemDetails = await response.json();
 
+                        if (systemDetails.error) {
+                            warningMsgDescriptionHead.innerText = systemDetails.error;
+                            warningMessageModal.show();
+                        } else if (systemDetails.length > 0) {
+                            if (systemDetails[0].USERID) {
+                                const fetchedUSERID = systemDetails[0].USERID;
+                                const fetchedUserRole = systemDetails[0].USERROLE;
+                                if (fetchedUserRole == 1) {
+                                    const startTime = new Date();
+                                    const updatedNow = new Date(startTime.getTime() + 60 * 60 * 1000);
+                                    localStorage.setItem('SignOutTime', updatedNow.toISOString());
+                                    localStorage.setItem('customer_id', fetchedUSERID);
+                                    localStorage.removeItem('user_email');
+                                    localStorage.setItem("customerToken", result.jwt); 
+                                    setUserId(sltbbid);
+                                    setUserToken(result.jwt);                                   
+                                    if (systemDetails[0].EMAIL) {
+                                        const fetchedEmail = systemDetails[0].EMAIL;
+                                        localStorage.setItem('user_email', fetchedEmail);
+                                    }
+                                    alert(jwt);
+                                    customerSearchView2(sltbbid);
+                                } else {
+                                    warningMsgDescriptionHead.innerText = "Invalid User";
+                                    warning_message_modal.addEventListener('hidden.bs.modal', () => {
+                                        window.location.href = '/adminHome';
+                                    });
+                                    warningMessageModal.show();
+                                }
+
+                            } else {
+                                warningMsgDescriptionHead.innerText = "No user found";
+                                warning_message_modal.addEventListener('hidden.bs.modal', () => {
+                                    window.location.href = '/logOutView';
+                                });
+                                warningMessageModal.show();
+                            }
+                        } else {
+                            warningMsgDescriptionHead.innerText = "No user found";
+                            warningMessageModal.show();
+                        }
+                    } catch (error) {
+                        warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+                        warningMessageModal.show();
+                    }
+
+                } else {
+                    const reason = result.reason;
+                    warningMsgDescriptionHead.innerText = reason;
+                    warningMessageModal.show();
+                }
+
+            } catch (error) {
+                warningMsgDescriptionHead.innerText = error;
+                warningMessageModal.show();
+            }
+
+        }
 
     };
 
@@ -75,6 +177,7 @@ const Navbar = () => {
         warningMessageModal = new bootstrap.Modal(warning_message_modal);
 
         const sltbbid = document.getElementById('SLTBBID').value;
+        setSltbbid(sltbbid);
         if (!sltbbid) {
             warningMsgDescriptionHead.innerText = "Please enter a Broadband ID";
             warningMessageModal.show();
@@ -82,7 +185,7 @@ const Navbar = () => {
         }
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSearch?SLTBBID=${sltbbid}`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL3}${sltbbid}`);
             const customerDetails = await response.json();
 
             if (customerDetails.error) {
@@ -105,6 +208,7 @@ const Navbar = () => {
         warningMessageModal = new bootstrap.Modal(warning_message_modal);
 
         const email = document.getElementById('EMAIL').value;
+        setEmail(email);
         if (!email) {
             warningMsgDescriptionHead.innerText = "Please enter an Email";
             warningMessageModal.show();
@@ -112,7 +216,7 @@ const Navbar = () => {
         }
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSearch?EMAIL=${email}`);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL4}${email}`);
             const customerDetails = await response.json();
 
             if (customerDetails.error) {
@@ -130,34 +234,49 @@ const Navbar = () => {
     };
 
     const userEnd = () => {
-
-        localStorage.setItem('customer_id', "");
-        localStorage.setItem('admin_id', "");
-        localStorage.setItem('super_admin_id', "");
-        localStorage.setItem('user_id', "");
-        window.location.href = '/';
+        localStorage.removeItem('customer_id');
+        localStorage.removeItem('admin_id');
+        localStorage.removeItem('super_admin_id');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('user_email');
+        localStorage.removeItem("customerToken");
+        localStorage.removeItem('SignOutTime');
+        window.location.href = '/logOutView';
     }
 
     const customerEnd = () => {
-        localStorage.setItem('customer_id', "");
+        localStorage.removeItem('customer_id');
+        localStorage.removeItem('user_email');
+        localStorage.removeItem("customerToken");
+        setUserToken('');
+        setUserId('');
         window.location.href = '/adminHome';
     }
 
     const adminEnd = () => {
 
-        localStorage.setItem('customer_id', "");
-        localStorage.setItem('admin_id', "");
-        localStorage.setItem('super_admin_id', "");
-        localStorage.setItem('user_id', "");
+        localStorage.removeItem('customer_id');
+        localStorage.removeItem('admin_id');
+        localStorage.removeItem('super_admin_id');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('user_email');
+        localStorage.removeItem("customerToken");
+        localStorage.removeItem('SignOutTime');
         window.location.href = '/';
     }
 
     const superAdminEnd = () => {
 
-        localStorage.setItem('customer_id', "");
-        localStorage.setItem('admin_id', "");
-        localStorage.setItem('super_admin_id', "");
-        localStorage.setItem('user_id', "");
+        localStorage.removeItem('customer_id');
+        localStorage.removeItem('admin_id');
+        localStorage.removeItem('super_admin_id');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('userRole');
+        localStorage.removeItem('user_email');
+        localStorage.removeItem("customerToken");
+        localStorage.removeItem('SignOutTime');
         window.location.href = '/';
     }
 
@@ -255,11 +374,11 @@ const Navbar = () => {
                                                     <li><Link href="/customerDetails" className="dropdown-item"><span className="title05"><i class="bi bi-person-lines-fill"></i>&nbsp;Your Account</span></Link></li>
                                                     <li><Link href="/settings" className="dropdown-item"><span className="title05"><i class="bi bi-info-circle-fill"></i>&nbsp;Help</span></Link></li>
                                                     <li><hr className="dropdown-divider" /></li>
-                                                    <li className="logOutbtn title05 text-center">
-                                                        <Link href="#" className="nav-link" onClick={customerEnd}>
+                                                    <Link href="#" className="nav-link" onClick={customerEnd}>
+                                                        <li className="logOutbtn title05 text-center">
                                                             <span className="title055">Log Out</span>
-                                                        </Link>
-                                                    </li>
+                                                        </li>
+                                                    </Link>
                                                 </ul>
                                             </li>
                                         )}
@@ -268,7 +387,7 @@ const Navbar = () => {
                                                 <span className="title05 btn2">Log Out</span>
                                             </Link>
                                         </li>
-                                        
+
                                     </>
                                 )}
 
@@ -317,7 +436,6 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
-
             <div className="modal align-content-end" tabIndex={-1} id="customerSearchModal">
                 <div className="modal-dialog position-absolute top-0 end-0 p-3">
                     <div className="modal-content">
@@ -435,7 +553,6 @@ const Navbar = () => {
                 </div>
             </div>
             <WarningMessageModal />
-
         </>
     );
 

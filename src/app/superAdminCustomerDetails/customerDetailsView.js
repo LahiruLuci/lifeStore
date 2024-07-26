@@ -68,33 +68,9 @@ const CustomerDetailsView = () => {
                 </div>
                 <div className="col-12">
                   <div className="row">
-                    <span className="title13 col-12 col-lg-3">Customer Name </span>
-                    <div className="mb-1 col-12 col-lg-9">
-                      <input readOnly type="text" className="form-control" value={customerName} />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="row">
                     <span className="title13 col-12 col-lg-3">Email </span>
                     <div className="mb-1 col-12 col-lg-9">
                       <input readOnly type="text" className="form-control" value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="row">
-                    <span className="title13 col-12 col-lg-3">Mobile </span>
-                    <div className="mb-1 col-12 col-lg-9">
-                      <input readOnly type="text" className="form-control" value={customerMobile} />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="row">
-                    <span className="title13 col-12 col-lg-3">Joined Date </span>
-                    <div className="mb-1 col-12 col-lg-9">
-                      <input readOnly type="text" className="form-control" value={customerJoinedDate} />
                     </div>
                   </div>
                 </div>

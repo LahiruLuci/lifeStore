@@ -5,7 +5,7 @@ export default function selectionMessageModal() {
         <>
             {/* Message Modal */}
 
-            <div className="modal" tabindex="-1" id="selection_message_modal">
+            <div className="modal" tabIndex="-1" id="selection_message_modal">
                 <div className="modal-dialog position-relative top-0 end-0 p-3" style={{maxWidth: "450px"}}>
                     <div className="modal-content">
                         <div className="modal-header bg-bg-danger">

@@ -5,7 +5,7 @@ export default function createAdminModal() {
         <>
             {/* Create Admin Modal */}
 
-            <div className="modal fade" tabindex="-1" id="createAdminModal" role="dialog">
+            <div className="modal fade" tabIndex="-1" id="createAdminModal" role="dialog">
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header">

@@ -693,7 +693,7 @@ export default function ProductList() {
 
       <SuccessMessageModal />
       <WarningMessageModal />
-      <div class="modal" tabindex="-1" id="product_delete_selection_message_modal">
+      <div class="modal" tabIndex="-1" id="product_delete_selection_message_modal">
         <div class="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
           <div class="modal-content">
             <div class="modal-header bg-danger">
@@ -731,7 +731,7 @@ export default function ProductList() {
         </div>
       </div>
 
-      <div class="modal" tabindex="-1" id="product_edit_selection_message_modal">
+      <div class="modal" tabIndex="-1" id="product_edit_selection_message_modal">
         <div class="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
           <div class="modal-content">
             <div class="modal-header bg-success">

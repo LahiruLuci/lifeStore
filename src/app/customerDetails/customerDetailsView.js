@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useEffect, useState } from "react";
+import SuccessMessageModal from "../mod/SuccessMessageModal";
 
 const CustomerDetailsView = () => {
 
@@ -10,6 +11,9 @@ const CustomerDetailsView = () => {
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerMobile, setCustomerMobile] = useState('');
   const [customerJoinedDate, setCustomerJoinedDate] = useState('');
+
+  let successMessageModal;
+
   useEffect(() => {
     const storedCustomerId = localStorage.getItem('customer_id');
     if (storedCustomerId) {
@@ -21,7 +25,7 @@ const CustomerDetailsView = () => {
 
     const fetchCustomerDetails = async () => {
       if (!customerSLTBBID) {
-        return; 
+        return;
       }
 
       try {
@@ -46,38 +50,42 @@ const CustomerDetailsView = () => {
   }, [customerSLTBBID]);
 
   const updateEmail = async () => {
+    let success_message_modal = document.getElementById("success_message_modal");
 
     if (customerEmail) {
-        try {
+      try {
 
-            const payload = {
-                userId: customerSLTBBID,
-                email: customerEmail,
-            };
+        const payload = {
+          userId: customerSLTBBID,
+          email: customerEmail,
+        };
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/customerDetails`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'customerDetails/json',
-                },
-                body: JSON.stringify(payload),
-            });
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/customerDetails`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'customerDetails/json',
+          },
+          body: JSON.stringify(payload),
+        });
 
-            const result = await response.json();
-            if (result.message === "Email updated successfully!") {
-                const updatedCustomer = customerDetails.map(c => (c.USERID === customerDetails.USERID ? result.updateEmail : c));
-                setCustomerDetails(updatedCustomer);
-                alert("Email updated successfully!");
-                window.location.href = '/customerDetails';
-            }
-        } catch (error) {
-            console.error('Error updating cutomer email:', error);
+        const result = await response.json();
+        if (result.message == "Email updated successfully!") {
+          localStorage.setItem('user_email', result.updateEmail);
+          successMessageModal = new bootstrap.Modal(success_message_modal);
+          successMsgDescriptionHead.innerText = "Email updated successfully!";
+          success_message_modal.addEventListener('hidden.bs.modal', () => {
+            window.location.href = '/customerDetails';
+          });
+          successMessageModal.show();
         }
+      } catch (error) {
+        console.error('Error updating cutomer email:', error);
+      }
     } else {
-        alert("Please enter a email first!");
+      alert("Please enter a email first!");
     }
 
-};
+  };
 
   return (
     <>
@@ -100,33 +108,9 @@ const CustomerDetailsView = () => {
                 </div>
                 <div className="col-12">
                   <div className="row">
-                    <span className="title13 col-12 col-lg-3">Customer Name </span>
-                    <div className="mb-1 col-12 col-lg-9">
-                      <input readOnly type="text" className="form-control" value={customerName} />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="row">
                     <span className="title13 col-12 col-lg-3">Email </span>
                     <div className="mb-1 col-12 col-lg-9">
                       <input type="text" className="form-control" value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)} />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="row">
-                    <span className="title13 col-12 col-lg-3">Mobile </span>
-                    <div className="mb-1 col-12 col-lg-9">
-                      <input readOnly type="text" className="form-control" value={customerMobile} />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12">
-                  <div className="row">
-                    <span className="title13 col-12 col-lg-3">Joined Date </span>
-                    <div className="mb-1 col-12 col-lg-9">
-                      <input readOnly type="text" className="form-control" value={customerJoinedDate} />
                     </div>
                   </div>
                 </div>
@@ -142,6 +126,8 @@ const CustomerDetailsView = () => {
           </div>
         </div>
       </div>
+      <SuccessMessageModal />
+
     </>
   );
 }

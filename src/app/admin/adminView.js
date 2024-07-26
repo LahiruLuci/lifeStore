@@ -334,7 +334,7 @@ export default function AdminView() {
                 </div>
             </div>
 
-            <div class="modal" tabindex="-1" id="success_message_modal">
+            <div class="modal" tabIndex="-1" id="success_message_modal">
                 <div class="modal-dialog position-relative p-3" style={{ width: "450px" }}>
                     <div class="modal-content">
                         <div class="modal-header bg-success" id="msgModalHeader">
@@ -365,7 +365,7 @@ export default function AdminView() {
                 </div>
             </div>
 
-            <div class="modal" tabindex="-1" id="warning_message_modal">
+            <div class="modal" tabIndex="-1" id="warning_message_modal">
                 <div class="modal-dialog position-relative p-3" style={{ width: "450px" }}>
                     <div class="modal-content">
                         <div class="modal-header bg-danger" id="msgModalHeader">
@@ -396,7 +396,7 @@ export default function AdminView() {
                 </div>
             </div>
 
-            <div className="modal fade" tabindex="-1" id="editAdminModal" role="dialog">
+            <div className="modal fade" tabIndex="-1" id="editAdminModal" role="dialog">
                 <div className="modal-dialog modal-lg" role="document">
 
                     {selectedAdmin && (
@@ -459,7 +459,7 @@ export default function AdminView() {
                 </div>
             </div>
 
-            <div className="modal fade" tabindex="-1" id="createAdminModal" role="dialog">
+            <div className="modal fade" tabIndex="-1" id="createAdminModal" role="dialog">
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -553,7 +553,7 @@ export default function AdminView() {
                 </div>
             </div>
 
-            <div class="modal fade" tabindex="-1" id="admin_edit_selection_message_modal">
+            <div class="modal fade" tabIndex="-1" id="admin_edit_selection_message_modal">
                 <div class="modal-dialog position-relative p-3" style={{ width: "450px" }}>
                     <div class="modal-content">
                         <div class="modal-header bg-success">
@@ -591,7 +591,7 @@ export default function AdminView() {
                 </div>
             </div>
 
-            <div class="modal fade" tabindex="-1" id="admin_add_selection_message_modal">
+            <div class="modal fade" tabIndex="-1" id="admin_add_selection_message_modal">
                 <div class="modal-dialog position-relative p-3" style={{ width: "450px" }}>
                     <div class="modal-content">
                         <div class="modal-header bg-success">

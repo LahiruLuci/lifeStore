@@ -6,22 +6,19 @@ import { getProductsProps } from './productView';
 import Image from "next/image";
 import WarningMessageModal from "../mod/WarningMessageModal";
 
-const secretKey = process.env.ACCESS_SECRET_CODE;
-
-export const generateToken = (payload) => {
-  return jwt.sign(payload, secretKey, { expiresIn: '1h' });
-};
-
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [productName, setProductName] = useState('');
+  const [user, setUser] = useState('');
   const [descriptionTitle, setDescriptionTitle] = useState('');
   const [description, setDescription] = useState('');
   const [mainProductFeatures, setMainProductFeatures] = useState('');
   const [amount, setAmount] = useState('');
+  const [email, setEmail] = useState('');
   const [licensekey, setLicensekey] = useState('');
+  let warningMessageModal;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,6 +36,8 @@ export default function ProductList() {
   }, []);
 
   const handleProductClick = (product) => {
+    setEmail(localStorage.getItem('user_email'));
+    setUser(localStorage.getItem('customer_id'));
     setSelectedProduct(product);
     setProductName(product.PRODUCTNAME);
     setDescriptionTitle(product.DESCRIPTIONTITLE);
@@ -80,7 +79,7 @@ export default function ProductList() {
         successMsgDescriptionHead.innerText = "Product Subscribed Successfully.";
 
         success_message_modal.addEventListener('hidden.bs.modal', () => {
-          window.location.href = '/productList';
+          window.location.href = '/customerSubscription';
         });
 
         successMessageModal.show();
@@ -93,38 +92,89 @@ export default function ProductList() {
   };
 
   const handleBuyNowClick = async () => {
-    const payload = { name: productName, amount: amount };
+
+    const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
+    const warning_message_modal = document.getElementById("warning_message_modal");
+    
+    const payload = {
+      user,
+      productName,
+      productCode,
+      amount,
+    };
+
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/utils/generateToken`, {
-        method: 'POST',
+
+      const jwt = localStorage.getItem("customerToken");
+
+      const postData = await fetch(`${process.env.NEXT_PRIVATE_URL4}${jwt}`, {
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-type": "application/json",
+          "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify({ payload })
+        body: JSON.stringify(payload),
       });
-      const data = await response.json();
-      const token = data.token;
+      const result = await postData.json();
+      if (result.success) {
+        const resultProps = result.response;
+        if (resultProps.role == "customer" && !resultProps.subscriberId == null || resultProps.role == "customer" && !resultProps.subscriberId == "") {
+          // alert(resultProps.subscriberId + " "+ resultProps.role + " "+ resultProps.jwt);
+          setUserId(resultProps.subscriberId);
+          setUserToken(resultProps.jwt);
+          try {
+            warningMessageModal = new bootstrap.Modal(warning_message_modal);
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${resultProps.subscriberId}`);
+            const systemDetails = await response.json();
 
-      alert("Generated JWT token: ", token);
+            if (systemDetails.error) {
+              warningMsgDescriptionHead.innerText = systemDetails.error;
+              warningMessageModal.show();
+            } else if (systemDetails.length > 0) {
+              if (systemDetails[0].USERID) {
+                const fetchedUSERID = systemDetails[0].USERID;
+                const fetchedUserRole = systemDetails[0].USERROLE;
+                setItemWithExpiry('user_id', fetchedUSERID, expiryTime2);
+                setItemWithExpiry('userRole', fetchedUserRole, expiryTime2);
+                const startTime = new Date();
+                const updatedNow = new Date(startTime.getTime() + 60 * 60 * 1000);
+                localStorage.setItem('SignOutTime', updatedNow.toISOString());
+                if (systemDetails[0].EMAIL) {
+                  const fetchedEmail = systemDetails[0].EMAIL;
+                  setItemWithExpiry('user_email', fetchedEmail, expiryTime1);
+                  setSelectedEmail(fetchedEmail);
+                }
 
-      const backendUrl = "https://your-backend-url.com/api/purchase";
-
-      fetch(backendUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({ token })
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log("Purchase successful:", data);
-          BuySelectedPtoduct();
-        })
-        .catch(error => {
-          console.error("Error during purchase:", error);
+                setSelectedUserRole(fetchedUserRole);
+                LogIn(fetchedUserRole);
+              } else {
+                warningMsgDescriptionHead.innerText = "No user found";
+                warning_message_modal.addEventListener('hidden.bs.modal', () => {
+                  window.location.href = '/logOutView';
+                });
+                warningMessageModal.show();
+              }
+            } else {
+              warningMsgDescriptionHead.innerText = "No user found";
+              warningMessageModal.show();
+            }
+          } catch (error) {
+            warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+            warningMessageModal.show();
+          }
+        } else {
+          warningMsgDescriptionHead.innerText = "No user found";
+          warningMessageModal.show();
+        }
+      } else {
+        warningMsgDescriptionHead.innerText = "Token expired or Invalid token. Please go back to MySlt App and try again!";
+        warning_message_modal.addEventListener('hidden.bs.modal', () => {
+          loginMainView.classList.remove("d-none");
         });
+        warningMessageModal.show();
+      }
+
+
     } catch (error) {
       console.error('Error generating token:', error);
     }
@@ -172,12 +222,13 @@ export default function ProductList() {
 
   let swva;
   let productSubscribeWarningMessageModal;
+
   const SubscriptionsWarningSubscribeViewAsk = (x) => {
     productSubscribeWarningMessageModal = document.getElementById("product_subscribe_warning_message_modal");
     const subscribeWarningMsgDescriptionHead = document.getElementById("subscribeWarningMsgDescriptionHead");
-    if (x>1) {
+    if (x > 1) {
       subscribeWarningMsgDescriptionHead.innerText = "You already subscribed this item " + x + " times.\nDo you want to subscribe it again ?";
-    }else{
+    } else {
       subscribeWarningMsgDescriptionHead.innerText = "You already subscribed this item " + x + " time.\nDo you want to subscribe it again ?";
     }
     swva = new bootstrap.Modal(productSubscribeWarningMessageModal);
@@ -188,11 +239,49 @@ export default function ProductList() {
 
   function SubscriptionsSubscribeViewAsk() {
 
-      const productSubscribeSelectionMessageModal = document.getElementById("product_subscribe_selection_message_modal");
-      const subscribeselectionMsgDescriptionHead = document.getElementById("subscribeselectionMsgDescriptionHead");
-      subscribeselectionMsgDescriptionHead.innerText = "Do you want to subscribe this product ? ";
-      ssva = new bootstrap.Modal(productSubscribeSelectionMessageModal);
-      ssva.show();
+    const productSubscribeSelectionMessageModal = document.getElementById("product_subscribe_selection_message_modal");
+    const subscribeselectionMsgDescriptionHead = document.getElementById("subscribeselectionMsgDescriptionHead");
+    subscribeselectionMsgDescriptionHead.innerText = "Do you want to subscribe this product ? ";
+    ssva = new bootstrap.Modal(productSubscribeSelectionMessageModal);
+    ssva.show();
+
+  }
+
+  let ssvea;
+
+  function SubscriptionsSubscribeViewEmailAsk() {
+
+    if (email === null || email === '') {
+      SubscriptionsSubscribeViewEmailChangeAsk();
+    } else {
+      const productSubscribeEmailSelectionMessageModal = document.getElementById("product_subscribe_email_selection_message_modal");
+      const subscribeEmailSelectionMsgDescriptionHead1 = document.getElementById("subscribeEmailSelectionMsgDescriptionHead1");
+      const subscribeEmailSelectionMsgDescriptionHead2 = document.getElementById("subscribeEmailSelectionMsgDescriptionHead2");
+      const subscribeEmailSelectionMsgDescriptionHead3 = document.getElementById("subscribeEmailSelectionMsgDescriptionHead3");
+      subscribeEmailSelectionMsgDescriptionHead1.innerText = "Do you Wish to subscribe for";
+      subscribeEmailSelectionMsgDescriptionHead2.innerText = productName.toString();
+      subscribeEmailSelectionMsgDescriptionHead3.innerText = "With the following email address for \n User : " + user;
+      ssvea = new bootstrap.Modal(productSubscribeEmailSelectionMessageModal);
+      ssvea.show();
+    }
+
+  }
+
+  let ssveca;
+
+  function SubscriptionsSubscribeViewEmailChangeAsk() {
+
+    const productSubscribeEmailChangeMessageModal = document.getElementById("product_subscribe_email_change_message_modal");
+    const subscribeEmailChangeMsgDescriptionHead1 = document.getElementById("subscribeEmailChangeMsgDescriptionHead1");
+    const subscribeEmailChangeMsgDescriptionHead2 = document.getElementById("subscribeEmailChangeMsgDescriptionHead2");
+    const subscribeEmailChangeMsgDescriptionHead3 = document.getElementById("subscribeEmailChangeMsgDescriptionHead3");
+    const subscribeEmailChangeMsgDescriptionHead4 = document.getElementById("subscribeEmailChangeMsgDescriptionHead4");
+    subscribeEmailChangeMsgDescriptionHead1.innerText = "Do you Wish to subscribe for";
+    subscribeEmailChangeMsgDescriptionHead2.innerText = productName.toString();
+    subscribeEmailChangeMsgDescriptionHead3.innerText = "With a new email address :";
+    subscribeEmailChangeMsgDescriptionHead4.innerText = "confirm email address :";
+    ssveca = new bootstrap.Modal(productSubscribeEmailChangeMessageModal);
+    ssveca.show();
 
   }
 
@@ -264,33 +353,33 @@ export default function ProductList() {
         )}
       </div>
 
-      <div class="modal" tabindex="-1" id="product_subscribe_selection_message_modal">
-        <div class="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
-          <div class="modal-content">
-            <div class="modal-header bg-success">
-              <h5 class="modal-title text01 w-100">
-                <i class="bi bi-question-circle msgHeaderTitle text-white"></i>&nbsp;<span>INFORMATION !</span>
+      <div className="modal justify-content-center align-content-center" tabIndex="-1" id="product_subscribe_selection_message_modal">
+        <div className="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
+          <div className="modal-content">
+            <div className="modal-header bg-success">
+              <h5 className="modal-title text01 w-100">
+                <i className="bi bi-question-circle msgHeaderTitle text-white"></i>&nbsp;<span>INFORMATION !</span>
               </h5>
-              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+              <button type="button" className="btn-close bg-white" data-bs-dismiss="modal"
                 aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-              <div class="row g-2">
-                <div class="col-12">
-                  <h3 class="form-label text-center">
-                    <span class="text03" id="subscribeselectionMsgDescriptionHead"></span><br />
+            <div className="modal-body">
+              <div className="row g-2">
+                <div className="col-12">
+                  <h3 className="form-label text-center">
+                    <span className="text03" id="subscribeselectionMsgDescriptionHead"></span><br />
                   </h3><br /><br />
                   <div className="col-12">
                     <div className="row justify-content-center">
-                      <div class="col-4 p-3">
-                        <div class="row justify-content-center">
-                          <button type="button" class="btn btn-success" onClick={handleBuyNowClick}>
+                      <div className="col-4 p-3">
+                        <div className="row justify-content-center">
+                          <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={SubscriptionsSubscribeViewEmailAsk}>
                             YES</button>
                         </div>
                       </div>
-                      <div class="col-4 p-3">
-                        <div class="row justify-content-center">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                      <div className="col-4 p-3">
+                        <div className="row justify-content-center">
+                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">NO</button>
                         </div>
                       </div>
                     </div>
@@ -302,33 +391,42 @@ export default function ProductList() {
         </div>
       </div>
 
-      <div class="modal" tabindex="-1" id="product_subscribe_warning_message_modal">
-        <div class="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
-          <div class="modal-content">
-            <div class="modal-header bg-danger">
-              <h5 class="modal-title text01 w-100">
-                <i class="bi bi-question-circle msgHeaderTitle text-white"></i>&nbsp;<span>WARNING !</span>
+      <div className="modal justify-content-center align-content-center" tabIndex="-1" id="product_subscribe_email_selection_message_modal">
+        <div className="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
+          <div className="modal-content">
+            <div className="modal-header bg-success">
+              <h5 className="modal-title text01 w-100">
+                <i className="bi bi-question-circle msgHeaderTitle text-white"></i>&nbsp;<span>CONFIRMATION !</span>
               </h5>
-              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+              <button type="button" className="btn-close bg-white" data-bs-dismiss="modal"
                 aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-              <div class="row g-2">
-                <div class="col-12">
-                  <h3 class="form-label text-center">
-                    <span class="text03" id="subscribeWarningMsgDescriptionHead"></span><br />
-                  </h3><br /><br />
+            <div className="modal-body">
+              <div className="row g-2">
+                <div className="col-12">
+                  <h3 className="form-label text-center">
+                    <span className="text03" id="subscribeEmailSelectionMsgDescriptionHead1"></span><br />
+                    <span className="text05" id="subscribeEmailSelectionMsgDescriptionHead2"></span><br />
+                    <span className="text03" id="subscribeEmailSelectionMsgDescriptionHead3"></span><br />
+
+                  </h3>
                   <div className="col-12">
                     <div className="row justify-content-center">
-                      <div class="col-4 p-3">
-                        <div class="row justify-content-center">
-                          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onClick={SubscriptionsSubscribeViewAsk}>
-                            YES</button>
+                      <div className='col-12'>
+                        <div className='row p-3'>
+                          <input type="email" className="form-control text-center" id="subscribeEmail" value={email} onChange={(e) => setEmail(e.target.value)} readOnly />
                         </div>
                       </div>
-                      <div class="col-4 p-3">
-                        <div class="row justify-content-center">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                      <div className="col-5 p-3">
+                        <div className="row justify-content-center">
+                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={SubscriptionsSubscribeViewEmailChangeAsk}>
+                            UPDATE EMAIL
+                          </button>
+                        </div>
+                      </div>
+                      <div className="col-5 p-3">
+                        <div className="row justify-content-center">
+                          <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={handleBuyNowClick}>CONFIRM</button>
                         </div>
                       </div>
                     </div>
@@ -339,6 +437,102 @@ export default function ProductList() {
           </div>
         </div>
       </div>
+
+      <div className="modal justify-content-center align-content-center" tabIndex="-1" id="product_subscribe_email_change_message_modal">
+        <div className="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
+          <div className="modal-content">
+            <div className="modal-header bg-success">
+              <h5 className="modal-title text01 w-100">
+                <i className="bi bi-question-circle msgHeaderTitle text-white"></i>&nbsp;<span>CONFIRMATION !</span>
+              </h5>
+              <button type="button" className="btn-close bg-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <div className="row g-2">
+                <div className="col-12">
+                  <h3 className="form-label text-center">
+                    <span className="text03" id="subscribeEmailChangeMsgDescriptionHead1"></span><br />
+                    <span className="text05" id="subscribeEmailChangeMsgDescriptionHead2"></span><br />
+                    <span className="text03" id="subscribeEmailChangeMsgDescriptionHead3"></span><br />
+
+                  </h3>
+                  <form>
+                    <div className="col-12">
+                      <div className="row justify-content-center">
+                        <div className='col-12'>
+                          <div className='row p-3'>
+                            <input type="email" className="form-control text-center" id="changeEmail1" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required />
+                          </div>
+                        </div>
+                        <h3 className="form-label text-center">
+                          <span className="text03" id="subscribeEmailChangeMsgDescriptionHead4"></span><br />
+                        </h3><br />
+                        <div className='col-12'>
+                          <div className='row p-3'>
+                            <input type="email" className="form-control text-center" id="changeEmail2" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required />
+                          </div>
+                        </div>
+                        <div className="col-5 p-3">
+                          <div className="row justify-content-center">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                              CANCEL
+                            </button>
+                          </div>
+                        </div>
+                        <div className="col-5 p-3">
+                          <div className="row justify-content-center">
+                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={handleBuyNowClick}>CONFIRM</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="modal justify-content-center align-content-center" tabIndex="-1" id="product_subscribe_warning_message_modal">
+        <div className="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
+          <div className="modal-content">
+            <div className="modal-header bg-danger">
+              <h5 className="modal-title text01 w-100">
+                <i className="bi bi-question-circle msgHeaderTitle text-white"></i>&nbsp;<span>WARNING !</span>
+              </h5>
+              <button type="button" className="btn-close bg-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <div className="row g-2">
+                <div className="col-12">
+                  <h3 className="form-label text-center">
+                    <span className="text03" id="subscribeWarningMsgDescriptionHead"></span><br />
+                  </h3><br /><br />
+                  <div className="col-12">
+                    <div className="row justify-content-center">
+                      <div className="col-4 p-3">
+                        <div className="row justify-content-center">
+                          <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={SubscriptionsSubscribeViewAsk}>
+                            YES</button>
+                        </div>
+                      </div>
+                      <div className="col-4 p-3">
+                        <div className="row justify-content-center">
+                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <WarningMessageModal />
 
     </>

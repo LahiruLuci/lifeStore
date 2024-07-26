@@ -4,7 +4,7 @@ export default function customerPdfModal() {
         <>
             {/* Customer PDF Modal */}
 
-            <div className="modal fade" tabindex="-1" id="customerPdfModal" role="dialog">
+            <div className="modal fade" tabIndex="-1" id="customerPdfModal" role="dialog">
                 <div className="modal-dialog modal-lg" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
