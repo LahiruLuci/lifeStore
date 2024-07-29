@@ -6,8 +6,8 @@ const nextConfig = {
         'MYSQL_PORT': '3306',
         'MYSQL_DATABASE': 'kaspersky_db',
         'MYSQL_USER': 'root',
-        'MYSQL_PASSWORD': '',
-        'NEXT_PUBLIC_URL': 'http://127.0.0.1:3000',
+        'MYSQL_PASSWORD': 'Varnitha12345#',
+        'NEXT_PUBLIC_URL': 'http://localhost:3000',
         'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
 
         'NEXT_PUBLIC_URL3': 'http://localhost:3000/routes/userSearch?SLTBBID=',
