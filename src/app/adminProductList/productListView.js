@@ -69,7 +69,7 @@ export default function ProductList() {
         amount,
       };
 
-      const postData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
+      const postData = await fetch(`${process.env.NEXT_PUBLIC_URL9}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -196,7 +196,7 @@ export default function ProductList() {
         productName,
       };
 
-      const postData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscriptionCount`, {
+      const postData = await fetch(`${process.env.NEXT_PUBLIC_URL10}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

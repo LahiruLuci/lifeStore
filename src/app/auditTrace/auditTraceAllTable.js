@@ -4,7 +4,7 @@
 import { useState } from "react";
 
 export async function getAllUsersProps() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/allUsers`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL14}`);
     const allUsers = await res.json();
 
     return {

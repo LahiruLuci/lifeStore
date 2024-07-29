@@ -37,6 +37,7 @@ export async function POST(req) {
       const productId = productResult[0].PRODUCTID;
 
       let subscriptionResult = [];
+
       if(!admin_id ==='' || !admin_id===null){
         const insertSubscriptionQuery = "INSERT INTO subscription (USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         subscriptionResult = await db.execute(insertSubscriptionQuery, [user, productId, '2', licensekey, amount, '3', admin_id, admin_id]);
@@ -46,7 +47,6 @@ export async function POST(req) {
       }
       const subscriptionId = subscriptionResult.insertId;
 
-  
       db.release();
       return NextResponse.json({ message: "Product Subscribed Successfully!" , subscriptionId});
     } catch (error) {
@@ -56,22 +56,34 @@ export async function POST(req) {
     }
   }
 
+  let description;
+
   export async function PATCH(req) {
 
-    const { user, admin_id,  subscriptionId, licensekey, stausId } = await req.json();
+    const { user, admin_id,  subscriptionId, licensekey, statusId } = await req.json();
 
     try {
       const db = await pool.getConnection();
-      if(!admin_id ==='' || !admin_id===null){
+      if(!admin_id ==='' || !admin_id===null) {
         const updateSubscriptionQuery = "UPDATE subscription SET STATUS = ?,  LASTUPDATEDUSER = ? WHERE SUBSCRIPTIONID = ?";
-        await db.execute(updateSubscriptionQuery, [parseInt(stausId), admin_id, subscriptionId]);
-      }else{
+        await db.execute(updateSubscriptionQuery, [parseInt(statusId), admin_id, subscriptionId]);
+        if (statusId===4) {
+          description = "unsubscribed";
+        } else if (statusId===2){
+          description = "suspended";
+        }
+      } else {
         const updateSubscriptionQuery = "UPDATE subscription SET STATUS = ?,  LASTUPDATEDUSER = ? WHERE SUBSCRIPTIONID = ?";
-        await db.execute(updateSubscriptionQuery, [parseInt(stausId), user, subscriptionId]);
+        await db.execute(updateSubscriptionQuery, [parseInt(statusId), user, subscriptionId]);
+        if (statusId===4) {
+          description = "unsubscribed";
+        } else if (statusId===2){
+          description = "suspended";
+        }
       }
 
       db.release();
-      return NextResponse.json({ message: "Product Unsubscribed Successfully!", subscriptionId });
+      return NextResponse.json({ message: "success!", subscriptionId, description });
     } catch (error) {
       return NextResponse.json({
         error: error.message,

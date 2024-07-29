@@ -29,7 +29,7 @@ const CustomerDetailsView = () => {
       }
 
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/customerDetails?SLTBBID=${customerSLTBBID}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL17}${customerSLTBBID}`);
         const data = await response.json();
 
         if (data.error) {
@@ -60,7 +60,7 @@ const CustomerDetailsView = () => {
           email: customerEmail,
         };
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/customerDetails`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL18}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'customerDetails/json',

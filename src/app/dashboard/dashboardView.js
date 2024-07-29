@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import DashboardItem from "./dashboardItemView";
 
 export async function getItemsProps() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/items`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL19}`);
   const items = await res.json();
 
   return {

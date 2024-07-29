@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useCallback, useState } from 'react';
 
 export async function getAdminsProps() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/admins`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL7}`);
     const admins = await res.json();
 
     return {

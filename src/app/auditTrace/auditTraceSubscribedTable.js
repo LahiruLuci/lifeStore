@@ -4,7 +4,7 @@
 import { useCallback, useState } from "react";
 
 export async function getSubscribedUsersProps() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/subscribedUsers`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL15}`);
     const subscribedUsers = await res.json();
 
     return {

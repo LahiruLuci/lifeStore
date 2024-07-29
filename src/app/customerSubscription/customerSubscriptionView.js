@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export async function getSubscriptionsProps() {
     let user = localStorage.getItem('user_id');
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription?USER=${user}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL12}${user}`);
     const subscriptionsDetails = await response.json();
 
     return {
@@ -61,29 +61,55 @@ export default function CustomerSubscriptionView() {
     const handleUnsubscribeConfirm = async () => {
 
         let user = localStorage.getItem('customer_id');
-        let stausId = 4;
+        let statusId = 4;
 
         try {
-            const payload = {
+
+            const payload1 = {
                 user,
                 subscriptionId,
                 licensekey,
-                stausId, 
+                statusId,
             };
 
-            const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
-                method: "PATCH",
+            const patchData1 = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(payload),
+                body: JSON.stringify(payload1),
             });
 
-            const result = await patchData.json();
-            if (result.message === "Product Unsubscribed Successfully!") {
-                const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result.subscriptionId);
-                setSubscriptions(updatedSubscriptions);
-                successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
+            const result1 = await patchData1.json();
+            if (result1.message === "success!") {
+                const payload2 = {
+                    user,
+                    subscriptionId,
+                    licensekey,
+                    statusId,
+                };
+
+                const patchData2 = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(payload2),
+                });
+
+                const result2 = await patchData2.json();
+                if (result2.message === "success!") {
+                    const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result2.subscriptionId);
+                    setSubscriptions(updatedSubscriptions);
+                    successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
+                    successMessageModal = new bootstrap.Modal(success_message_modal);
+                    success_message_modal.addEventListener('hidden.bs.modal', () => {
+                        window.location.href = '/customerSubscription';
+                    });
+                    successMessageModal.show();
+                }
+            } else {
+                successMsgDescriptionHead.innerText = "Something Wrong with Product Unsubscribtion.";
                 successMessageModal = new bootstrap.Modal(success_message_modal);
                 success_message_modal.addEventListener('hidden.bs.modal', () => {
                     window.location.href = '/customerSubscription';
@@ -92,7 +118,7 @@ export default function CustomerSubscriptionView() {
             }
 
         } catch (error) {
-            console.error('Error Unsubscribiung product:', error);
+            console.error('Error Unsubscribing product:', error);
         }
 
     };
@@ -185,7 +211,7 @@ export default function CustomerSubscriptionView() {
                 </div>
             </div>
 
-            <SuccessMessageModal/>
+            <SuccessMessageModal />
         </>
     );
 

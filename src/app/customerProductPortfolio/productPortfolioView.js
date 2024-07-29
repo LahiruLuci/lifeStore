@@ -1,6 +1,5 @@
 "use client"
 import ProductPortfolioItems1 from './productPortfolioItems1';
-import ProductPortfolioItems2 from './productPortfolioItems2';
 import ProductPortfolioItems3 from './productPortfolioItems3';
 
 export default function ProductPortfolio() {
@@ -21,15 +20,7 @@ export default function ProductPortfolio() {
                         </div>
                     </div>
                 </div>
-                {/* <div className="col-12">
-                    <div className="row p-3 justify-content-center">
-                        <div className="col-12">
-                            <div className="row">
-                                <ProductPortfolioItems2 />
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
+
                 <div className="col-12">
                     <div className="row p-3 justify-content-center">
                         <div className="col-12">

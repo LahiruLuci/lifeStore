@@ -10,7 +10,7 @@ import WarningMessageModal from "../mod/WarningMessageModal";
 
 
 export async function getProductsProps() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/products`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL20}`);
   const products = await res.json();
   return {
     props: {
@@ -205,7 +205,7 @@ export default function ProductList() {
           image: base64Image
         };
 
-        const postData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/products`, {
+        const postData = await fetch(`${process.env.NEXT_PUBLIC_URL20}`, {
           method: "POST",
           headers: {
             "Content-Type": "products/json",
@@ -256,7 +256,7 @@ export default function ProductList() {
         image: base64Image
       };
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/products`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_URL20}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'products/json',
@@ -282,7 +282,7 @@ export default function ProductList() {
 
   const deleteProduct = async (productId) => {
     try {
-      const deleteData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/products`, {
+      const deleteData = await fetch(`${process.env.NEXT_PUBLIC_URL20}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

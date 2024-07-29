@@ -25,7 +25,7 @@ const CustomerDetailsView = () => {
       }
 
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/customerDetails?SLTBBID=${customerSLTBBID}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL17}${customerSLTBBID}`);
         const data = await response.json();
 
         if (data.error) {

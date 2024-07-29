@@ -65,7 +65,7 @@ export default function AdminView() {
                 mobile,
             };
 
-            const postData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/admins`, {
+            const postData = await fetch(`${process.env.NEXT_PUBLIC_URL7}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "admins/json",
@@ -102,7 +102,7 @@ export default function AdminView() {
                 password,
             };
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/admins`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL7}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'admins/json',
@@ -127,7 +127,7 @@ export default function AdminView() {
     const deleteAdmin = async (user) => {
         const userId = user.USERID;
         try {
-            const deleteData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/admins`, {
+            const deleteData = await fetch(`${process.env.NEXT_PUBLIC_URL7}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "admins/json",

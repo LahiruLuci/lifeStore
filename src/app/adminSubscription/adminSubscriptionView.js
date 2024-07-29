@@ -9,7 +9,7 @@ export async function getSubscriptionsProps() {
         alert("Please select a Customer First")
         return;
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription?USER=${customer}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL12}${customer}`);
     const subscriptionsDetails = await response.json();
 
     return {
@@ -66,7 +66,7 @@ export default function AdminSubscriptionView() {
 
         let user = localStorage.getItem('customer_id');
         let admin_id = localStorage.getItem('admin_id');
-        let stausId = 4;
+        let statusId = 4;
 
         try {
 
@@ -75,10 +75,10 @@ export default function AdminSubscriptionView() {
                 admin_id,
                 subscriptionId,
                 licensekey,
-                stausId,
+                statusId,
             };
 
-            const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
+            const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "subsciptions/json",
@@ -87,7 +87,7 @@ export default function AdminSubscriptionView() {
             });
 
             const result = await patchData.json();
-            if (result.message === "Product Unsubscribed Successfully!") {
+            if (result.message === "success!") {
                 const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result.subscriptionId);
                 setSubscriptions(updatedSubscriptions);
                 successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";

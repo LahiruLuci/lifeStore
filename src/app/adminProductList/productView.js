@@ -6,7 +6,7 @@ import { useCallback } from 'react';
 
 
 export async function getProductsProps() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/adminProducts`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL11}`);
     const products = await res.json();
 
     return {

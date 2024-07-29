@@ -4,7 +4,7 @@
 import { useState } from "react";
 
 export async function getUnsubscribedUsersProps() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/unsubscribedUsers`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL16}`);
     const unsubscribedUsers = await res.json();
 
     return {
