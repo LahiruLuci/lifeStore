@@ -11,6 +11,7 @@ export default function ProductList() {
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [productName, setProductName] = useState('');
+  const [productCode, setProductCode] = useState('');
   const [user, setUser] = useState('');
   const [descriptionTitle, setDescriptionTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -19,6 +20,7 @@ export default function ProductList() {
   const [email, setEmail] = useState('');
   const [licensekey, setLicensekey] = useState('');
   let warningMessageModal;
+  let successMessageModal;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,6 +42,7 @@ export default function ProductList() {
     setUser(localStorage.getItem('customer_id'));
     setSelectedProduct(product);
     setProductName(product.PRODUCTNAME);
+    setProductCode(product.PRODUCTCODE);
     setDescriptionTitle(product.DESCRIPTIONTITLE);
     setDescription(product.DESCRIPTION);
     setMainProductFeatures(product.MAINPRODUCTFEATURES.split(' | ').join('\n'));
@@ -91,13 +94,20 @@ export default function ProductList() {
 
   };
 
+  const generateUUID = () => {
+    return Math.floor(1000 + Math.random() * 9000).toString();
+  };
+
   const handleBuyNowClick = async () => {
 
     const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
     const warning_message_modal = document.getElementById("warning_message_modal");
-    
-    const payload = {
-      user,
+    const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+    const success_message_modal = document.getElementById("success_message_modal");
+    const subscriberId = `${user}_${productCode}_${generateUUID()}`;
+    alert(subscriberId);
+
+    const payload1 = {
       productName,
       productCode,
       amount,
@@ -107,69 +117,58 @@ export default function ProductList() {
 
       const jwt = localStorage.getItem("customerToken");
 
-      const postData = await fetch(`${process.env.NEXT_PRIVATE_URL4}${jwt}`, {
+      const postData1 = await fetch(`${/*process.env.NEXT_PRIVATE_URL4*/abc}${jwt}`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(payload1),
       });
-      const result = await postData.json();
-      if (result.success) {
-        const resultProps = result.response;
+      const result1 = await postData1.json();
+      if (result1.success) {
+        const resultProps = result1.response;
         if (resultProps.role == "customer" && !resultProps.subscriberId == null || resultProps.role == "customer" && !resultProps.subscriberId == "") {
           // alert(resultProps.subscriberId + " "+ resultProps.role + " "+ resultProps.jwt);
-          setUserId(resultProps.subscriberId);
-          setUserToken(resultProps.jwt);
-          try {
+
+          const payload2 = {
+            subscriberId,
+            user,
+            productName,
+            licensekey,
+            amount,
+          };
+
+          const postData2 = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(payload2),
+          });
+          const result2 = await postData2.json();
+          if (result2.message == "Product Subscribed Successfully!") {
+            successMessageModal = new bootstrap.Modal(success_message_modal);
+            successMsgDescriptionHead.innerText = "Product Subscribed Successfully!";
+            success_message_modal.addEventListener('hidden.bs.modal', () => {
+              window.location.href = '/customerSubscription';
+            });
+            successMessageModal.show();
+          } else {
             warningMessageModal = new bootstrap.Modal(warning_message_modal);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${resultProps.subscriberId}`);
-            const systemDetails = await response.json();
-
-            if (systemDetails.error) {
-              warningMsgDescriptionHead.innerText = systemDetails.error;
-              warningMessageModal.show();
-            } else if (systemDetails.length > 0) {
-              if (systemDetails[0].USERID) {
-                const fetchedUSERID = systemDetails[0].USERID;
-                const fetchedUserRole = systemDetails[0].USERROLE;
-                setItemWithExpiry('user_id', fetchedUSERID, expiryTime2);
-                setItemWithExpiry('userRole', fetchedUserRole, expiryTime2);
-                const startTime = new Date();
-                const updatedNow = new Date(startTime.getTime() + 60 * 60 * 1000);
-                localStorage.setItem('SignOutTime', updatedNow.toISOString());
-                if (systemDetails[0].EMAIL) {
-                  const fetchedEmail = systemDetails[0].EMAIL;
-                  setItemWithExpiry('user_email', fetchedEmail, expiryTime1);
-                  setSelectedEmail(fetchedEmail);
-                }
-
-                setSelectedUserRole(fetchedUserRole);
-                LogIn(fetchedUserRole);
-              } else {
-                warningMsgDescriptionHead.innerText = "No user found";
-                warning_message_modal.addEventListener('hidden.bs.modal', () => {
-                  window.location.href = '/logOutView';
-                });
-                warningMessageModal.show();
-              }
-            } else {
-              warningMsgDescriptionHead.innerText = "No user found";
-              warningMessageModal.show();
-            }
-          } catch (error) {
-            warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+            warningMsgDescriptionHead.innerText = "Subscription proccess Failed.";
             warningMessageModal.show();
           }
         } else {
-          warningMsgDescriptionHead.innerText = "No user found";
+          warningMessageModal = new bootstrap.Modal(warning_message_modal);
+          warningMsgDescriptionHead.innerText = "Invalid Subscription.";
           warningMessageModal.show();
         }
       } else {
-        warningMsgDescriptionHead.innerText = "Token expired or Invalid token. Please go back to MySlt App and try again!";
+        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+        warningMsgDescriptionHead.innerText = "Something went Wrong!";
         warning_message_modal.addEventListener('hidden.bs.modal', () => {
-          loginMainView.classList.remove("d-none");
+          window.location.href = '/customerProductList';
         });
         warningMessageModal.show();
       }

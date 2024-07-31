@@ -6,7 +6,7 @@ import { useCallback } from 'react';
 
 
 export async function getProductsProps() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/customerProducts`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL21}`);
     const products = await res.json();
 
     return {
@@ -276,6 +276,7 @@ Products.propTypes = {
             PRODUCTID: PropTypes.number.isRequired,
             PRODUCTTITLE: PropTypes.string.isRequired,
             PRODUCTNAME: PropTypes.string.isRequired,
+            PRODUCTCODE: PropTypes.string.isRequired,
             PREDESCRIPTION: PropTypes.string.isRequired,
             PRODUCTFEATURES: PropTypes.string.isRequired,
             AMOUNT: PropTypes.string.isRequired,

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import WarningMessageModal from "../mod/WarningMessageModal";
 import { useSearchParams } from "next/navigation";
+import bcrypt from 'bcryptjs';
 
 const Login = () => {
     const [selectedEmail, setSelectedEmail] = useState('');
@@ -166,17 +167,28 @@ const Login = () => {
                     const fetchedUserRole = systemDetails[0].USERROLE;
                     const startTime = new Date();
                     const updatedNow = new Date(startTime.getTime() + 2 * 60 * 60 * 1000);
-                    localStorage.setItem('SignOutTime', updatedNow.toISOString());
-                    localStorage.setItem('user_id', fetchedUSERID);
-                    localStorage.setItem('userRole', fetchedUserRole);
+                    const hashedPassword = bcrypt.hashSync(password, 10);
+                    alert(hashedPassword + "\n" + fetchedPassword);
 
-                    setSelectedEmail(fetchedEmail);
-                    setSelectedPassword(fetchedPassword);
-                    setSelectedUserRole(fetchedUserRole);
-                    if (fetchedEmail === email && fetchedPassword === password) {
-                        LogIn(fetchedUserRole);
+                    if (fetchedEmail === email && bcrypt.compare(password, fetchedPassword, function(err, isMatch) {
+                        if (err) {
+                            throw err;
+                        } else if (!isMatch) {
+                            warningMsgDescriptionHead.innerText = "Password doesn't match!";
+                            warningMessageModal.show();
+                        } else {
+                            localStorage.setItem('SignOutTime', updatedNow.toISOString());
+                            localStorage.setItem('user_id', fetchedUSERID);
+                            localStorage.setItem('userRole', fetchedUserRole);
+
+                            setSelectedEmail(fetchedEmail);
+                            setSelectedPassword(fetchedPassword);
+                            setSelectedUserRole(fetchedUserRole);
+                            // LogIn(fetchedUserRole);
+                        }
+                    })) {
                     } else {
-                        warningMsgDescriptionHead.innerText = "No user found";
+                        warningMsgDescriptionHead.innerText = "Please enter correct details.";
                         warningMessageModal.show();
                     }
                 } else {

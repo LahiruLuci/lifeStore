@@ -2,13 +2,13 @@
 const nextConfig = {
 
     env: {
-        'MYSQL_HOST': '127.0.0.1',
+        'MYSQL_HOST': '124.43.179.41',
         'MYSQL_PORT': '3306',
         'MYSQL_DATABASE': 'kaspersky_db',
         'MYSQL_USER': 'root',
         'MYSQL_PASSWORD': 'Varnitha12345#',
         'NEXT_PUBLIC_URL': 'http://localhost:3000',
-        'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
+        'NEXT_PUBLIC_URL2': 'http://124.43.179.41:3000',
 
         'NEXT_PUBLIC_URL3': 'http://localhost:3000/routes/userSearch?SLTBBID=',
         'NEXT_PUBLIC_URL4': 'http://localhost:3000/routes/userSearch?EMAIL=',
@@ -28,7 +28,7 @@ const nextConfig = {
         'NEXT_PUBLIC_URL18': 'http://localhost:3000/routes/customerDetails',
         'NEXT_PUBLIC_URL19': 'http://localhost:3000/routes/items',
         'NEXT_PUBLIC_URL20': 'http://localhost:3000/routes/products', 
-
+        'NEXT_PUBLIC_URL21': 'http://localhost:3000/routes/customerProducts', 
 
         'NEXT_PRIVATE_URL1': 'http://124.43.179.40:3000/api/auth/jwt-val?jwt=',
         'NEXT_PRIVATE_URL2': 'http://124.43.179.40:3000/api/auth/jwt-rq',

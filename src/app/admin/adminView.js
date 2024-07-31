@@ -37,7 +37,7 @@ export default function AdminView() {
 
     const addAdmin = async () => {
         const userId = document.getElementById("adminId").value;
-        const password = document.getElementById("adminPassword3").value;
+        const normalPassword = document.getElementById("adminPassword3").value;
         const password4 = document.getElementById("adminPassword4").value;
         const initials = document.getElementById("adminInitialsName").value;
         const preferredName = document.getElementById("adminPreferredName").value;
@@ -51,6 +51,7 @@ export default function AdminView() {
         let warning_message_modal = document.getElementById("warning_message_modal");
         warningMessageModal = new bootstrap.Modal(warning_message_modal);
         successMessageModal = new bootstrap.Modal(success_message_modal);
+        const password = bcrypt.hashSync(normalPassword, 10);
 
         try {
 

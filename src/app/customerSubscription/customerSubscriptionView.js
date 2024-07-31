@@ -62,6 +62,7 @@ export default function CustomerSubscriptionView() {
 
         let user = localStorage.getItem('customer_id');
         let statusId = 4;
+        let description = "Unsubscribe";
 
         try {
 
@@ -70,9 +71,10 @@ export default function CustomerSubscriptionView() {
                 subscriptionId,
                 licensekey,
                 statusId,
+                description,
             };
 
-            const patchData1 = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
+            const patchData1 = await fetch(`${abc}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -109,7 +111,7 @@ export default function CustomerSubscriptionView() {
                     successMessageModal.show();
                 }
             } else {
-                successMsgDescriptionHead.innerText = "Something Wrong with Product Unsubscribtion.";
+                successMsgDescriptionHead.innerText = "Something Wrong with Product Unsubscription.";
                 successMessageModal = new bootstrap.Modal(success_message_modal);
                 success_message_modal.addEventListener('hidden.bs.modal', () => {
                     window.location.href = '/customerSubscription';

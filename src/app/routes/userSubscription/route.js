@@ -26,7 +26,7 @@ export async function GET(request){
 }
 
 export async function POST(req) {
-  const {user,admin_id, productName, licensekey, amount} = await req.json();
+  const {subscriberId, user,admin_id, productName, licensekey, amount} = await req.json();
 
     try {
 
@@ -38,17 +38,16 @@ export async function POST(req) {
 
       let subscriptionResult = [];
 
-      if(!admin_id ==='' || !admin_id===null){
-        const insertSubscriptionQuery = "INSERT INTO subscription (USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        subscriptionResult = await db.execute(insertSubscriptionQuery, [user, productId, '2', licensekey, amount, '3', admin_id, admin_id]);
+      if(!admin_id === '' || !admin_id === null){
+        const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        subscriptionResult = await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', admin_id, admin_id]);
       }else{
-        const insertSubscriptionQuery = "INSERT INTO subscription (USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        subscriptionResult = await db.execute(insertSubscriptionQuery, [user, productId, '2', licensekey, amount, '3', user, user]);
+        const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        subscriptionResult = await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', user, user]);
       }
-      const subscriptionId = subscriptionResult.insertId;
 
       db.release();
-      return NextResponse.json({ message: "Product Subscribed Successfully!" , subscriptionId});
+      return NextResponse.json({ message: "Product Subscribed Successfully!" , subscriberId});
     } catch (error) {
       return NextResponse.json({
         error: error.message,

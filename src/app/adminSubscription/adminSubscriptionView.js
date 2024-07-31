@@ -67,33 +67,68 @@ export default function AdminSubscriptionView() {
         let user = localStorage.getItem('customer_id');
         let admin_id = localStorage.getItem('admin_id');
         let statusId = 4;
+        let description = "Unsubscribe";
 
         try {
 
-            const payload = {
+            const payload1 = {
                 user,
                 admin_id,
                 subscriptionId,
                 licensekey,
                 statusId,
+                description,
             };
 
-            const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
-                method: "PATCH",
+            const patchData1 = await fetch(`${abc}`, {
+                method: "POST",
                 headers: {
-                    "Content-Type": "subsciptions/json",
+                    "Content-Type": "application/json",
                 },
-                body: JSON.stringify(payload),
+                body: JSON.stringify(payload1),
             });
 
-            const result = await patchData.json();
-            if (result.message === "success!") {
-                const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result.subscriptionId);
-                setSubscriptions(updatedSubscriptions);
-                successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
+            const result1 = await patchData1.json();
+            if (result1.message === "success!") {
+                const payload2 = {
+                    user,
+                    admin_id,
+                    subscriptionId,
+                    licensekey,
+                    statusId,
+                };
+
+                const patchData2 = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "subsciptions/json",
+                    },
+                    body: JSON.stringify(payload2),
+                });
+
+                const result2 = await patchData2.json();
+                if (result2.message === "success!") {
+                    const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result2.subscriptionId);
+                    setSubscriptions(updatedSubscriptions);
+                    successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
+                    successMessageModal = new bootstrap.Modal(success_message_modal);
+                    success_message_modal.addEventListener('hidden.bs.modal', () => {
+                        window.location.href = '/adminSubscription';
+                    });
+                    successMessageModal.show();
+                } else {
+                    successMsgDescriptionHead.innerText = "Something Went Wrong!.";
+                    successMessageModal = new bootstrap.Modal(success_message_modal);
+                    success_message_modal.addEventListener('hidden.bs.modal', () => {
+                        window.location.href = '/adminSubscription';
+                    });
+                    successMessageModal.show();
+                }
+            } else {
+                successMsgDescriptionHead.innerText = "Something Wrong with Product Unsubscription.";
                 successMessageModal = new bootstrap.Modal(success_message_modal);
                 success_message_modal.addEventListener('hidden.bs.modal', () => {
-                    window.location.href = '/adminSubscription';
+                    window.location.href = '/customerSubscription';
                 });
                 successMessageModal.show();
             }
@@ -191,7 +226,7 @@ export default function AdminSubscriptionView() {
                 </div>
             </div>
 
-            <SuccessMessageModal/>
+            <SuccessMessageModal />
         </>
     );
 
