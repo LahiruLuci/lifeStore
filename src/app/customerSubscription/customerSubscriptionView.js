@@ -26,9 +26,11 @@ export default function CustomerSubscriptionView() {
     const [createdDateTime, setCreatedDateTime] = useState('');
     const [licensekey, setLicensekey] = useState('');
 
+    let document;
+
     let successMessageModal;
-    let success_message_modal = document.getElementById("success_message_modal");
-    let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+    let success_message_modal = document?.getElementById("success_message_modal");;
+    let successMsgDescriptionHead = document?.getElementById("successMsgDescriptionHead");
 
     useEffect(() => {
         const fetchUserSubscriptions = async () => {

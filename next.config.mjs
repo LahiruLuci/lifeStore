@@ -2,13 +2,13 @@
 const nextConfig = {
 
     env: {
-        'MYSQL_HOST': '124.43.179.41',
+        'MYSQL_HOST': '127.0.0.1',
         'MYSQL_PORT': '3306',
         'MYSQL_DATABASE': 'kaspersky_db',
         'MYSQL_USER': 'root',
         'MYSQL_PASSWORD': 'Varnitha12345#',
         'NEXT_PUBLIC_URL': 'http://localhost:3000',
-        'NEXT_PUBLIC_URL2': 'http://124.43.179.41:3000',
+        'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
 
         'NEXT_PUBLIC_URL3': 'http://localhost:3000/routes/userSearch?SLTBBID=',
         'NEXT_PUBLIC_URL4': 'http://localhost:3000/routes/userSearch?EMAIL=',
@@ -53,8 +53,10 @@ const nextConfig = {
                 pathname: '/productImages/**',
             }
         ],
-    }
-
+    },
+    experimental: {
+        missingSuspenseWithCSRBailout: false,
+    },
 };
 
 export default nextConfig;

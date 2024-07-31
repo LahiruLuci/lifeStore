@@ -1,9 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 "use client"
 import { useEffect, useState } from "react";
 import WarningMessageModal from "../mod/WarningMessageModal";
 import { useSearchParams } from "next/navigation";
 import bcrypt from 'bcryptjs';
+import { Suspense } from 'react'
 
 const Login = () => {
     const [selectedEmail, setSelectedEmail] = useState('');
@@ -16,6 +17,7 @@ const Login = () => {
     let emailSearchExecuted = false;
 
     useEffect(() => {
+        
         const handleEnterKeyPress = (event) => {
             if (event.key === 'Enter' && !emailSearchExecuted) {
                 emailSearchExecuted = true;
@@ -169,11 +171,10 @@ const Login = () => {
                     const updatedNow = new Date(startTime.getTime() + 2 * 60 * 60 * 1000);
                     const hashedPassword = bcrypt.hashSync(password, 10);
                     alert(hashedPassword + "\n" + fetchedPassword);
-
-                    if (fetchedEmail === email && bcrypt.compare(password, fetchedPassword, function(err, isMatch) {
-                        if (err) {
-                            throw err;
-                        } else if (!isMatch) {
+                    
+                    const isMatch = await bcrypt.compare(password, fetchedPassword);
+                    if (fetchedEmail === email && isMatch ) {
+                        if (!isMatch) {
                             warningMsgDescriptionHead.innerText = "Password doesn't match!";
                             warningMessageModal.show();
                         } else {
@@ -184,9 +185,8 @@ const Login = () => {
                             setSelectedEmail(fetchedEmail);
                             setSelectedPassword(fetchedPassword);
                             setSelectedUserRole(fetchedUserRole);
-                            // LogIn(fetchedUserRole);
+                            LogIn(fetchedUserRole);
                         }
-                    })) {
                     } else {
                         warningMsgDescriptionHead.innerText = "Please enter correct details.";
                         warningMessageModal.show();
@@ -203,7 +203,7 @@ const Login = () => {
     };
 
     return (
-        <>
+        <Suspense>
             <div className="d-none container-fluid vh-100 justify-content-center align-content-center" id="loginMainView">
                 <div className="row">
 
@@ -252,7 +252,7 @@ const Login = () => {
                 </div>
             </div>
             <WarningMessageModal />
-        </>
+        </Suspense>
     );
 }
 export default Login;
