@@ -2,13 +2,13 @@
 const nextConfig = {
 
     env: {
-        'MYSQL_HOST': '127.0.0.1',
+        'MYSQL_HOST': '124.43.179.41',
         'MYSQL_PORT': '3306',
         'MYSQL_DATABASE': 'kaspersky_db',
         'MYSQL_USER': 'root',
         'MYSQL_PASSWORD': 'k000oH)YW~OG,1%(y(eZ',
         'NEXT_PUBLIC_URL': 'http://localhost:3000',
-        'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
+        'NEXT_PUBLIC_URL2': 'http://124.43.179.41:3000',
         'X_SECRET': 'Za5awxYpg4Clx6uDsjWEg',
 
         'NEXT_PUBLIC_URL3': 'http://localhost:3000/routes/userSearch?SLTBBID=',
