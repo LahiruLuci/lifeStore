@@ -158,7 +158,7 @@ const Login = () => {
             warningMessageModal.show();
             return;
         } else {
-            try {
+            // try {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_URL6}${email}`);
                 const systemDetails = await response.json();
                 if (systemDetails.error) {
@@ -196,10 +196,10 @@ const Login = () => {
                     warningMsgDescriptionHead.innerText = "No user found";
                     warningMessageModal.show();
                 }
-            } catch (error) {
-                warningMsgDescriptionHead.innerText = `An error occurred while searching for the user: ${error.message}`;
-                warningMessageModal.show();
-            }
+            // } catch (error) {
+            //     warningMsgDescriptionHead.innerText = `An error occurred while searching for the user: ${error.message}`;
+            //     warningMessageModal.show();
+            // }
         }
     };
 
