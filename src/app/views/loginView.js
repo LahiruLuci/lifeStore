@@ -197,7 +197,7 @@ const Login = () => {
                     warningMessageModal.show();
                 }
             } catch (error) {
-                warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+                warningMsgDescriptionHead.innerText = `An error occurred while searching for the user: ${error.message}`;
                 warningMessageModal.show();
             }
         }
