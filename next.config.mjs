@@ -14,7 +14,7 @@ const nextConfig = {
         'NEXT_PUBLIC_URL3': 'http://localhost:3000/routes/userSearch?SLTBBID=',
         'NEXT_PUBLIC_URL4': 'http://localhost:3000/routes/userSearch?EMAIL=',
         'NEXT_PUBLIC_URL5': 'http://localhost:3000/routes/systemUsers?SLTBBID=',
-        'NEXT_PUBLIC_URL6': 'http://localhost:3000/routes/systemUsers?EMAIL=',
+        'NEXT_PUBLIC_URL6': 'http://127.0.0.1:3000/routes/systemUsers?EMAIL=',
         'NEXT_PUBLIC_URL7': 'http://localhost:3000/routes/admins',
         'NEXT_PUBLIC_URL8': 'http://localhost:3000/routes/homeProducts',
         'NEXT_PUBLIC_URL9': 'http://localhost:3000/routes/userSubscription',
