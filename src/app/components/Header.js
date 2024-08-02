@@ -87,27 +87,24 @@ const Navbar = () => {
         } else {
             try {
                 const adminId = localStorage.getItem("admin_id");
-                alert(sltbbid + " " + adminId);
-                const postData = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
+                const postData1 = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json",
                         "Access-Control-Allow-Origin": "*",
-                        "X-Secret": "Za5awxYpg4Clx6uDsjWEg",
+                        "X-Secret": `${process.env.X_SECRET}`,
                     },
-                    body: {
+                    body: JSON.stringify({
                         "subscriberId": sltbbid,
                         "adminId": adminId,
-                    },
+                    }),
                 });
-                alert("2");
-                const result = await postData.json();
-                alert("3");
-                if (result.success && result.jwt) {
+                const result1 = await postData1.json();
+                if (result1.success && result1.success) {
                     
                     try {
                         warningMessageModal = new bootstrap.Modal(warning_message_modal);
-                        const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${userId}`);
+                        const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${sltbbid}`);
                         const systemDetails = await response.json();
 
                         if (systemDetails.error) {
@@ -123,14 +120,13 @@ const Navbar = () => {
                                     localStorage.setItem('SignOutTime', updatedNow.toISOString());
                                     localStorage.setItem('customer_id', fetchedUSERID);
                                     localStorage.removeItem('user_email');
-                                    localStorage.setItem("customerToken", result.jwt); 
+                                    localStorage.setItem("customerToken", result1.jwt); 
                                     setUserId(sltbbid);
-                                    setUserToken(result.jwt);                                   
+                                    setUserToken(result1.jwt);                                   
                                     if (systemDetails[0].EMAIL) {
                                         const fetchedEmail = systemDetails[0].EMAIL;
                                         localStorage.setItem('user_email', fetchedEmail);
                                     }
-                                    alert(jwt);
                                     customerSearchView2(sltbbid);
                                 } else {
                                     warningMsgDescriptionHead.innerText = "Invalid User";
@@ -152,7 +148,7 @@ const Navbar = () => {
                             warningMessageModal.show();
                         }
                     } catch (error) {
-                        warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+                        warningMsgDescriptionHead.innerText = error;
                         warningMessageModal.show();
                     }
 
@@ -163,6 +159,7 @@ const Navbar = () => {
                 }
 
             } catch (error) {
+                console.log(error);
                 warningMsgDescriptionHead.innerText = error;
                 warningMessageModal.show();
             }
@@ -321,7 +318,7 @@ const Navbar = () => {
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                                 <li><Link href="/customerDetails" className="dropdown-item"><span className="title05"><i class="bi bi-person-lines-fill"></i>&nbsp;Your Account</span></Link></li>
-                                                <li><Link href="#" className="dropdown-item"><span className="title05"><i class="bi bi-info-circle-fill"></i>&nbsp;Help</span></Link></li>
+                                                <li><Link href="/help" className="dropdown-item"><span className="title05"><i class="bi bi-info-circle-fill"></i>&nbsp;Help</span></Link></li>
                                                 <li><hr className="dropdown-divider" /></li>
                                                 <li className="logOutbtn title05 text-center">
                                                     <Link href="#" className="nav-link" onClick={userEnd}>
@@ -372,7 +369,7 @@ const Navbar = () => {
                                                 </a>
                                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                                     <li><Link href="/customerDetails" className="dropdown-item"><span className="title05"><i class="bi bi-person-lines-fill"></i>&nbsp;Your Account</span></Link></li>
-                                                    <li><Link href="/settings" className="dropdown-item"><span className="title05"><i class="bi bi-info-circle-fill"></i>&nbsp;Help</span></Link></li>
+                                                    <li><Link href="/help" className="dropdown-item"><span className="title05"><i class="bi bi-info-circle-fill"></i>&nbsp;Help</span></Link></li>
                                                     <li><hr className="dropdown-divider" /></li>
                                                     <Link href="#" className="nav-link" onClick={customerEnd}>
                                                         <li className="logOutbtn title05 text-center">

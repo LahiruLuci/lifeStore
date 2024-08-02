@@ -2,7 +2,7 @@
 
 export default function Footer() {
     return (
-        <footer id="footer" className="footerBorder">
+        <footer id="footer" className="footerBorder" style={{marginBottom: '0px'}}>
             <div className="col-12 w-100 py-3 footer-background">
                 <div className="row">
                     <div className="offset-6 col-6 footer-text"></div><br /><br /><br /><br /><br /><br />

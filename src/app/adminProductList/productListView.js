@@ -100,7 +100,7 @@ export default function ProductList() {
     const warning_message_modal = document.getElementById("warning_message_modal");
     const admin_id = localStorage.getItem("admin_id");
     const user = localStorage.getItem("customer_id");
-    
+
     const payload = {
       user,
       productName,
@@ -323,7 +323,9 @@ export default function ProductList() {
                 <div className="col-lg-5 col-12 p-3">
                   <div className="row">
                     <div className="col-12 mb-3">
-                      <Image src={`${process.env.NEXT_PUBLIC_URL2 + productImageLocation}`} alt="No picture" className="productImage offset-1 col-10 offset-lg-2 col-lg-8" width={300} height={300} />
+                      <div className='row  justify-content-center align-content-center'>
+                        <Image src={`${process.env.NEXT_PUBLIC_URL2 + productImageLocation}`} alt="No picture" className="productImage container" width={300} height={300} />
+                      </div>
                     </div>
                     <span className="title18 text-start">MONTHLY PLAN</span><br />
                     <span className="title14">LKR {amount}</span><br />

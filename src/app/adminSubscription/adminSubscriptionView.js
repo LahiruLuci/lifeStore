@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import SuccessMessageModal from "../mod/SuccessMessageModal";
 import AdminSubscriptionTableRows from "./adminSubscriptionTable";

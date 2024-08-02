@@ -1,5 +1,3 @@
-
-
 @font-face {
     font-family: "Inter";
     src: url("../font/INTER.TTC");
@@ -20,27 +18,38 @@
     src: url("../font/SpaceGrotesk-Bold.otf");
 }
 
-.main-body{
-    font-family: "Inter","Leelawad";
+.main-body {
+    font-family: "Inter", "Leelawad";
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-color: white;
 }
+
+.fullBody {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+.fullBodyArrangement {
+    flex: 1;
+}
+
 /* .logo-body{
     height: 35px;
     padding: 2px;
     padding-left: 15px;
 } */
 
-.logoMain{
+.logoMain {
     background-image: url("../img/logo.png");
     height: 35px;
     background-position: left;
     background-repeat: no-repeat;
 }
 
-.logo{
+.logo {
     background-image: url("../img/logo.png");
     background-size: cover;
     height: 35px;
@@ -50,7 +59,7 @@
     transform: scale(1);
 }
 
-.logoSM{
+.logoSM {
     background-image: url("../img/logo-sm.jpg");
     height: 11px;
     background-size: contain;
@@ -58,7 +67,7 @@
     background-repeat: no-repeat;
 }
 
-.background{
+.background {
     background-image: url("../img/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -67,12 +76,12 @@
     width: 75%;
 }
 
-.auditViewBox{
+.auditViewBox {
     background-color: #009982;
     background-position: center;
 }
 
-.footer-background{
+.footer-background {
     background-image: url("../img/footer-background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -80,7 +89,7 @@
     height: max-content;
 }
 
-.smicon1{
+.smicon1 {
     background-image: url("../img/facebook.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -88,7 +97,8 @@
     height: 25px;
     width: 25px;
 }
-.smicon2{
+
+.smicon2 {
     background-image: url("../img/twitter.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -96,7 +106,8 @@
     height: 25px;
     width: 25px;
 }
-.smicon3{
+
+.smicon3 {
     background-image: url("../img/linkedin.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -104,7 +115,8 @@
     height: 25px;
     width: 25px;
 }
-.smicon4{
+
+.smicon4 {
     background-image: url("../img/instergram.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -112,7 +124,8 @@
     height: 25px;
     width: 25px;
 }
-.smicon5{
+
+.smicon5 {
     background-image: url("../img/youtube.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -126,30 +139,30 @@
     width: 800px;
     margin: var(--bs-modal-margin);
     pointer-events: none;
-  }
+}
 
-.productBackground{
+.productBackground {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     height: 70px;
 }
 
-.itemProductBackground{
+.itemProductBackground {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     height: 100px;
 }
 
-.productBackground2{
+.productBackground2 {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
     height: 250px;
 }
 
-.addProductBackground{
+.addProductBackground {
     background-image: url("../img/addproduct.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -157,7 +170,7 @@
     height: 580px;
 }
 
-.addSingleProductBackground{
+.addSingleProductBackground {
     background-image: url("../img/addproduct.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -166,15 +179,16 @@
     height: 200px;
 }
 
-.productImage{
+.productImage {
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     height: 300px;
+    width: 300px;
     margin-bottom: 10px;
 }
 
-.footer-text{
+.footer-text {
     background-image: url("../img/footer-text.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -184,7 +198,7 @@
     transform: scale(0.8);
 }
 
-.title01{
+.title01 {
     font-family: "Leelawad";
     font-size: 28px;
     letter-spacing: 0.5px;
@@ -192,21 +206,21 @@
     font-weight: bold;
 }
 
-.title02{
+.title02 {
     font-family: "Inter";
     font-size: 14px;
     letter-spacing: 0.5px;
     color: #676161;
 }
 
-.title03{
+.title03 {
     font-family: "Inter";
     font-size: 14px;
     letter-spacing: 0.2px;
     color: #3300ff;
 }
 
-.title04{
+.title04 {
     font-family: "Inter";
     font-size: 14px;
     letter-spacing: 0.5px;
@@ -214,35 +228,37 @@
     font-weight: bold;
 }
 
-.title05{
+.title05 {
     font-family: "Inter";
     font-size: 14px;
     letter-spacing: 0.5px;
     color: #000000;
     font-weight: bold;
 }
-.title05:hover{
+
+.title05:hover {
     color: #2E2E2E;
     font-family: 'Courier New', Courier, monospace;
     font-size: medium;
 
 }
 
-.title055{
+.title055 {
     font-family: "Inter";
     font-size: 14px;
     letter-spacing: 0.5px;
     color: #000000;
     font-weight: bold;
 }
-.title055:hover{
+
+.title055:hover {
     color: #ffffff;
     font-family: 'Courier New', Courier, monospace;
     font-size: medium;
 
 }
 
-.title06{
+.title06 {
     font-family: "Inter";
     font-size: 25px;
     text-align: left;
@@ -251,7 +267,7 @@
     font-weight: 900;
 }
 
-.title062{
+.title062 {
     font-family: "Inter";
     font-size: 25px;
     text-align: left;
@@ -260,7 +276,7 @@
     font-weight: 900;
 }
 
-.title063{
+.title063 {
     font-family: "Inter";
     font-size: 13px;
     text-align: left;
@@ -269,7 +285,7 @@
     color: #E6F630;
 }
 
-.title064{
+.title064 {
     font-family: "Inter";
     font-size: 16px;
     text-align: left;
@@ -278,7 +294,7 @@
     color: #ffffff;
 }
 
-.title07{
+.title07 {
     font-family: "Inter";
     font-size: 13px;
     text-align: left;
@@ -287,7 +303,7 @@
     color: #000000;
 }
 
-.title071{
+.title071 {
     font-family: "Inter";
     font-size: 16px;
     text-align: left;
@@ -296,7 +312,7 @@
     color: #000000;
 }
 
-.title08{
+.title08 {
     font-family: "Inter";
     font-size: 9px;
     letter-spacing: 0.1px;
@@ -304,7 +320,7 @@
     color: #676161;
 }
 
-.title09{
+.title09 {
     font-family: "Inter";
     font-size: 12px;
     letter-spacing: 0.1px;
@@ -313,7 +329,7 @@
     color: #000000;
 }
 
-.title10{
+.title10 {
     font-family: "Inter";
     font-size: 12px;
     letter-spacing: 0.1px;
@@ -322,25 +338,25 @@
     color: #ffffff;
 }
 
-.title11{
+.title11 {
     font-family: "Inter";
     font-size: x-small;
     letter-spacing: 0.1px;
     font-weight: 900;
     text-align: center;
     color: #000000;
-    border-bottom: 2px solid #000000 ;
+    border-bottom: 2px solid #000000;
 
 }
 
-.title11 th{
+.title11 th {
 
     margin-bottom: 50px;
     padding-bottom: 25px;
 
 }
 
-.title12{
+.title12 {
     font-family: "Inter";
     font-size: x-small;
     letter-spacing: 0.1px;
@@ -349,7 +365,7 @@
 
 }
 
-.title13{
+.title13 {
     font-family: "Inter";
     font-size: 20px;
     letter-spacing: 0.5px;
@@ -357,7 +373,7 @@
     font-weight: 550;
 }
 
-.title14{
+.title14 {
     font-family: "Inter";
     font-size: 36px;
     letter-spacing: 0.1px;
@@ -366,7 +382,7 @@
 
 }
 
-.title15{
+.title15 {
     font-family: "Inter";
     font-size: 20px;
     letter-spacing: 0.5px;
@@ -374,7 +390,7 @@
     font-weight: 900;
 }
 
-.title16{
+.title16 {
     font-family: "Inter";
     font-size: 18px;
     letter-spacing: 0.5px;
@@ -383,7 +399,7 @@
     line-height: 100px;
 }
 
-.title17{
+.title17 {
     font-family: "Inter";
     font-size: 13px;
     letter-spacing: 1.2px;
@@ -392,7 +408,7 @@
     line-height: 15px;
 }
 
-.title18{
+.title18 {
     font-family: "Inter";
     font-size: 14px;
     letter-spacing: 0.5px;
@@ -400,7 +416,7 @@
     font-weight: bold;
 }
 
-.title19{
+.title19 {
     font-family: "Inter";
     font-size: 16px;
     letter-spacing: 0.5px;
@@ -408,7 +424,7 @@
     font-weight: bold;
 }
 
-.title20{
+.title20 {
     font-family: "Inter";
     font-size: 12px;
     letter-spacing: 0.5px;
@@ -416,7 +432,7 @@
     line-height: 20px;
 }
 
-.title21{
+.title21 {
     font-family: "Inter";
     font-size: 25px;
     text-align: left;
@@ -424,32 +440,33 @@
     color: black;
     font-weight: 900;
 }
-.title21:hover{
+
+.title21:hover {
     color: #676161;
     cursor: pointer;
 }
 
 
-.rowBg{
+.rowBg {
     background-color: #DCEBE9;
     border-bottom: 5px #ffffff solid;
 }
 
-.textA{
-    overflow: hidden;
+.textA {
+    overflow: hidden;
 }
 
-.CardfeatureText{
+.CardfeatureText {
     display: flex;
     align-items: center;
     line-height: 1;
 }
 
-.checkView{
+.checkView {
     color: #4ECB71;
 }
 
-.activeNav{
+.activeNav {
     color: #ffffff;
     font-family: 'Leelawad';
     background-color: #676161;
@@ -460,14 +477,14 @@
 
 }
 
-.input-s{
+.input-s {
     font-family: "Inter";
     background-color: #D9D9D9;
     color: #A2A1A1;
     font-size: 15px;
 }
 
-.btn1{
+.btn1 {
     background-color: #009982;
     font-family: "Inter";
     font-weight: bold;
@@ -477,7 +494,7 @@
     padding: 5px;
 }
 
-.logOutbtn{
+.logOutbtn {
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
@@ -486,13 +503,13 @@
     font-weight: bold;
 }
 
-.logOutbtn:hover{
+.logOutbtn:hover {
     background-color: #009982;
     border: 2px solid #ffffff;
     color: white;
 }
 
-.btn2{
+.btn2 {
     padding: 5px;
     padding-left: 10px;
     padding-right: 10px;
@@ -503,7 +520,7 @@
     border: 1px solid #000000;
 }
 
-.btn3{
+.btn3 {
     padding: 2px;
     background-color: #E6DD00;
     font-family: "Inter";
@@ -513,7 +530,7 @@
     border: none;
 }
 
-.btn4{
+.btn4 {
     padding: 5px;
     background-color: #009982;
     font-family: "Inter";
@@ -523,7 +540,7 @@
     border: none;
 }
 
-.btn41{
+.btn41 {
     font-family: "Inter";
     font-weight: bold;
     border-radius: 5px;
@@ -540,7 +557,7 @@
     color: white;
 }
 
-.btn5{
+.btn5 {
     padding: 10px;
     background-color: #666666;
     font-family: "Inter";
@@ -550,7 +567,7 @@
     border: none;
 }
 
-.btn6{
+.btn6 {
     padding: 10px;
     background-color: #CE2D2D;
     font-family: "Inter";
@@ -560,7 +577,7 @@
     border: none;
 }
 
-.btn7{
+.btn7 {
     background-image: url("../img/btn-bg.png");
     background-position: center;
     background-repeat: no-repeat;
@@ -577,7 +594,7 @@
     border: none;
 }
 
-.btn8{
+.btn8 {
     background-image: url("../img/btn-bg.png");
     background-position: center;
     background-repeat: no-repeat;
@@ -591,7 +608,7 @@
     border: none;
 }
 
-.btn9{
+.btn9 {
     padding: 20px;
     background-color: #009982;
     font-family: "Inter";
@@ -603,7 +620,7 @@
     color: white;
 }
 
-.btn10{
+.btn10 {
     padding: 10px;
     background-color: #ffffff;
     font-family: "Inter";
@@ -615,20 +632,21 @@
     color: rgb(6, 6, 6);
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.75);
 }
-.btn10:hover{
+
+.btn10:hover {
     cursor: pointer;
     background-color: #E6F630;
 }
 
-.btn10:active{
+.btn10:active {
     background-color: #E6F630;
 }
 
-.btnActive1{
+.btnActive1 {
     background-color: #E6F630;
 }
 
-.btn11{
+.btn11 {
     background-color: #ADCFF4;
     background-image: none;
     padding: 10px;
@@ -641,7 +659,8 @@
     color: rgb(6, 6, 6);
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.75);
 }
-.btn11:hover{
+
+.btn11:hover {
     cursor: pointer;
     background-image: url("../img/btn-bg.png");
     background-position: center;
@@ -649,7 +668,7 @@
     background-size: cover;
 }
 
-.moreBtn{
+.moreBtn {
     background-image: url("../img/viewMoreArrow.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -660,7 +679,7 @@
     border: none;
 }
 
-.editBtn{
+.editBtn {
     background-image: url("../img/edit.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -669,7 +688,7 @@
     border: none;
 }
 
-.editBtn2{
+.editBtn2 {
     background-image: url("../img/edit.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -679,7 +698,7 @@
     transform: scale(0.6);
 }
 
-.deleteBtn2{
+.deleteBtn2 {
     background-image: url("../img/delete.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -689,14 +708,14 @@
     transform: scale(0.6);
 }
 
-.btn2:hover{
+.btn2:hover {
     background-color: #000000;
     border: 2px solid #ffffff;
     color: white;
 }
 
 
-.nav-bg{
+.nav-bg {
     background: linear-gradient(to right, #ffffff 25%, #009982 75%);
     color: white;
 }
@@ -705,7 +724,7 @@
     width: 90%;
 }
 
-.cardView{
+.cardView {
     --bs-card-spacer-y: 1rem;
     --bs-card-spacer-x: 1rem;
     --bs-card-title-spacer-y: 0.5rem;
@@ -736,7 +755,7 @@
     margin: 5px;
 }
 
-.footerBorder{
+.footerBorder {
     border-top: 1px solid #676161;
 }
 
@@ -756,7 +775,7 @@
     font-weight: 700;
 }
 
-.cardViewHeaderTitle{
+.cardViewHeaderTitle {
     padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
     margin-bottom: 0;
     color: #009982;
@@ -770,6 +789,7 @@
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
     color: var(--bs-card-color);
 }
+
 .cardViewTitle {
     margin-bottom: var(--bs-card-title-spacer-y);
     text-align: center;
@@ -795,9 +815,9 @@
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
-  }
+}
 
-.productCardView{
+.productCardView {
     --bs-card-spacer-y: 1rem;
     --bs-card-spacer-x: 1rem;
     --bs-card-title-spacer-y: 0.5rem;
@@ -828,10 +848,10 @@
     margin: 5px;
     width: 18rem;
     flex-shrink: 0;
-    
+
 }
 
-.productCardViewBorder{
+.productCardViewBorder {
     border: 1px solid #676161;
 }
 
@@ -852,6 +872,7 @@
     color: var(--bs-card-color);
     padding-bottom: 0px;
 }
+
 .productCardViewTitle {
     margin-bottom: var(--bs-card-title-spacer-y);
     text-align: center;
@@ -871,21 +892,21 @@
     text-align: left;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: 5px;
     background: #D9D9D9;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
     background: #666666;
     border-radius: 10px;
 }
 
-.scroll-bar{
+.scroll-bar {
     overflow: auto;
 }
 
-.scroll-inner{
+.scroll-inner {
     width: 100%;
     height: 200px;
     margin-bottom: 0;
@@ -898,7 +919,7 @@
 }
 
 .scroll-inner,
-.scroll-bar:hover{
+.scroll-bar:hover {
     visibility: visible;
 }
 
@@ -907,23 +928,23 @@
     margin-top: 0px;
 }
 
-.cardBoxView{
+.cardBoxView {
     border-radius: 5px;
     padding: 20px;
 }
 
 .instagram {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); 
-    background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);    
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
     border-radius: 5px;
 }
 
-.fa-square-twitter{
+.fa-square-twitter {
     font-size: 50px;
     color: skyblue;
 }
 
-.footerMedia{
+.footerMedia {
     border: 1px solid black;
     padding: 5px;
     border-radius: 5px;
@@ -931,14 +952,14 @@
     align-content: center;
 }
 
-.productFeatureText{
+.productFeatureText {
     font-family: "Inter";
     font-size: 13px;
-    
+
 }
 
 
-.textBox1{
+.textBox1 {
     font-family: "Inter";
     font-size: 13px;
     height: 200px;
@@ -959,27 +980,27 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 2px; 
+    padding: 2px;
 }
 
-.textArea1{
+.textArea1 {
     height: 100px;
 }
 
-.text01{
+.text01 {
     color: #ffffff;
     text-align: center;
 }
 
-.text02{
-    color:#c50404;
+.text02 {
+    color: #c50404;
     font-size: 15px;
     text-align: center;
 }
 
-.btn-unsubscribe{
+.btn-unsubscribe {
     color: #ffffff;
-    
+
 }
 
 .homeTitleHead1 {
@@ -1052,7 +1073,7 @@
     height: 100vh;
 }
 
-.homeProductView1{
+.homeProductView1 {
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -1062,7 +1083,7 @@
 
 
 
-.homeProductTopic{
+.homeProductTopic {
     font-family: "Inter";
     font-size: 20px;
     letter-spacing: 0.5px;
@@ -1070,7 +1091,7 @@
     font-weight: 600;
 }
 
-.homeProductSubTopic{
+.homeProductSubTopic {
     font-family: "Inter";
     font-size: 13px;
     letter-spacing: 0.5px;
@@ -1078,7 +1099,7 @@
     font-weight: 600;
 }
 
-.homeProductPrice{
+.homeProductPrice {
     font-family: "Inter";
     font-size: 25px;
     letter-spacing: 0.5px;
@@ -1086,7 +1107,7 @@
     font-weight: bold;
 }
 
-.homeProductBtn{
+.homeProductBtn {
     font-family: "Inter";
     font-size: 20px;
     letter-spacing: 0.5px;
@@ -1100,7 +1121,7 @@
     cursor: pointer;
 }
 
-.homeDescriptionText{
+.homeDescriptionText {
     font-family: "Inter";
     font-size: 18px;
     letter-spacing: 0.5px;
@@ -1108,7 +1129,7 @@
     font-weight: 600;
 }
 
-.HomeProductDetailedImage1{
+.HomeProductDetailedImage1 {
     background-image: url("../img/KasperskyStandard.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -1117,7 +1138,7 @@
     width: 300px;
 }
 
-.HomeProductDetailedImage2{
+.HomeProductDetailedImage2 {
     background-image: url("../img/KasperskyPlus.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -1126,7 +1147,7 @@
     width: 300px;
 }
 
-.HomeProductDetailedImage3{
+.HomeProductDetailedImage3 {
     background-image: url("../img/KasperskyPremium.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -1135,7 +1156,7 @@
     width: 300px;
 }
 
-.HomeProductDetailedImage4{
+.HomeProductDetailedImage4 {
     background-image: url("../img/InternetSecurityAndroid.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -1144,7 +1165,7 @@
     width: 300px;
 }
 
-.HomeProductDetailedImage5{
+.HomeProductDetailedImage5 {
     background-image: url("../img/SafeKids.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -1153,7 +1174,7 @@
     width: 300px;
 }
 
-.HomeProductDetailedImage6{
+.HomeProductDetailedImage6 {
     background-image: url("../img/antivirus.jpg");
     background-repeat: no-repeat;
     background-size: contain;
@@ -1162,7 +1183,7 @@
     width: 300px;
 }
 
-.HomeProductDetailedImage7{
+.HomeProductDetailedImage7 {
     background-image: url("../img/internetSecurity.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -1171,7 +1192,7 @@
     width: 300px;
 }
 
-.HomeProductDetailedImage8{
+.HomeProductDetailedImage8 {
     background-image: url("../img/fullSecurity.jpg");
     background-repeat: no-repeat;
     background-size: contain;
@@ -1180,103 +1201,105 @@
     width: 300px;
 }
 
-.aboutText01{
+.aboutText01 {
     font-family: "Inter";
     color: #00E5FF;
     font-size: 22px;
     font-family: 'Times New Roman', Times, serif;
 }
 
-.aboutText02{
+.aboutText02 {
     font-family: "Inter";
     color: #A298FD;
     font-size: 22px;
     font-family: 'Times New Roman', Times, serif;
 }
 
-.aboutText03{
+.aboutText03 {
     font-family: "Inter";
-    color:#70009B;
+    color: #70009B;
     font-size: 22px;
     font-family: 'Times New Roman', Times, serif;
 }
 
-.aboutTitleHead1{
+.aboutTitleHead1 {
     color: #009982;
     font-size: 35px;
     font-weight: 600;
     font-family: "Inter"
 }
-.aboutTitleHead2{
+
+.aboutTitleHead2 {
     color: #000000;
     font-size: 35px;
     font-weight: 600;
     font-family: "Inter"
 }
 
-.about{
+.about {
     font-family: "Inter";
     line-height: 2;
-    letter-spacing: 1px;
+    letter-spacing: 1px;
 }
 
-.td2{
+.td2 {
     font-size: x-small;
     text-align: center;
 }
 
-.th2{
+.th2 {
     font-size: x-small;
     text-align: center;
 }
 
 .outline-button {
-    border: 2px solid;  
-    background-color: transparent; 
+    border: 2px solid;
+    background-color: transparent;
     color: #007bff;
-    border-radius: 20px; 
+    border-radius: 20px;
     border-color: #007bff;
     padding-left: 5px;
-    padding-right: 5px;  
+    padding-right: 5px;
     font-family: "Inter";
     text-align: center;
     margin-left: 0px;
     margin-right: 0px;
-    
+
 }
 
 .unsubscribe-button {
-    border: 2px solid;  
-    background-color: transparent; 
+    border: 2px solid;
+    background-color: transparent;
     color: #c50404;
-    border-radius: 20px; 
-    border-color: #c50404; 
+    border-radius: 20px;
+    border-color: #c50404;
     font-family: "Inter";
     font-size: x-small;
     text-align: center;
 }
 
-.unsubscribe-button:hover{
+.unsubscribe-button:hover {
     background-color: #c50404;
     color: #ffffff;
 }
 
-.viewLicenseKey-Button{
-    color:rgb(56, 56, 222);
-    border: 2px solid;  
-    background-color: transparent; 
-    border-radius: 20px; 
-    border-color:rgb(56, 56, 222); 
+.viewLicenseKey-Button {
+    color: rgb(56, 56, 222);
+    border: 2px solid;
+    background-color: transparent;
+    border-radius: 20px;
+    border-color: rgb(56, 56, 222);
     font-family: "Inter";
     font-size: x-small;
     text-align: center;
 }
-.viewLicenseKey-Button:hover{
+
+.viewLicenseKey-Button:hover {
     background-color: rgb(56, 56, 222);
     color: white;
 }
 
-.email-Button{
+.email-Button {
     color: #000000;
     background-image: none;
     background: none;
@@ -1286,7 +1309,7 @@
     text-align: center;
 }
 
-.icon-button{
+.icon-button {
     background-image: none;
     background: none;
     background-position: center;
@@ -1297,32 +1320,32 @@
 
 }
 
-.text01{
+.text01 {
     color: #ffffff;
     text-align: center;
 }
 
-.text02{
-    color:#c50404;
+.text02 {
+    color: #c50404;
     font-size: 15px;
     text-align: center;
 }
 
-.text03{
+.text03 {
     color: #000000;
     font-size: 15px;
-    text-align: center;
+    text-align: center;
 }
 
-.text04{
+.text04 {
     color: #009982;
     font-size: 15px;
-    text-align: center;
+    text-align: center;
 }
 
-.text05{
+.text05 {
     color: #009982;
     font-size: 15px;
-    text-align: center;
+    text-align: center;
     font-weight: bold;
 }

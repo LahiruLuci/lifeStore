@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import SuccessMessageModal from "../mod/SuccessMessageModal";
 import CustomerSubscriptionTableRows from "./customerSubscriptionTable";
@@ -25,14 +26,21 @@ export default function CustomerSubscriptionView() {
     const [productName, setProductName] = useState('');
     const [createdDateTime, setCreatedDateTime] = useState('');
     const [licensekey, setLicensekey] = useState('');
-
-    let document;
+    const [isBrowser, setIsBrowser] = useState(false);
 
     let successMessageModal;
-    let success_message_modal = document?.getElementById("success_message_modal");;
-    let successMsgDescriptionHead = document?.getElementById("successMsgDescriptionHead");
+    let success_message_modal;
+    let successMsgDescriptionHead;
 
     useEffect(() => {
+
+        setIsBrowser(typeof window != undefined);
+
+        if (isBrowser) {
+            success_message_modal = document.getElementById("success_message_modal");;
+            successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+        }
+
         const fetchUserSubscriptions = async () => {
             try {
                 const result = await getSubscriptionsProps();
@@ -45,7 +53,7 @@ export default function CustomerSubscriptionView() {
         };
 
         fetchUserSubscriptions();
-    }, []);
+    }, [isBrowser]);
 
     const handleSubscriptionsClick = (subscription) => {
         setSelectedsubscription(subscription);

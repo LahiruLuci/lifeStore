@@ -1,0 +1,76 @@
+.arrow-list .list-group-item {
+    position: relative;
+    padding-left: 30px;
+  }
+  
+  .arrow-list .list-group-item::before {
+    content: '\2192';
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ff0000; 
+    font-size: 1.5rem; 
+  }
+
+  .description01{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("../img/subscription_click.png");
+    height: 300px;
+  }
+
+  .description02{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("../img/email_sending_photo.png");
+    height: 300px;
+  }
+
+  .description03{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("../img/product_search.jpg");
+    height: 300px;
+  }
+  .description04{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("../img/single_product.jpg");
+    height: 300px;
+  }
+
+  .description05{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("../img/subscription_click.png");
+    height: 500px;
+  }
+
+  .description06{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("../img/email_sending_photo.png");
+    height: 500px;
+  }
+
+  .description07{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("../img/product_search.jpg");
+    height: 500px;
+  }
+  .description08{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("../img/single_product.jpg");
+    height: 500px;
+  }
