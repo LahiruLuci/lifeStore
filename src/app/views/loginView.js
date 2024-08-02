@@ -162,7 +162,8 @@ const Login = () => {
                 const response = await fetch(`${process.env.NEXT_PUBLIC_URL6}${email}`);
                 const systemDetails = await response.json();
                 if (systemDetails.error) {
-                    alert(systemDetails.error);
+                    alert(systemDetails.error.message);
+
                 } else if (systemDetails.length > 0) {
                     const fetchedUSERID = systemDetails[0].USERID;
                     const fetchedEmail = systemDetails[0].EMAIL;
