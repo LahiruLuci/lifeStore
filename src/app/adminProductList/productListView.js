@@ -324,7 +324,7 @@ export default function ProductList() {
                   <div className="row">
                     <div className="col-12 mb-3">
                       <div className='row  justify-content-center align-content-center'>
-                        <Image src={`${process.env.NEXT_PUBLIC_URL2 + productImageLocation}`} alt="No picture" className="productImage container" width={300} height={300} />
+                        <Image src={`${process.env.NEXT_PUBLIC_URL2 + productImageLocation}`} alt="No picture" className="productImage container-fluid" width={1000} height={1000} />
                       </div>
                     </div>
                     <span className="title18 text-start">MONTHLY PLAN</span><br />
@@ -337,7 +337,7 @@ export default function ProductList() {
                     <div className="col-12">
                       <div className="row">
                         <div className="col-12">
-                          <span className="title15">{productName}</span>
+                          <span className="title15">{productName}</span><br /><br />
                         </div>
                       </div>
                     </div>
@@ -427,14 +427,14 @@ export default function ProductList() {
                       </div>
                       <div className="col-5 p-3">
                         <div className="row justify-content-center">
-                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={SubscriptionsSubscribeViewEmailChangeAsk}>
+                          <button type="button" className="btn btn-secondary btncat" data-bs-dismiss="modal" onClick={SubscriptionsSubscribeViewEmailChangeAsk}>
                             UPDATE EMAIL
                           </button>
                         </div>
                       </div>
                       <div className="col-5 p-3">
                         <div className="row justify-content-center">
-                          <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={handleBuyNowClick}>CONFIRM</button>
+                          <button type="button" className="btn btn-success btncat" data-bs-dismiss="modal" onClick={handleBuyNowClick}>CONFIRM</button>
                         </div>
                       </div>
                     </div>

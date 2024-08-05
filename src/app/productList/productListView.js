@@ -410,7 +410,7 @@ export default function ProductList() {
                     <div className="row">
                       <div className="col-12 mb-3">
                         <div className='row  justify-content-center align-content-center'>
-                          <Image src={`${process.env.NEXT_PUBLIC_URL2 + selectedProduct.IMAGELOCATION}`} alt="No picture" className="productImage container-fluid" width={300} height={300} />
+                          <Image src={`${process.env.NEXT_PUBLIC_URL2 + selectedProduct.IMAGELOCATION}`} alt="No picture" className="productImage container-fluid" width={1000} height={1000} />
                         </div>
                       </div><br /><br /><br />
                       <span className="title18 text-start">MONTHLY PLAN</span><br />

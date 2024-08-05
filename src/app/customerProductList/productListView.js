@@ -250,9 +250,7 @@ export default function ProductList() {
 
   function SubscriptionsSubscribeViewEmailAsk() {
 
-    if (email === null || email === '') {
-      SubscriptionsSubscribeViewEmailChangeAsk();
-    } else {
+    if (!localStorage.getItem('user_email')) {
       const productSubscribeEmailSelectionMessageModal = document.getElementById("product_subscribe_email_selection_message_modal");
       const subscribeEmailSelectionMsgDescriptionHead1 = document.getElementById("subscribeEmailSelectionMsgDescriptionHead1");
       const subscribeEmailSelectionMsgDescriptionHead2 = document.getElementById("subscribeEmailSelectionMsgDescriptionHead2");
@@ -262,6 +260,8 @@ export default function ProductList() {
       subscribeEmailSelectionMsgDescriptionHead3.innerText = "With the following email address for \n User : " + user;
       ssvea = new bootstrap.Modal(productSubscribeEmailSelectionMessageModal);
       ssvea.show();
+    } else {
+      SubscriptionsSubscribeViewEmailChangeAsk();
     }
 
   }
@@ -315,8 +315,8 @@ export default function ProductList() {
                   <div className="col-lg-5 col-12 p-3">
                     <div className="row">
                       <div className="col-12 mb-3">
-                        <div className='row  justify-content-center align-content-center'>
-                          <Image src={`${process.env.NEXT_PUBLIC_URL2 + selectedProduct.IMAGELOCATION}`} alt="No picture" className="productImage container" width={300} height={300} />
+                        <div className='row justify-content-center align-content-center'>
+                          <Image src={`${process.env.NEXT_PUBLIC_URL2 + selectedProduct.IMAGELOCATION}`} alt="No picture" className="productImage container-fluid" height={1000} width={1000} />
                         </div>
                       </div>
                       <span className="title18 text-start">MONTHLY PLAN</span><br />
@@ -329,7 +329,7 @@ export default function ProductList() {
                       <div className="col-12">
                         <div className="row">
                           <div className="col-12">
-                            <span className="title15">{selectedProduct.PRODUCTNAME}</span>
+                            <span className="title15">{selectedProduct.PRODUCTNAME}</span><br /><br />
                           </div>
                         </div>
                       </div>
@@ -338,9 +338,11 @@ export default function ProductList() {
                       <div className="col-12 mb-3">
                         <div className="row">
                           {selectedProduct.MAINPRODUCTFEATURES.split(' | ').map((feature, index) => (
+                            <>
                             <div className="col-12 CardfeatureText" key={index}>
                               <i className="bi bi-check fa-3x checkView"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span className="title17">{feature}</span>
-                            </div>
+                            </div><br/><br/><br/>
+                            </>
                           ))}
                         </div>
                       </div>
@@ -420,14 +422,14 @@ export default function ProductList() {
                       </div>
                       <div className="col-5 p-3">
                         <div className="row justify-content-center">
-                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={SubscriptionsSubscribeViewEmailChangeAsk}>
+                          <button type="button" className="btn btn-secondary btncat" data-bs-dismiss="modal" onClick={SubscriptionsSubscribeViewEmailChangeAsk}>
                             UPDATE EMAIL
                           </button>
                         </div>
                       </div>
                       <div className="col-5 p-3">
                         <div className="row justify-content-center">
-                          <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={handleBuyNowClick}>CONFIRM</button>
+                          <button type="button" className="btn btn-success btncat" data-bs-dismiss="modal" onClick={handleBuyNowClick}>CONFIRM</button>
                         </div>
                       </div>
                     </div>

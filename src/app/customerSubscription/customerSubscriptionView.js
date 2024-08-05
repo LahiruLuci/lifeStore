@@ -40,6 +40,9 @@ export default function CustomerSubscriptionView() {
             success_message_modal = document.getElementById("success_message_modal");;
             successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
         }
+    }, [isBrowser]);
+
+    useEffect(() => {
 
         const fetchUserSubscriptions = async () => {
             try {
@@ -53,7 +56,7 @@ export default function CustomerSubscriptionView() {
         };
 
         fetchUserSubscriptions();
-    }, [isBrowser]);
+    }, []);
 
     const handleSubscriptionsClick = (subscription) => {
         setSelectedsubscription(subscription);

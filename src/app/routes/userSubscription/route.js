@@ -8,7 +8,7 @@ export async function GET(request){
     if (userId) {
         try {
             const db = await pool.getConnection();
-            const query = "SELECT p.PRODUCTNAME, s.SUBSCRIPTIONID, s.PRODUCT, s.LICENSEKEY, s.AMOUNT, s.LASTUPDATEDDATETIME, s.CREATEDDATETIME, st.DESCRIPTION AS STATUSDESCRIPTION,s.LASTUPDATEDUSER FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN STATUS st ON st.STATUSID = s.STATUS WHERE USER = ? GROUP BY s.SUBSCRIPTIONID";
+            const query = "SELECT p.PRODUCTNAME, s.SUBSCRIPTIONID, s.PRODUCT, s.LICENSEKEY, s.AMOUNT, s.LASTUPDATEDDATETIME, s.CREATEDDATETIME, st.DESCRIPTION AS STATUSDESCRIPTION,s.LASTUPDATEDUSER FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE USER = ? GROUP BY s.SUBSCRIPTIONID";
             const [rows] = await db.execute(query, [userId]);
             db.release();
             return NextResponse.json(rows);
@@ -68,16 +68,12 @@ export async function POST(req) {
         await db.execute(updateSubscriptionQuery, [parseInt(statusId), admin_id, subscriptionId]);
         if (statusId===4) {
           description = "unsubscribed";
-        } else if (statusId===2){
-          description = "suspended";
         }
       } else {
         const updateSubscriptionQuery = "UPDATE subscription SET STATUS = ?,  LASTUPDATEDUSER = ? WHERE SUBSCRIPTIONID = ?";
         await db.execute(updateSubscriptionQuery, [parseInt(statusId), user, subscriptionId]);
         if (statusId===4) {
           description = "unsubscribed";
-        } else if (statusId===2){
-          description = "suspended";
         }
       }
 

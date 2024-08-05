@@ -94,6 +94,8 @@ export default function AdminView() {
     };
 
     const updateAdmin = async () => {
+        const normalPassword = document.getElementById("editAdminPassword1").value;
+        const password = bcrypt.hashSync(normalPassword, 10);
 
         try {
 

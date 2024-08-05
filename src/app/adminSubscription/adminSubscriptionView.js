@@ -2,7 +2,7 @@
 "use client"
 import SuccessMessageModal from "../mod/SuccessMessageModal";
 import AdminSubscriptionTableRows from "./adminSubscriptionTable";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export async function getSubscriptionsProps() {
     let customer = localStorage.getItem('customer_id');
@@ -36,14 +36,15 @@ export default function AdminSubscriptionView() {
     let success_message_modal;
     let successMsgDescriptionHead;
 
-
     useEffect(() => {
         setIsBrowser(typeof window != undefined);
-
         if (isBrowser) {
             success_message_modal = document.getElementById("success_message_modal");;
             successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
         }
+    }, [isBrowser]);
+
+    useEffect(() => {
 
         const fetchUserSubscriptions = async () => {
             try {
@@ -57,7 +58,7 @@ export default function AdminSubscriptionView() {
         };
 
         fetchUserSubscriptions();
-    }, [isBrowser]);
+    }, []);
 
     const handleSubscriptionsClick = (subscription) => {
         setSelectedsubscription(subscription);

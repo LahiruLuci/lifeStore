@@ -183,8 +183,6 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    height: 300px;
-    width: 300px;
     margin-bottom: 10px;
 }
 
@@ -396,7 +394,6 @@
     letter-spacing: 0.5px;
     color: black;
     font-weight: 900;
-    line-height: 100px;
 }
 
 .title17 {
@@ -405,7 +402,6 @@
     letter-spacing: 1.2px;
     color: black;
     font-weight: 900;
-    line-height: 15px;
 }
 
 .title18 {
@@ -1135,7 +1131,6 @@
     background-size: contain;
     background-position: center;
     height: 300px;
-    width: 300px;
 }
 
 .HomeProductDetailedImage2 {
@@ -1348,4 +1343,8 @@
     font-size: 15px;
     text-align: center;
     font-weight: bold;
+}
+
+.btncat{
+    height: 100px;
 }
