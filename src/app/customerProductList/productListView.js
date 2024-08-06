@@ -105,9 +105,11 @@ export default function ProductList() {
     const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
     const success_message_modal = document.getElementById("success_message_modal");
     const subscriberId = `${user}_${productCode}_${generateUUID()}`;
+    const email = localStorage.getItem("user_email");
     alert(subscriberId);
 
     const payload1 = {
+      email,
       productName,
       productCode,
       amount,
@@ -178,6 +180,51 @@ export default function ProductList() {
       console.error('Error generating token:', error);
     }
   };
+
+  const emailConfirmation = async () => {
+    const changeEmail1 = document.getElementById("changeEmail1").value;
+    const changeEmail2 = document.getElementById("changeEmail2").value;
+    let success_message_modal = document.getElementById("success_message_modal");
+    const customerEmail = localStorage.getItem("user_email");
+    const customer_id = localStorage.getItem("customer_id");
+
+    if (changeEmail1 == changeEmail2) {
+      localStorage.setItem("user_email", changeEmail1);
+
+      if (customerEmail) {
+        try {
+
+          const payload = {
+            userId: customer_id,
+            email: customerEmail,
+          };
+
+          const response = await fetch(`${process.env.NEXT_PUBLIC_URL18}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'customerDetails/json',
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json();
+          if (result.message == "Email updated successfully!") {
+            localStorage.setItem('user_email', result.updateEmail);
+            successMessageModal = new bootstrap.Modal(success_message_modal);
+            successMsgDescriptionHead.innerText = "Email updated successfully!";
+            success_message_modal.addEventListener('hidden.bs.modal', () => {
+              handleBuyNowClick();
+            });
+            successMessageModal.show();
+          }
+        } catch (error) {
+          console.error('Error updating cutomer email:', error);
+        }
+      } else {
+        alert("Please enter your email correctly!");
+      }
+    }
+  }
 
   const handleBuyConfirmationClick = async () => {
     let user = localStorage.getItem('customer_id');
@@ -339,9 +386,9 @@ export default function ProductList() {
                         <div className="row">
                           {selectedProduct.MAINPRODUCTFEATURES.split(' | ').map((feature, index) => (
                             <>
-                            <div className="col-12 CardfeatureText" key={index}>
-                              <i className="bi bi-check fa-3x checkView"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span className="title17">{feature}</span>
-                            </div><br/><br/><br/>
+                              <div className="col-12 CardfeatureText" key={index}>
+                                <i className="bi bi-check fa-3x checkView"></i>&nbsp;&nbsp;&nbsp;&nbsp;<span className="title17">{feature}</span>
+                              </div><br /><br /><br />
                             </>
                           ))}
                         </div>
@@ -485,7 +532,7 @@ export default function ProductList() {
                         </div>
                         <div className="col-5 p-3">
                           <div className="row justify-content-center">
-                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={handleBuyNowClick}>CONFIRM</button>
+                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={emailConfirmation}>CONFIRM</button>
                           </div>
                         </div>
                       </div>

@@ -19,11 +19,11 @@ export async function GET(){
 
 export async function POST(req) {
     try {
-      const {productCode, productCategory, productTitle, productName, preDescription, descriptionTitle, description, mainProductFeatures, amount, productFeatures, image } = await req.json();
+      const {super_admin_id, productCode, productCategory, productTitle, productName, preDescription, descriptionTitle, description, mainProductFeatures, amount, productFeatures, image } = await req.json();
 
       const db = await pool.getConnection();
       const insertProductQuery = "INSERT INTO product (PRODUCTCODE, PRODUCTCATEGORY, PRODUCTTITLE, PRODUCTNAME, PREDESCRIPTION, DESCRIPTIONTITLE, DESCRIPTION, SORTID, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      const [productResult] = await db.execute(insertProductQuery, [productCode, productCategory, productTitle, productName, preDescription, descriptionTitle, description, '1', '1', 'admin', '1017']);
+      const [productResult] = await db.execute(insertProductQuery, [productCode, productCategory, productTitle, productName, preDescription, descriptionTitle, description, '1', '1', super_admin_id, super_admin_id]);
   
       const productId = productResult.insertId;
       const insertFeaturesQuery = "INSERT INTO productfeature (PRODUCT, PRODUCTFEATURECATEGORY, DESCRIPTION, SORTID, `STATUS`, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -40,18 +40,18 @@ export async function POST(req) {
   
       const mainFeaturesArray = mainProductFeatures.split(' | ');
       for (const feature of mainFeaturesArray) {
-        await db.execute(insertFeaturesQuery, [productId, '5', feature, sortId, '1', 'admin', '1017']);
+        await db.execute(insertFeaturesQuery, [productId, '5', feature, sortId, '1', super_admin_id, super_admin_id]);
         sortId = sortId + 1;
       }
   
       const featuresArray = productFeatures.split(' | ');
       for (const feature of featuresArray) {
-        await db.execute(insertFeaturesQuery, [productId, '4', feature, sortId, '1', 'admin', '1017']);
+        await db.execute(insertFeaturesQuery, [productId, '4', feature, sortId, '1', super_admin_id, super_admin_id]);
         sortId = sortId + 1;
       }
   
       const insertPaymentMethodQuery = "INSERT INTO productpaymentmethod (PRODUCT, PAYMENTMETHOD, PRODUCTPAYMENTMETHODCODE, AMOUNT, SORTID, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-      await db.execute(insertPaymentMethodQuery, [productId, '2', '9410012', amount, '1', '1', 'admin', '1017']);
+      await db.execute(insertPaymentMethodQuery, [productId, '2', productCode, amount, '1', '1', super_admin_id, super_admin_id]);
   
       if (imagePath && image) {
         const updateImageQuery = "UPDATE product SET IMAGELOCATION = ? WHERE PRODUCTID = ?";
@@ -73,7 +73,7 @@ export async function POST(req) {
 
   export async function PATCH(req) {
     try {
-      const { productId, productName, descriptionTitle, description, sortNumber, activeStatusId, mainProductFeatures, amount, productFeatures, image } = await req.json();
+      const {super_admin_id, productId, productName, descriptionTitle, description, sortNumber, activeStatusId, mainProductFeatures, amount, productFeatures, image } = await req.json();
   
       let imagePath = null;
       if (image) {
@@ -84,8 +84,8 @@ export async function POST(req) {
       }
   
       const db = await pool.getConnection();
-      const updateProductQuery = "UPDATE product SET PRODUCTNAME = ?, DESCRIPTIONTITLE = ?, DESCRIPTION = ?, SORTID = ?, STATUS = ? WHERE PRODUCTID = ?";
-      await db.execute(updateProductQuery, [productName, descriptionTitle, description, sortNumber, activeStatusId, productId]);
+      const updateProductQuery = "UPDATE product SET PRODUCTNAME = ?, DESCRIPTIONTITLE = ?, DESCRIPTION = ?, SORTID = ?, STATUS = ?, LASTUPDATEDUSER = ? WHERE PRODUCTID = ?";
+      await db.execute(updateProductQuery, [productName, descriptionTitle, description, sortNumber, activeStatusId, super_admin_id, productId]);
   
       const deleteFeaturesQuery = "DELETE FROM productfeature WHERE PRODUCT = ?";
       await db.execute(deleteFeaturesQuery, [productId]);
@@ -96,22 +96,22 @@ export async function POST(req) {
   
       const mainFeaturesArray = mainProductFeatures.split(' | ');
       for (const feature of mainFeaturesArray) {
-        await db.execute(insertFeaturesQuery, [productId, '5', feature, sortId, '1', 'admin', '1017']);
+        await db.execute(insertFeaturesQuery, [productId, '5', feature, sortId, '1', super_admin_id, super_admin_id]);
         sortId = sortId + 1;
       }
   
       const featuresArray = productFeatures.split(' | ');
       for (const feature of featuresArray) {
-        await db.execute(insertFeaturesQuery, [productId, '4', feature, sortId, '1', 'admin', '1017']);
+        await db.execute(insertFeaturesQuery, [productId, '4', feature, sortId, '1', super_admin_id, super_admin_id]);
         sortId = sortId + 1;
       }
   
-      const updatePaymentMethodQuery = "UPDATE productpaymentmethod SET AMOUNT = ? WHERE PRODUCT = ?";
-      await db.execute(updatePaymentMethodQuery, [amount, productId]);
+      const updatePaymentMethodQuery = "UPDATE productpaymentmethod SET AMOUNT = ?, LASTUPDATEDUSER = ? WHERE PRODUCT = ?";
+      await db.execute(updatePaymentMethodQuery, [amount, super_admin_id, productId]);
   
       if (imagePath) {
-        const updateImageQuery = "UPDATE product SET IMAGELOCATION = ? WHERE PRODUCTID = ?";
-        await db.execute(updateImageQuery, ["/productImages/"+imagePath, productId]);
+        const updateImageQuery = "UPDATE product SET IMAGELOCATION = ?, LASTUPDATEDUSER = ? WHERE PRODUCTID = ?";
+        await db.execute(updateImageQuery, ["/productImages/"+imagePath, super_admin_id, productId]);
       }
   
       db.release();

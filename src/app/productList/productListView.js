@@ -157,6 +157,7 @@ export default function ProductList() {
     let warning_message_modal = document.getElementById("warning_message_modal");
     warningMessageModal = new bootstrap.Modal(warning_message_modal);
     successMessageModal = new bootstrap.Modal(success_message_modal);
+    let super_admin_id = localStorage.getItem("super_admin_id");
 
     if (productCode == "") {
       warningMsgDescriptionHead.innerText = "Please Enter a Product Code.";
@@ -192,6 +193,7 @@ export default function ProductList() {
         }
 
         const paycreate = {
+          super_admin_id,
           productCode,
           productCategory,
           productTitle,
@@ -236,6 +238,8 @@ export default function ProductList() {
   const updateProduct = async () => {
     const sortNumber = sortNo;
     const activeStatusId = activeStatus;
+    let super_admin_id = localStorage.getItem("super_admin_id");
+
     try {
 
       let base64Image = null;
@@ -244,6 +248,7 @@ export default function ProductList() {
       }
 
       const payload = {
+        super_admin_id,
         productId: selectedProduct.PRODUCTID,
         productName,
         descriptionTitle,

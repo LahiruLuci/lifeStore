@@ -4,6 +4,7 @@ import Product from "./productView";
 import { getProductsProps } from './productView';
 import Image from "next/image";
 import WarningMessageModal from "../mod/WarningMessageModal";
+import SuccessMessageModal from "../mod/SuccessMessageModal";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -20,6 +21,7 @@ export default function ProductList() {
   const [email, setEmail] = useState('');
   const [licensekey, setLicensekey] = useState('');
   let warningMessageModal;
+  let successMessageModal;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -185,6 +187,51 @@ export default function ProductList() {
       console.error('Error generating token:', error);
     }
   };
+
+  const emailConfirmation = async () => {
+    const changeEmail1 = document.getElementById("adminChangeEmail1").value;
+    const changeEmail2 = document.getElementById("adminChangeEmail1").value;
+    let success_message_modal = document.getElementById("success_message_modal");
+    const customerEmail = localStorage.getItem("user_email");
+    const customer_id = localStorage.getItem("customer_id");
+
+    if (changeEmail1 == changeEmail2) {
+      localStorage.setItem("user_email", changeEmail1);
+
+      if (customerEmail) {
+        try {
+
+          const payload = {
+            userId: customer_id,
+            email: customerEmail,
+          };
+
+          const response = await fetch(`${process.env.NEXT_PUBLIC_URL18}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'customerDetails/json',
+            },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json();
+          if (result.message == "Email updated successfully!") {
+            localStorage.setItem('user_email', result.updateEmail);
+            successMessageModal = new bootstrap.Modal(success_message_modal);
+            successMsgDescriptionHead.innerText = "Email updated successfully!";
+            success_message_modal.addEventListener('hidden.bs.modal', () => {
+              handleBuyNowClick();
+            });
+            successMessageModal.show();
+          }
+        } catch (error) {
+          console.error('Error updating cutomer email:', error);
+        }
+      } else {
+        alert("Please enter your email correctly!");
+      }
+    }
+  }
 
   const handleBuyConfirmationClick = async () => {
     let user = localStorage.getItem('customer_id');
@@ -470,7 +517,7 @@ export default function ProductList() {
                       <div className="row justify-content-center">
                         <div className='col-12'>
                           <div className='row p-3'>
-                            <input type="email" className="form-control text-center" id="changeEmail1" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required />
+                            <input type="email" className="form-control text-center" id="adminChangeEmail1" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required />
                           </div>
                         </div>
                         <h3 className="form-label text-center">
@@ -478,7 +525,7 @@ export default function ProductList() {
                         </h3><br />
                         <div className='col-12'>
                           <div className='row p-3'>
-                            <input type="email" className="form-control text-center" id="changeEmail2" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required />
+                            <input type="email" className="form-control text-center" id="adminChangeEmail2" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required />
                           </div>
                         </div>
                         <div className="col-5 p-3">
@@ -490,7 +537,7 @@ export default function ProductList() {
                         </div>
                         <div className="col-5 p-3">
                           <div className="row justify-content-center">
-                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={handleBuyNowClick}>CONFIRM</button>
+                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={emailConfirmation}>CONFIRM</button>
                           </div>
                         </div>
                       </div>
@@ -541,6 +588,7 @@ export default function ProductList() {
         </div>
       </div>
       <WarningMessageModal />
+      <SuccessMessageModal />
     </>
   );
 }
