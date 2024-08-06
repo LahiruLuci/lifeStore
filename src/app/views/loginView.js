@@ -76,7 +76,7 @@ const Login = () => {
                                         setUserToken(resultProps.jwt);
                                         if (systemDetails[0].EMAIL) {
                                             const fetchedEmail = systemDetails[0].EMAIL;
-                                            setItemWithExpiry('user_email', fetchedEmail, expiryTime1);
+                                            localStorage.setItem('user_email', fetchedEmail);
                                             setSelectedEmail(fetchedEmail);
                                         }
 

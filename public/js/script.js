@@ -131,6 +131,30 @@ function SubscriptionsUnsubscribeViewAsk2(){
     asuva.show();
 }
 
+let sesva;
+
+function SubscriptionsEmailSendViewAsk(){
+    const emailEendMessageModal = document.getElementById("email_send_message_modal");
+    const emailMsgDescriptionHead = document.getElementById("emailMsgDescriptionHead");
+    const emailMsgDescriptionHead2 = document.getElementById("emailMsgDescriptionHead2");
+    emailMsgDescriptionHead.innerText = "Do you want to send your subscription details to your default email ? ";
+    emailMsgDescriptionHead2.innerText = localStorage.getItem('user_email');
+    sesva = new bootstrap.Modal(emailEendMessageModal);
+    sesva.show();
+}
+
+let asesva;
+
+function SubscriptionsEmailSendViewAsk2(){
+    const adminEmailSendMessageModal = document.getElementById("admin_email_send_message_modal");
+    const adminEmailMsgDescriptionHead = document.getElementById("adminEmailMsgDescriptionHead");
+    const adminEmailMsgDescriptionHead2 = document.getElementById("adminEmailMsgDescriptionHead2");
+    adminEmailMsgDescriptionHead.innerText = "Do you want to send your subscription details to your default email ? ";
+    adminEmailMsgDescriptionHead2.innerText = localStorage.getItem('user_email');
+    asesva = new bootstrap.Modal(adminEmailSendMessageModal);
+    asesva.show();
+}
+
 let eav;
 
 function EditAdminView() {

@@ -1345,6 +1345,12 @@
     font-weight: bold;
 }
 
+.text06 {
+    color: #586563;
+    font-size: 14px;
+    text-align: center;
+}
+
 .btncat{
     height: 100px;
 }

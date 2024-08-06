@@ -11,6 +11,7 @@ export default function ProductList() {
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [productName, setProductName] = useState('');
+  const [productCode, setProductCode] = useState('');
   const [user, setUser] = useState('');
   const [productTitle, setProductTitle] = useState('');
   const [productImageLocation, setProductImageLocation] = useState('/productImages/addproduct.png');
@@ -43,6 +44,7 @@ export default function ProductList() {
     setEmail(localStorage.getItem('user_email'));
     setSelectedProduct(product);
     setProductName(product.PRODUCTNAME);
+    setProductCode(product.PRODUCTCODE);
     setProductTitle(product.PRODUCTTITLE);
     setDescriptionTitle(product.DESCRIPTIONTITLE);
     setDescription(product.DESCRIPTION);
@@ -116,7 +118,7 @@ export default function ProductList() {
       const jwt = localStorage.getItem("customerToken");
 
       const postData = await fetch(`${process.env.NEXT_PRIVATE_URL4}${jwt}`, {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-type": "application/json",
           "Access-Control-Allow-Origin": "*",
@@ -190,33 +192,34 @@ export default function ProductList() {
 
   const emailConfirmation = async () => {
     const changeEmail1 = document.getElementById("adminChangeEmail1").value;
-    const changeEmail2 = document.getElementById("adminChangeEmail1").value;
+    const changeEmail2 = document.getElementById("adminChangeEmail2").value;
     let success_message_modal = document.getElementById("success_message_modal");
-    const customerEmail = localStorage.getItem("user_email");
+    let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+    let warning_message_modal = document.getElementById("warning_message_modal");
+    let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
     const customer_id = localStorage.getItem("customer_id");
 
     if (changeEmail1 == changeEmail2) {
-      localStorage.setItem("user_email", changeEmail1);
 
-      if (customerEmail) {
+      if (changeEmail1) {
         try {
 
           const payload = {
             userId: customer_id,
-            email: customerEmail,
+            email: changeEmail1,
           };
 
           const response = await fetch(`${process.env.NEXT_PUBLIC_URL18}`, {
             method: 'PATCH',
             headers: {
-              'Content-Type': 'customerDetails/json',
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
           });
 
           const result = await response.json();
           if (result.message == "Email updated successfully!") {
-            localStorage.setItem('user_email', result.updateEmail);
+            localStorage.setItem('user_email', result.updatedEmail);
             successMessageModal = new bootstrap.Modal(success_message_modal);
             successMsgDescriptionHead.innerText = "Email updated successfully!";
             success_message_modal.addEventListener('hidden.bs.modal', () => {
@@ -228,8 +231,20 @@ export default function ProductList() {
           console.error('Error updating cutomer email:', error);
         }
       } else {
-        alert("Please enter your email correctly!");
+        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+        warningMsgDescriptionHead.innerText = "Please enter your email correctly!";
+        warning_message_modal.addEventListener('hidden.bs.modal', () => {
+          assveca.show();
+        });
+        warningMessageModal.show();
       }
+    } else {
+      warningMessageModal = new bootstrap.Modal(warning_message_modal);
+      warningMsgDescriptionHead.innerText = "Enter the same email address!";
+      warning_message_modal.addEventListener('hidden.bs.modal', () => {
+        assveca.show();
+      });
+      warningMessageModal.show();
     }
   }
 

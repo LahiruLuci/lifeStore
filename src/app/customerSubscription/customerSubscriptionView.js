@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client"
 import SuccessMessageModal from "../mod/SuccessMessageModal";
+import WarningMessageModal from "../mod/WarningMessageModal";
 import CustomerSubscriptionTableRows from "./customerSubscriptionTable";
 import { useEffect, useState } from "react";
 
@@ -31,6 +32,9 @@ export default function CustomerSubscriptionView() {
     let successMessageModal;
     let success_message_modal;
     let successMsgDescriptionHead;
+    let warningMessageModal;
+    let warning_message_modal;
+    let warningMsgDescriptionHead;
 
     useEffect(() => {
 
@@ -39,6 +43,8 @@ export default function CustomerSubscriptionView() {
         if (isBrowser) {
             success_message_modal = document.getElementById("success_message_modal");;
             successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+            warning_message_modal = document.getElementById("warning_message_modal");;
+            warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         }
     }, [isBrowser]);
 
@@ -71,6 +77,14 @@ export default function CustomerSubscriptionView() {
         setSubscriptionId(subscription.SUBSCRIPTIONID);
     };
 
+    const handleSubscriptionsEmailSendClick = (subscription) => {
+        setSelectedsubscription(subscription);
+        setSubscriptionId(subscription.SUBSCRIPTIONID);
+        setProductName(subscription.PRODUCTNAME);
+        setCreatedDateTime(subscription.CREATEDDATETIME);
+        setLicensekey(subscription.LICENSEKEY);
+    };
+
     const handleUnsubscribeConfirm = async () => {
 
         let user = localStorage.getItem('customer_id');
@@ -87,7 +101,7 @@ export default function CustomerSubscriptionView() {
                 description,
             };
 
-            const patchData1 = await fetch(`${abc}`, {
+            const postData = await fetch(`${abc}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -95,7 +109,7 @@ export default function CustomerSubscriptionView() {
                 body: JSON.stringify(payload1),
             });
 
-            const result1 = await patchData1.json();
+            const result1 = await postData.json();
             if (result1.message === "success!") {
                 const payload2 = {
                     user,
@@ -104,7 +118,7 @@ export default function CustomerSubscriptionView() {
                     statusId,
                 };
 
-                const patchData2 = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
+                const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
@@ -112,7 +126,7 @@ export default function CustomerSubscriptionView() {
                     body: JSON.stringify(payload2),
                 });
 
-                const result2 = await patchData2.json();
+                const result2 = await patchData.json();
                 if (result2.message === "success!") {
                     const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result2.subscriptionId);
                     setSubscriptions(updatedSubscriptions);
@@ -122,6 +136,13 @@ export default function CustomerSubscriptionView() {
                         window.location.href = '/customerSubscription';
                     });
                     successMessageModal.show();
+                } else {
+                    warningMsgDescriptionHead.innerText = "Something Went Wrong!.";
+                    warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                    warning_message_modal.addEventListener('hidden.bs.modal', () => {
+                        window.location.href = '/customerSubscription';
+                    });
+                    warningMessageModal.show();
                 }
             } else {
                 successMsgDescriptionHead.innerText = "Something Wrong with Product Unsubscription.";
@@ -138,6 +159,59 @@ export default function CustomerSubscriptionView() {
 
     };
 
+    const handleEmailSendConfirm = async () => {
+
+        let user = localStorage.getItem('customer_id');
+        let email = localStorage.getItem('user_email');
+        let description = "Subscription Details";
+
+        try {
+
+            const payload1 = {
+                user,
+                email,
+                subscriptionId,
+                licensekey,
+                productName,
+                createdDateTime,
+                description,
+            };
+
+            const patchData = await fetch(`${abc}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload1),
+            });
+
+            const result = await patchData.json();
+            if (result.message === "success!") {
+
+                    const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result.subscriptionId);
+                    setSubscriptions(updatedSubscriptions);
+                    successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
+                    successMessageModal = new bootstrap.Modal(success_message_modal);
+                    success_message_modal.addEventListener('hidden.bs.modal', () => {
+                        window.location.href = '/adminSubscription';
+                    });
+                    successMessageModal.show();
+
+            } else {
+                warningMsgDescriptionHead.innerText = "Something Wrong with Email Sending.";
+                warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                warning_message_modal.addEventListener('hidden.bs.modal', () => {
+                    window.location.href = '/adminSubscription';
+                });
+                warningMessageModal.show();
+            }
+
+        } catch (error) {
+            console.error('Error Unsubscribiung product:', error);
+        }
+
+    };
+
     return (
         <>
             <div className="col-12 mt-3 mb-3 p-3 text-left">
@@ -146,7 +220,7 @@ export default function CustomerSubscriptionView() {
             <div className="container-fluid align-content-center justify-content-center">
                 <div className="col-12">
                     <div className="text-black row p-2">
-                        {loading ? <p>Loading...</p> : <CustomerSubscriptionTableRows customerSubscriptions={subscriptions} onCustomerSubscriptionsClick={handleSubscriptionsClick} onCustomerSubscriptionsUnsubscribeClick={handleSubscriptionsUnsubscribeClick} />}
+                        {loading ? <p>Loading...</p> : <CustomerSubscriptionTableRows customerSubscriptions={subscriptions} onCustomerSubscriptionsClick={handleSubscriptionsClick} onCustomerSubscriptionsUnsubscribeClick={handleSubscriptionsUnsubscribeClick} onCustomerSubscriptionsEmailSendClick={handleSubscriptionsEmailSendClick} />}
                         {/* <CustomerSubscriptionTableRows/> */}
                     </div>
                 </div>
@@ -226,7 +300,47 @@ export default function CustomerSubscriptionView() {
                 </div>
             </div>
 
+            <div class="modal" tabIndex="-1" id="email_send_message_modal">
+                <div class="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
+                    <div class="modal-content">
+                        <div class="modal-header bg-success">
+                            <h5 class="modal-title text01 w-100">
+                                <i class="bi bi-question-circle msgHeaderTitle text-white"></i>&nbsp;<span>CONFIRMATION !</span>
+                            </h5>
+                            <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row g-2">
+                                <div class="col-12">
+                                    <h3 class="form-label text-center">
+                                        <span class="text03" id="emailMsgDescriptionHead"></span><br />
+                                        <span class="text06" id="emailMsgDescriptionHead2"></span>
+                                    </h3><br /><br />
+                                    <div className="col-12">
+                                        <div className="row justify-content-center">
+                                            <div class="col-4 p-3">
+                                                <div class="row justify-content-center">
+                                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" onClick={handleEmailSendConfirm}>
+                                                        YES</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 p-3">
+                                                <div class="row justify-content-center">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <SuccessMessageModal />
+            <WarningMessageModal />
         </>
     );
 

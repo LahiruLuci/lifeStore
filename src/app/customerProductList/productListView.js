@@ -185,31 +185,32 @@ export default function ProductList() {
     const changeEmail1 = document.getElementById("changeEmail1").value;
     const changeEmail2 = document.getElementById("changeEmail2").value;
     let success_message_modal = document.getElementById("success_message_modal");
-    const customerEmail = localStorage.getItem("user_email");
+    let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+    let warning_message_modal = document.getElementById("warning_message_modal");
+    let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
     const customer_id = localStorage.getItem("customer_id");
 
     if (changeEmail1 == changeEmail2) {
-      localStorage.setItem("user_email", changeEmail1);
 
-      if (customerEmail) {
+      if (changeEmail1) {
         try {
 
           const payload = {
             userId: customer_id,
-            email: customerEmail,
+            email: changeEmail1,
           };
 
           const response = await fetch(`${process.env.NEXT_PUBLIC_URL18}`, {
             method: 'PATCH',
             headers: {
-              'Content-Type': 'customerDetails/json',
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify(payload),
           });
 
           const result = await response.json();
           if (result.message == "Email updated successfully!") {
-            localStorage.setItem('user_email', result.updateEmail);
+            localStorage.setItem('user_email', result.updatedEmail);
             successMessageModal = new bootstrap.Modal(success_message_modal);
             successMsgDescriptionHead.innerText = "Email updated successfully!";
             success_message_modal.addEventListener('hidden.bs.modal', () => {
@@ -221,8 +222,20 @@ export default function ProductList() {
           console.error('Error updating cutomer email:', error);
         }
       } else {
-        alert("Please enter your email correctly!");
+        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+        warningMsgDescriptionHead.innerText = "Please enter your email correctly!";
+        warning_message_modal.addEventListener('hidden.bs.modal', () => {
+          ssveca.show();
+        });
+        warningMessageModal.show();
       }
+    } else {
+      warningMessageModal = new bootstrap.Modal(warning_message_modal);
+      warningMsgDescriptionHead.innerText = "Enter the same email address!";
+      warning_message_modal.addEventListener('hidden.bs.modal', () => {
+        ssveca.show();
+      });
+      warningMessageModal.show();
     }
   }
 
@@ -297,7 +310,9 @@ export default function ProductList() {
 
   function SubscriptionsSubscribeViewEmailAsk() {
 
-    if (!localStorage.getItem('user_email')) {
+    if (email === null || email === '') {
+      SubscriptionsSubscribeViewEmailChangeAsk();
+    } else {
       const productSubscribeEmailSelectionMessageModal = document.getElementById("product_subscribe_email_selection_message_modal");
       const subscribeEmailSelectionMsgDescriptionHead1 = document.getElementById("subscribeEmailSelectionMsgDescriptionHead1");
       const subscribeEmailSelectionMsgDescriptionHead2 = document.getElementById("subscribeEmailSelectionMsgDescriptionHead2");
@@ -307,8 +322,6 @@ export default function ProductList() {
       subscribeEmailSelectionMsgDescriptionHead3.innerText = "With the following email address for \n User : " + user;
       ssvea = new bootstrap.Modal(productSubscribeEmailSelectionMessageModal);
       ssvea.show();
-    } else {
-      SubscriptionsSubscribeViewEmailChangeAsk();
     }
 
   }
