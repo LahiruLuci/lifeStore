@@ -95,7 +95,7 @@ export default function HelpView() {
                                             <span>
                                                 If you have further questions, please send an e-mail, after that we will answer you.
                                             </span><br />
-                                            <li className="list-group-item"><a href="mailto:binuherath24@gmailcom?subject=Requsting%20for%20help!&body=Type%20here%20about%20your%20issue%20with%20the%20kaspersky" className="fw-bold text-danger">binuherath24@gmailcom</a></li>
+                                            <li className="list-group-item"><a href="mailto:1212@slt.com.lk?subject=Requsting%20for%20help!&body=Type%20here%20about%20your%20issue%20with%20the%20kaspersky" className="fw-bold text-danger">1212@slt.com.lk</a></li>
                                         </ul>
                                     </div>
                                 </div>
