@@ -15,8 +15,50 @@ export async function getSubscribedUsersProps() {
 }
 
 const AuditTraceSubscribedTable = ({ subscribedUsers }) => {
+
+    const auditTraceHome = () => {
+
+        const auditTracePanel = document.getElementById("auditTracePanel");
+        const auditTraceSubscribedTable = document.getElementById("auditTraceSubscribedTable");
+
+        auditTracePanel.classList.remove("d-none");
+        auditTraceSubscribedTable.classList.add("d-none");
+    }
+
     if (!subscribedUsers || !Array.isArray(subscribedUsers) || subscribedUsers.length === 0) {
-        return <p></p>;
+        return (
+            <>
+                <div id="auditTraceSubscribedTable" className="d-none">
+                    <div className="col-12 mt-3 p-3">
+                        <span className="title21" onClick={auditTraceHome}><i class="bi bi-arrow-bar-left"></i>&nbsp;Audit Trace /</span><span className="title06"> Subscribed</span>
+                    </div>
+
+                    <div className="container-fluid align-content-center justify-content-center">
+                        <div className="col-12">
+                            <div className="text-black row p-4">
+
+                                <table>
+                                    <thead>
+                                        <tr className="title11">
+                                            <th scope="col" className="col-2">Broadband ID</th>
+                                            <th scope="col" className="col-3">Product Name</th>
+                                            <th scope="col" className="col-2">Subscribed Date</th>
+                                            <th scope="col" className="col-2">Actions</th>
+                                            <th scope="col" className="col-3"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <p className="text-danger text-center">No data found</p>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
     } else {
 
         const [selectedSubscribedSubscription, setSelectedSubscribedSubscription] = useState({});
@@ -31,15 +73,6 @@ const AuditTraceSubscribedTable = ({ subscribedUsers }) => {
             setProductName(subscribedUser.PRODUCTNAME);
             setLicensekey(subscribedUser.LICENSEKEY);
         };
-
-        const auditTraceHome = () => {
-
-            const auditTracePanel = document.getElementById("auditTracePanel");
-            const auditTraceSubscribedTable = document.getElementById("auditTraceSubscribedTable");
-
-            auditTracePanel.classList.remove("d-none");
-            auditTraceSubscribedTable.classList.add("d-none");
-        }
 
         return (
             <>

@@ -14,9 +14,51 @@ export async function getUnsubscribedUsersProps() {
     };
 }
 
-const AuditTraceUnsubscribedTable = ({unsubscribedUsers}) => {
+const AuditTraceUnsubscribedTable = ({ unsubscribedUsers }) => {
+
+    const auditTraceHome = () => {
+        const auditTracePanel = document.getElementById("auditTracePanel");
+        const auditTraceUnsubscribedTable = document.getElementById("auditTraceUnsubscribedTable");
+
+        auditTracePanel.classList.remove("d-none");
+        auditTraceUnsubscribedTable.classList.add("d-none");
+    }
+
     if (!unsubscribedUsers || !Array.isArray(unsubscribedUsers) || unsubscribedUsers.length === 0) {
-        return <p></p>;
+        return (
+            <>
+                <div id="auditTraceUnsubscribedTable" className="d-none">
+                    <div className="col-12 mt-3 p-3">
+                        <span className="title21" onClick={auditTraceHome}><i class="bi bi-arrow-bar-left"></i>&nbsp;Audit Trace /</span><span className="title06"> Unsubscribed</span>
+                    </div>
+
+                    <div className="container-fluid align-content-center justify-content-center">
+                        <div className="col-12">
+                            <div className="text-black row p-4">
+
+                                <table>
+                                    <thead>
+                                        <tr className="title11">
+                                            <th scope="col" className="col-2">Broadband ID</th>
+                                            <th scope="col" className="col-3">Product Name</th>
+                                            <th scope="col" className="col-2">Unsubscribed Date</th>
+                                            <th scope="col" className="col-2">Actions</th>
+                                            <th scope="col" className="col-3"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <p className="text-danger text-center">No data found</p>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </>
+        );
     } else {
 
         const [selectedUnsubscribedSubscription, setSelectedUnsubscribedSubscription] = useState({});
@@ -31,19 +73,6 @@ const AuditTraceUnsubscribedTable = ({unsubscribedUsers}) => {
             setProductName(unsubscribedUser.PRODUCTNAME);
             setLicensekey(unsubscribedUser.LICENSEKEY);
         };
-
-        const auditTraceHome = () => {
-            const auditTracePanel = document.getElementById("auditTracePanel");
-            const auditTraceUnsubscribedTable = document.getElementById("auditTraceUnsubscribedTable");
-
-            auditTracePanel.classList.remove("d-none");
-            auditTraceUnsubscribedTable.classList.add("d-none");
-        }
-
-        // const onAdminEditViewClick = useCallback((allUser) => {
-        //     EditAllUsersView();
-        //     onAdminEditClick(allUser);
-        // }, [onAdminEditClick]);
 
         return (
             <>

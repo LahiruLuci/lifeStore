@@ -25,13 +25,13 @@ export default function AuditTraceView() {
     const [isEntireDatabaseChecked, setIsEntireDatabaseChecked] = useState(false);
     function formatDateToString(date) {
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+        const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
     }
     
     const end = new Date();
-    const start = new Date(end.getTime() - 1 * 24 * 60 * 60 * 1000); // 1 day earlier
+    const start = new Date(end.getTime() - 1 * 24 * 60 * 60 * 1000); 
     
     const formattedStart = formatDateToString(start);
     const formattedEnd = formatDateToString(end);
@@ -246,6 +246,7 @@ export default function AuditTraceView() {
                 </div>
 
             </div>
+            <p className="text-center text-danger text-large" id="auditTraceDataTracker"></p>
             <AuditTraceAllTable allUsers={filteredAllUsers} />
             <AuditTraceSubscribedTable subscribedUsers={filteredSubscribedUsers} />
             <AuditTraceUnsubscribedTable unsubscribedUsers={filteredUnsubscribedUsers} />

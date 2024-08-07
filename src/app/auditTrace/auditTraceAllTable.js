@@ -15,8 +15,51 @@ export async function getAllUsersProps() {
 }
 
 const AuditTraceAllTable = ({ allUsers }) => {
+
+    const auditTraceHome = () => {
+        const auditTracePanel = document.getElementById("auditTracePanel");
+        const auditTraceAllTable = document.getElementById("auditTraceAllTable");
+
+        auditTracePanel.classList.remove("d-none");
+        auditTraceAllTable.classList.add("d-none");
+    }
+
     if (!allUsers || !Array.isArray(allUsers) || allUsers.length === 0) {
-        return <p className="text-center text-danger text-large" id="auditTraceDataTracker">No details in selected date range</p>;
+        return (
+            <>
+                <div id="auditTraceAllTable" className="d-none">
+                    <div className="col-12 mt-3 p-3">
+                        <span className="title21" onClick={auditTraceHome}><i class="bi bi-arrow-bar-left"></i>&nbsp;Audit Trace /</span><span className="title06"> All</span>
+                    </div>
+
+                    <div className="container-fluid align-content-center justify-content-center">
+                        <div className="col-12">
+                            <div className="text-black row p-4">
+
+                                <table>
+                                    <thead>
+                                        <tr className="title11">
+                                            <th scope="col" className="col-2">Broadband ID</th>
+                                            <th scope="col" className="col-2">Product Name</th>
+                                            <th scope="col" className="col-2">Subscribed Date</th>
+                                            <th scope="col" className="col-2">Unsubscribed Date</th>
+                                            <th scope="col" className="col-1">Actions</th>
+                                            <th scope="col" className="col-3"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <p className="text-danger text-center">No data found</p>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </>
+        );
     } else {
 
         const [selectedAllSubscription, setSelectedAllSubscription] = useState({});
@@ -34,22 +77,8 @@ const AuditTraceAllTable = ({ allUsers }) => {
             setStatus(allUser.STATUS);
         };
 
-        const auditTraceHome = () => {
-            const auditTracePanel = document.getElementById("auditTracePanel");
-            const auditTraceAllTable = document.getElementById("auditTraceAllTable");
-
-            auditTracePanel.classList.remove("d-none");
-            auditTraceAllTable.classList.add("d-none");
-        }
-
-        // const onAdminEditViewClick = useCallback((allUser) => {
-        //     EditAllUsersView();
-        //     onAdminEditClick(allUser);
-        // }, [onAdminEditClick]);
-
         return (
             <>
-                <p className="text-center text-danger text-large" id="auditTraceDataTracker"></p>
                 <div id="auditTraceAllTable" className="d-none">
                     <div className="col-12 mt-3 p-3">
                         <span className="title21" onClick={auditTraceHome}><i class="bi bi-arrow-bar-left"></i>&nbsp;Audit Trace /</span><span className="title06"> All</span>
@@ -90,7 +119,7 @@ const AuditTraceAllTable = ({ allUsers }) => {
                                                         )}
 
                                                     </>
-                                                ) : (
+                                                ) : allUser.STATUS == 3 ? (
                                                     <>
                                                         <td>{(allUser.CREATEDDATETIME).toString().split('T')[0]}</td>
                                                         <td>-</td>
@@ -101,6 +130,20 @@ const AuditTraceAllTable = ({ allUsers }) => {
                                                         ) : (
                                                             <>
                                                                 <td>Subscribed by Admin</td>
+                                                            </>
+                                                        )}
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <td>{(allUser.CREATEDDATETIME).toString().split('T')[0]}</td>
+                                                        <td>-</td>
+                                                        {allUser.USER == allUser.CREATEDUSER ? (
+                                                            <>
+                                                                <td>Inactive</td>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <td>Suspended by System</td>
                                                             </>
                                                         )}
                                                     </>
@@ -165,11 +208,22 @@ const AuditTraceAllTable = ({ allUsers }) => {
                                                 </div>
 
                                             </>
-                                        ) : (
+                                        ) : status == 3 ? (
                                             <>
                                                 <div className="col-12">
                                                     <div className="row">
                                                         <span className="title13 col-12 col-lg-5">License Key</span>
+                                                        <div className="mb-1 col-12 col-lg-7">
+                                                            <input type="text" className="form-control" id="productSubscribedLicenseKey" value={licensekey} onChange={(e) => setLicensekey(e.target.value)} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="col-12">
+                                                    <div className="row">
+                                                        <span className="title13 col-12 col-lg-5">License Key / <span className="text-danger">Suspended</span></span>
                                                         <div className="mb-1 col-12 col-lg-7">
                                                             <input type="text" className="form-control" id="productSubscribedLicenseKey" value={licensekey} onChange={(e) => setLicensekey(e.target.value)} />
                                                         </div>

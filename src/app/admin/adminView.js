@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import AdminTable from "./adminTableView";
+import bcrypt from 'bcryptjs';
 import { getAdminsProps } from './adminTableView';
 
 export default function AdminView() {
@@ -52,11 +53,13 @@ export default function AdminView() {
         warningMessageModal = new bootstrap.Modal(warning_message_modal);
         successMessageModal = new bootstrap.Modal(success_message_modal);
         const password = bcrypt.hashSync(normalPassword, 10);
+        const adminId = localStorage.getItem('user_id');
 
         try {
 
             const paycreate = {
                 userId,
+                adminId,
                 password,
                 initials,
                 preferredName,
@@ -96,11 +99,13 @@ export default function AdminView() {
     const updateAdmin = async () => {
         const normalPassword = document.getElementById("editAdminPassword1").value;
         const password = bcrypt.hashSync(normalPassword, 10);
+        const adminId = localStorage.getItem('user_id');
 
         try {
 
             const payload = {
                 userId,
+                adminId,
                 mobile,
                 password,
             };
