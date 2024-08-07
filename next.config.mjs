@@ -34,7 +34,7 @@ const nextConfig = {
         'NEXT_PRIVATE_URL1': 'http://124.43.179.40:3000/api/auth/jwt-val?jwt=',
         'NEXT_PRIVATE_URL2': 'http://124.43.179.40:3000/api/auth/jwt-rq',
         'NEXT_PRIVATE_URL3': 'http://124.43.179.40:3000/api/auth/jwt-admin-rq',
-        'NEXT_PRIVATE_URL4': 'http://124.43.179.40:3000/api/auth/jwt-val?jwt=',
+        'NEXT_PRIVATE_URL4': 'http://124.43.179.40:3000/api/v1/kss/activate',
 
         'EXPIRY_TIME1': '3600000',
         'EXPIRY_TIME2': '10000',

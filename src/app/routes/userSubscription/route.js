@@ -26,7 +26,7 @@ export async function GET(request){
 }
 
 export async function POST(req) {
-  const {subscriberId, user,admin_id, productName, licensekey, amount} = await req.json();
+  const {subscriberId, user, admin_id, productName, licensekey, amount} = await req.json();
 
     try {
 

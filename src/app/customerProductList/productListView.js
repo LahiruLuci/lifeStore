@@ -104,14 +104,11 @@ export default function ProductList() {
     const warning_message_modal = document.getElementById("warning_message_modal");
     const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
     const success_message_modal = document.getElementById("success_message_modal");
-    const subscriberId = `${user}_${productCode}_${generateUUID()}`;
     const email = localStorage.getItem("user_email");
-    alert(subscriberId);
 
     const payload1 = {
-      email,
-      productName,
       productCode,
+      email,
       amount,
     };
 
@@ -119,9 +116,10 @@ export default function ProductList() {
 
       const jwt = localStorage.getItem("customerToken");
 
-      const postData1 = await fetch(`${/*process.env.NEXT_PRIVATE_URL4*/abc}${jwt}`, {
-        method: "GET",
+      const postData1 = await fetch(`${process.env.NEXT_PRIVATE_URL4}`, {
+        method: "POST",
         headers: {
+          "Authorization": `Bearer ${jwt}`,
           "Content-type": "application/json",
           "Access-Control-Allow-Origin": "*",
         },
@@ -130,8 +128,10 @@ export default function ProductList() {
       const result1 = await postData1.json();
       if (result1.success) {
         const resultProps = result1.response;
-        if (resultProps.role == "customer" && !resultProps.subscriberId == null || resultProps.role == "customer" && !resultProps.subscriberId == "") {
+        if (!resultProps.subscriptionId == null || !resultProps.subscriptionId == "") {
           // alert(resultProps.subscriberId + " "+ resultProps.role + " "+ resultProps.jwt);
+          const subscriberId = resultProps.subscriptionId;
+          const licensekey = resultProps.key;
 
           const payload2 = {
             subscriberId,
