@@ -56,44 +56,6 @@ export default function ProductList() {
     singleProductViewId.classList.add("d-none");
   }
 
-  const BuySelectedPtoduct = async () => {
-    ssva.hide();
-    let user = localStorage.getItem('customer_id');
-
-    try {
-
-      const paycreate = {
-        user,
-        productName,
-        licensekey,
-        amount,
-      };
-
-      const postData = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(paycreate),
-      });
-
-      const result = await postData.json();
-      if (result.message === "Product Subscribed Successfully!") {
-        successMsgDescriptionHead.innerText = "Product Subscribed Successfully.";
-
-        success_message_modal.addEventListener('hidden.bs.modal', () => {
-          window.location.href = '/customerSubscription';
-        });
-
-        successMessageModal.show();
-      }
-
-    } catch (error) {
-      console.error('Error adding product:', error);
-    }
-
-  };
-
   const generateUUID = () => {
     return Math.floor(1000 + Math.random() * 9000).toString();
   };
@@ -105,11 +67,12 @@ export default function ProductList() {
     const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
     const success_message_modal = document.getElementById("success_message_modal");
     const email = localStorage.getItem("user_email");
+    let user = localStorage.getItem('customer_id');
 
     const payload1 = {
-      productCode,
+      productCode: Number(productCode),
       email,
-      amount,
+      amount: parseFloat(amount).toFixed(2),
     };
 
     try {
@@ -121,11 +84,12 @@ export default function ProductList() {
         headers: {
           "Authorization": `Bearer ${jwt}`,
           "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "*"
         },
         body: JSON.stringify(payload1),
       });
       const result1 = await postData1.json();
+      alert(result1.success);
       if (result1.success) {
         const resultProps = result1.response;
         if (!resultProps.subscriptionId == null || !resultProps.subscriptionId == "") {
