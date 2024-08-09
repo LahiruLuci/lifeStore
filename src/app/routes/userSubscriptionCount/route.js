@@ -18,9 +18,9 @@ export async function POST(req) {
 
       let productId = productResult[0].PRODUCTID;
 
-      const selectSubscriptionsCountQuery = `SELECT COUNT(*) AS SUBSCRIPTIONCOUNT FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE s.USER = ? AND s.PRODUCT = ?`;
+      const selectSubscriptionsCountQuery = `SELECT COUNT(*) AS SUBSCRIPTIONCOUNT FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE s.USER = ? AND s.STATUS = ? AND s.PRODUCT = ?`;
 
-      const [countResult] = await db.execute(selectSubscriptionsCountQuery, [user, productId]);
+      const [countResult] = await db.execute(selectSubscriptionsCountQuery, [user, '3', productId]);
 
       db.release();
 

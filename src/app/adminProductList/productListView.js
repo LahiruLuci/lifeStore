@@ -285,7 +285,7 @@ export default function ProductList() {
 
   function SubscriptionsSubscribeViewEmailAsk() {
 
-    if (email === null || email === '') {
+    if (email == null || email == '') {
       SubscriptionsSubscribeViewEmailChangeAsk();
     } else {
       const productSubscribeEmailSelectionMessageModal = document.getElementById("admin_product_subscribe_email_selection_message_modal");

@@ -482,7 +482,7 @@ export default function AdminView() {
                                     <div className="row">
                                         <span className="title13 col-12 col-lg-5">Admin ID</span>
                                         <div className="mb-1 col-12 col-lg-7">
-                                            <input type="text" className="form-control" id="adminId" />
+                                            <input type="text" className="form-control" style={{ "::placeholder": { color: "#990000" } }}  id="adminId" placeholder="*Do not use this '-' symbol*" />
                                         </div>
                                     </div>
                                 </div>

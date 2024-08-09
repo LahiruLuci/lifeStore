@@ -30,23 +30,7 @@ export default function CustomerSubscriptionView() {
     const [isBrowser, setIsBrowser] = useState(false);
 
     let successMessageModal;
-    let success_message_modal;
-    let successMsgDescriptionHead;
     let warningMessageModal;
-    let warning_message_modal;
-    let warningMsgDescriptionHead;
-
-    useEffect(() => {
-
-        setIsBrowser(typeof window != undefined);
-
-        if (isBrowser) {
-            success_message_modal = document.getElementById("success_message_modal");;
-            successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
-            warning_message_modal = document.getElementById("warning_message_modal");;
-            warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
-        }
-    }, [isBrowser]);
 
     useEffect(() => {
 
@@ -89,14 +73,16 @@ export default function CustomerSubscriptionView() {
 
         let user = localStorage.getItem('customer_id');
         let statusId = 4;
-        let description = "unsubscribe";
+        const success_message_modal = document.getElementById("success_message_modal");;
+        const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+        const warning_message_modal = document.getElementById("warning_message_modal");;
+        const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         const jwt = localStorage.getItem("customerToken");
 
         try {
 
             const payload1 = {
                 subscriptionId,
-                description,
             };
 
             const postData = await fetch(`${process.env.NEXT_PRIVATE_URL5}`, {
@@ -110,7 +96,7 @@ export default function CustomerSubscriptionView() {
             });
 
             const result1 = await postData.json();
-            if (result1.message == "success!") {
+            if (result1.success) {
                 const payload2 = {
                     user,
                     subscriptionId,
@@ -163,6 +149,10 @@ export default function CustomerSubscriptionView() {
 
         let user = localStorage.getItem('customer_id');
         let email = localStorage.getItem('user_email');
+        const success_message_modal = document.getElementById("success_message_modal");;
+        const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+        const warning_message_modal = document.getElementById("warning_message_modal");;
+        const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         let description = "Subscription Details";
 
         try {

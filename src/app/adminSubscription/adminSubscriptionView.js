@@ -34,21 +34,7 @@ export default function AdminSubscriptionView() {
     const [isBrowser, setIsBrowser] = useState(false);
 
     let successMessageModal;
-    let success_message_modal;
-    let successMsgDescriptionHead;
     let warningMessageModal;
-    let warning_message_modal;
-    let warningMsgDescriptionHead;
-
-    useEffect(() => {
-        setIsBrowser(typeof window != undefined);
-        if (isBrowser) {
-            success_message_modal = document.getElementById("success_message_modal");;
-            successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
-            warning_message_modal = document.getElementById("warning_message_modal");;
-            warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
-        }
-    }, [isBrowser]);
 
     useEffect(() => {
 
@@ -92,29 +78,31 @@ export default function AdminSubscriptionView() {
         let user = localStorage.getItem('customer_id');
         let admin_id = localStorage.getItem('admin_id');
         let statusId = 4;
-        let description = "Unsubscribe";
+        const jwt = localStorage.getItem("customerToken");
+        const success_message_modal = document.getElementById("success_message_modal");;
+        const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+        const warning_message_modal = document.getElementById("warning_message_modal");;
+        const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
 
         try {
 
             const payload1 = {
-                user,
-                admin_id,
-                subscriptionId,
-                licensekey,
-                statusId,
-                description,
+                subscriptionId: subscriptionId,
             };
-
-            const postData = await fetch(`${abc}`, {
+            const postData = await fetch(`${process.env.NEXT_PRIVATE_URL5}`, {
                 method: "POST",
                 headers: {
+                    "Authorization": `Bearer ${jwt}`,
                     "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
                 },
                 body: JSON.stringify(payload1),
             });
 
             const result1 = await postData.json();
-            if (result1.message === "success!") {
+
+            if (result1.success) {
+
                 const payload2 = {
                     user,
                     admin_id,
@@ -126,13 +114,13 @@ export default function AdminSubscriptionView() {
                 const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
                     method: "PATCH",
                     headers: {
-                        "Content-Type": "subsciptions/json",
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify(payload2),
                 });
 
                 const result2 = await patchData.json();
-                if (result2.message === "success!") {
+                if (result2.message == "success!" && result2.description == "unsubscribed") {
                     const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result2.subscriptionId);
                     setSubscriptions(updatedSubscriptions);
                     successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
@@ -169,6 +157,10 @@ export default function AdminSubscriptionView() {
         let user = localStorage.getItem('customer_id');
         let adminId = localStorage.getItem('admin_id');
         let email = localStorage.getItem('user_email');
+        const success_message_modal = document.getElementById("success_message_modal");;
+        const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+        const warning_message_modal = document.getElementById("warning_message_modal");;
+        const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         let description = "Subscription Details";
 
         try {
@@ -195,14 +187,14 @@ export default function AdminSubscriptionView() {
             const result = await patchData.json();
             if (result.message === "success!") {
 
-                    const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result.subscriptionId);
-                    setSubscriptions(updatedSubscriptions);
-                    successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
-                    successMessageModal = new bootstrap.Modal(success_message_modal);
-                    success_message_modal.addEventListener('hidden.bs.modal', () => {
-                        window.location.href = '/adminSubscription';
-                    });
-                    successMessageModal.show();
+                const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result.subscriptionId);
+                setSubscriptions(updatedSubscriptions);
+                successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
+                successMessageModal = new bootstrap.Modal(success_message_modal);
+                success_message_modal.addEventListener('hidden.bs.modal', () => {
+                    window.location.href = '/adminSubscription';
+                });
+                successMessageModal.show();
 
             } else {
                 warningMsgDescriptionHead.innerText = "Something Wrong with Email Sending.";
@@ -227,7 +219,7 @@ export default function AdminSubscriptionView() {
             <div className="container-fluid align-content-center justify-content-center">
                 <div className="col-12">
                     <div className="text-black row p-4">
-                        {loading ? <p>Loading...</p> : <AdminSubscriptionTableRows adminSubscriptions={subscriptions} onAdminSubscriptionsClick={handleSubscriptionsClick}  onCustomerSubscriptionsUnsubscribeClick={handleSubscriptionsUnsubscribeClick} onCustomerSubscriptionsEmailSendClick={handleSubscriptionsEmailSendClick} />}
+                        {loading ? <p>Loading...</p> : <AdminSubscriptionTableRows adminSubscriptions={subscriptions} onAdminSubscriptionsClick={handleSubscriptionsClick} onCustomerSubscriptionsUnsubscribeClick={handleSubscriptionsUnsubscribeClick} onCustomerSubscriptionsEmailSendClick={handleSubscriptionsEmailSendClick} />}
                     </div>
                 </div>
             </div>
