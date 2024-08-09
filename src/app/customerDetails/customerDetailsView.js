@@ -2,6 +2,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import SuccessMessageModal from "../mod/SuccessMessageModal";
+import WarningMessageModal from "../mod/WarningMessageModal";
+
 
 const CustomerDetailsView = () => {
 
@@ -13,6 +15,7 @@ const CustomerDetailsView = () => {
   const [customerJoinedDate, setCustomerJoinedDate] = useState('');
 
   let successMessageModal;
+  let warningMessageModal;
 
   useEffect(() => {
     const storedCustomerId = localStorage.getItem('customer_id');
@@ -51,6 +54,9 @@ const CustomerDetailsView = () => {
 
   const updateEmail = async () => {
     let success_message_modal = document.getElementById("success_message_modal");
+    let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+    let warning_message_modal = document.getElementById("warning_message_modal");
+    let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
 
     if (customerEmail) {
       try {
@@ -70,7 +76,7 @@ const CustomerDetailsView = () => {
 
         const result = await response.json();
         if (result.message == "Email updated successfully!") {
-          localStorage.setItem('user_email', result.updateEmail);
+          localStorage.setItem('user_email', result.updatedEmail);
           successMessageModal = new bootstrap.Modal(success_message_modal);
           successMsgDescriptionHead.innerText = "Email updated successfully!";
           success_message_modal.addEventListener('hidden.bs.modal', () => {
@@ -82,7 +88,12 @@ const CustomerDetailsView = () => {
         console.error('Error updating cutomer email:', error);
       }
     } else {
-      alert("Please enter a email first!");
+      warningMessageModal = new bootstrap.Modal(warning_message_modal);
+      warningMsgDescriptionHead.innerText = "Please enter a email first!";
+      warning_message_modal.addEventListener('hidden.bs.modal', () => {
+        window.location.href = '/customerDetails';
+      });
+      warningMessageModal.show();
     }
 
   };
@@ -127,7 +138,7 @@ const CustomerDetailsView = () => {
         </div>
       </div>
       <SuccessMessageModal />
-
+      <WarningMessageModal />
     </>
   );
 }
