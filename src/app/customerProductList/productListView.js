@@ -5,11 +5,13 @@ import Product from "./productView";
 import { getProductsProps } from './productView';
 import Image from "next/image";
 import WarningMessageModal from "../mod/WarningMessageModal";
+import SuccessMessageModal from '../mod/SuccessMessageModal';
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [productId, setProductId] = useState('');
   const [productName, setProductName] = useState('');
   const [productCode, setProductCode] = useState('');
   const [user, setUser] = useState('');
@@ -21,6 +23,8 @@ export default function ProductList() {
   const [licensekey, setLicensekey] = useState('');
   let warningMessageModal;
   let successMessageModal;
+  let successMessageModal2;
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -41,6 +45,7 @@ export default function ProductList() {
     setEmail(localStorage.getItem('user_email'));
     setUser(localStorage.getItem('customer_id'));
     setSelectedProduct(product);
+    setProductId(product.PRODUCTID);
     setProductName(product.PRODUCTNAME);
     setProductCode(product.PRODUCTCODE);
     setDescriptionTitle(product.DESCRIPTIONTITLE);
@@ -64,15 +69,15 @@ export default function ProductList() {
 
     const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
     const warning_message_modal = document.getElementById("warning_message_modal");
-    const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
-    const success_message_modal = document.getElementById("success_message_modal");
+    const successMsgDescriptionHead2 = document.getElementById("successMsgDescriptionHead2");
+    const success_message_modal2 = document.getElementById("success_message_modal2");
     const email = localStorage.getItem("user_email");
     let user = localStorage.getItem('customer_id');
 
     const payload1 = {
       productCode: Number(productCode),
       email,
-      amount: parseFloat(amount).toFixed(2),
+      amount: Number(amount),
     };
 
     try {
@@ -89,20 +94,19 @@ export default function ProductList() {
         body: JSON.stringify(payload1),
       });
       const result1 = await postData1.json();
-      alert(result1.success);
       if (result1.success) {
         const resultProps = result1.response;
         if (!resultProps.subscriptionId == null || !resultProps.subscriptionId == "") {
-          // alert(resultProps.subscriberId + " "+ resultProps.role + " "+ resultProps.jwt);
+
           const subscriberId = resultProps.subscriptionId;
           const licensekey = resultProps.key;
 
           const payload2 = {
             subscriberId,
             user,
-            productName,
+            productId,
             licensekey,
-            amount,
+            amount: Number(amount),
           };
 
           const postData2 = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
@@ -114,12 +118,12 @@ export default function ProductList() {
           });
           const result2 = await postData2.json();
           if (result2.message == "Product Subscribed Successfully!") {
-            successMessageModal = new bootstrap.Modal(success_message_modal);
-            successMsgDescriptionHead.innerText = "Product Subscribed Successfully!";
-            success_message_modal.addEventListener('hidden.bs.modal', () => {
+            successMessageModal2 = new bootstrap.Modal(success_message_modal2);
+            successMsgDescriptionHead2.innerText = "Product Subscribed Successfully!";
+            success_message_modal2.addEventListener('hidden.bs.modal', () => {
               window.location.href = '/customerSubscription';
             });
-            successMessageModal.show();
+            successMessageModal2.show();
           } else {
             warningMessageModal = new bootstrap.Modal(warning_message_modal);
             warningMsgDescriptionHead.innerText = "Subscription proccess Failed.";
@@ -177,8 +181,9 @@ export default function ProductList() {
             localStorage.setItem('user_email', result.updatedEmail);
             successMessageModal = new bootstrap.Modal(success_message_modal);
             successMsgDescriptionHead.innerText = "Email updated successfully!";
+            setEmail(localStorage.getItem('user_email'));
             success_message_modal.addEventListener('hidden.bs.modal', () => {
-              handleBuyNowClick();
+              handleBuyConfirmationClick();
             });
             successMessageModal.show();
           }
@@ -561,7 +566,38 @@ export default function ProductList() {
       </div>
 
       <WarningMessageModal />
+      <SuccessMessageModal />
 
+      <div className="modal" tabIndex="-1" id="success_message_modal2">
+                <div className="modal-dialog position-relative top-0 end-0 p-3" style={{maxWidth: "450px"}}>
+                    <div className="modal-content">
+                        <div className="modal-header bg-success" id="msgModalHeader2">
+                            <h5 className="modal-title text01 w-100">
+                                <span>SUCCESS</span>
+                            </h5>
+                            <button type="button" className="btn-close bg-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+
+                            <div className="row g-2">
+
+                                <div className="col-12">
+                                    <h3 className="form-label text-center">
+                                        <span className="text04" id="successMsgDescriptionHead2"></span><br />
+                                    </h3><br /><br />
+                                    <div className="container col-4 p-3">
+                                        <div className="row justify-content-center">
+                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"
+                                                id="btnText">DONE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </>
   );
 }

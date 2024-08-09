@@ -89,28 +89,28 @@ export default function CustomerSubscriptionView() {
 
         let user = localStorage.getItem('customer_id');
         let statusId = 4;
-        let description = "Unsubscribe";
+        let description = "unsubscribe";
+        const jwt = localStorage.getItem("customerToken");
 
         try {
 
             const payload1 = {
-                user,
                 subscriptionId,
-                licensekey,
-                statusId,
                 description,
             };
 
-            const postData = await fetch(`${abc}`, {
+            const postData = await fetch(`${process.env.NEXT_PRIVATE_URL5}`, {
                 method: "POST",
                 headers: {
+                    "Authorization": `Bearer ${jwt}`,
                     "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
                 },
                 body: JSON.stringify(payload1),
             });
 
             const result1 = await postData.json();
-            if (result1.message === "success!") {
+            if (result1.message == "success!") {
                 const payload2 = {
                     user,
                     subscriptionId,
@@ -118,7 +118,7 @@ export default function CustomerSubscriptionView() {
                     statusId,
                 };
 
-                const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL}/routes/userSubscription`, {
+                const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
@@ -127,7 +127,7 @@ export default function CustomerSubscriptionView() {
                 });
 
                 const result2 = await patchData.json();
-                if (result2.message === "success!") {
+                if (result2.message == "success!" && result2.description == "unsubscribed") {
                     const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result2.subscriptionId);
                     setSubscriptions(updatedSubscriptions);
                     successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
@@ -145,12 +145,12 @@ export default function CustomerSubscriptionView() {
                     warningMessageModal.show();
                 }
             } else {
-                successMsgDescriptionHead.innerText = "Something Wrong with Product Unsubscription.";
-                successMessageModal = new bootstrap.Modal(success_message_modal);
-                success_message_modal.addEventListener('hidden.bs.modal', () => {
+                warningMsgDescriptionHead.innerText = "Something Wrong with Product Unsubscription.";
+                warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                warning_message_modal.addEventListener('hidden.bs.modal', () => {
                     window.location.href = '/customerSubscription';
                 });
-                successMessageModal.show();
+                warningMessageModal.show();
             }
 
         } catch (error) {

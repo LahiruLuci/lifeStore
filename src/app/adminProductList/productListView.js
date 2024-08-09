@@ -10,6 +10,7 @@ export default function ProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [productId, setProductId] = useState('');
   const [productName, setProductName] = useState('');
   const [productCode, setProductCode] = useState('');
   const [user, setUser] = useState('');
@@ -23,6 +24,7 @@ export default function ProductList() {
   const [licensekey, setLicensekey] = useState('');
   let warningMessageModal;
   let successMessageModal;
+  let successMessageModal2;
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -43,6 +45,7 @@ export default function ProductList() {
     setUser(localStorage.getItem('customer_id'));
     setEmail(localStorage.getItem('user_email'));
     setSelectedProduct(product);
+    setProductId(product.PRODUCTID);
     setProductName(product.PRODUCTNAME);
     setProductCode(product.PRODUCTCODE);
     setProductTitle(product.PRODUCTTITLE);
@@ -61,125 +64,82 @@ export default function ProductList() {
     singleAdminProductViewId.classList.add("d-none");
   }
 
-  const BuySelectedPtoduct = async () => {
-    let user = localStorage.getItem('customer_id');
-
-    try {
-
-      const paycreate = {
-        user,
-        productName,
-        licensekey,
-        amount,
-      };
-
-      const postData = await fetch(`${process.env.NEXT_PUBLIC_URL9}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(paycreate),
-      });
-
-      const result = await postData.json();
-      if (result.message === "Product Subscribed Successfully!") {
-        successMsgDescriptionHead.innerText = "Product Subscribed Successfully.";
-
-        success_message_modal.addEventListener('hidden.bs.modal', () => {
-          window.location.href = '/productList';
-        });
-
-        successMessageModal.show();
-      }
-
-    } catch (error) {
-      console.error('Error adding product:', error);
-    }
-
-  };
-
   const handleBuyNowClick = async () => {
 
     const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
     const warning_message_modal = document.getElementById("warning_message_modal");
+    const successMsgDescriptionHead2 = document.getElementById("successMsgDescriptionHead2");
+    const success_message_modal2 = document.getElementById("success_message_modal2");
+    const email = localStorage.getItem("user_email");
     const admin_id = localStorage.getItem("admin_id");
     const user = localStorage.getItem("customer_id");
 
     const payload = {
-      user,
-      productName,
-      productCode,
-      amount,
-      admin_id,
+      productCode: Number(productCode),
+      email,
+      amount: Number(amount),
     };
 
     try {
 
       const jwt = localStorage.getItem("customerToken");
-
-      const postData = await fetch(`${process.env.NEXT_PRIVATE_URL4}${jwt}`, {
+      const postData = await fetch(`${process.env.NEXT_PRIVATE_URL4}`, {
         method: "POST",
         headers: {
+          "Authorization": `Bearer ${jwt}`,
           "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin": "*"
         },
         body: JSON.stringify(payload),
       });
       const result = await postData.json();
       if (result.success) {
         const resultProps = result.response;
-        if (resultProps.role == "customer" && !resultProps.subscriberId == null || resultProps.role == "customer" && !resultProps.subscriberId == "") {
-          // alert(resultProps.subscriberId + " "+ resultProps.role + " "+ resultProps.jwt);
-          setUserId(resultProps.subscriberId);
-          setUserToken(resultProps.jwt);
-          try {
+        if (!resultProps.subscriptionId == null || !resultProps.subscriptionId == "") {
+
+          const subscriberId = resultProps.subscriptionId;
+          const licensekey = resultProps.key;
+
+          const payload2 = {
+            subscriberId,
+            admin_id,
+            user,
+            productId,
+            licensekey,
+            amount: Number(amount),
+          };
+
+          const postData2 = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
+            method: "POST",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(payload2),
+          });
+          const result2 = await postData2.json();
+          if (result2.message == "Product Subscribed Successfully!") {
+            successMessageModal2 = new bootstrap.Modal(success_message_modal2);
+            successMsgDescriptionHead2.innerText = "Product Subscribed Successfully!";
+            success_message_modal2.addEventListener('hidden.bs.modal', () => {
+              window.location.href = '/adminSubscription';
+            });
+            successMessageModal2.show();
+          } else {
             warningMessageModal = new bootstrap.Modal(warning_message_modal);
-            const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${resultProps.subscriberId}`);
-            const systemDetails = await response.json();
-
-            if (systemDetails.error) {
-              warningMsgDescriptionHead.innerText = systemDetails.error;
-              warningMessageModal.show();
-            } else if (systemDetails.length > 0) {
-              if (systemDetails[0].USERID) {
-                const fetchedUSERID = systemDetails[0].USERID;
-                const fetchedUserRole = systemDetails[0].USERROLE;
-                setItemWithExpiry('user_id', fetchedUSERID, expiryTime2);
-                setItemWithExpiry('userRole', fetchedUserRole, expiryTime2);
-                const startTime = new Date();
-                const updatedNow = new Date(startTime.getTime() + 60 * 60 * 1000);
-                localStorage.setItem('SignOutTime', updatedNow.toISOString());
-                if (systemDetails[0].EMAIL) {
-                  const fetchedEmail = systemDetails[0].EMAIL;
-                  setItemWithExpiry('user_email', fetchedEmail, expiryTime1);
-                  setSelectedEmail(fetchedEmail);
-                }
-
-                setSelectedUserRole(fetchedUserRole);
-                LogIn(fetchedUserRole);
-              } else {
-                warningMsgDescriptionHead.innerText = "No user found";
-                warning_message_modal.addEventListener('hidden.bs.modal', () => {
-                  window.location.href = '/logOutView';
-                });
-                warningMessageModal.show();
-              }
-            } else {
-              warningMsgDescriptionHead.innerText = "No user found";
-              warningMessageModal.show();
-            }
-          } catch (error) {
-            warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+            warningMsgDescriptionHead.innerText = "Subscription proccess Failed.";
             warningMessageModal.show();
           }
+
         } else {
-          warningMsgDescriptionHead.innerText = "No user found";
+          warningMessageModal = new bootstrap.Modal(warning_message_modal);
+          warningMsgDescriptionHead.innerText = "Invalid Subscription.";
           warningMessageModal.show();
         }
       } else {
-        warningMsgDescriptionHead.innerText = "Token expired or Invalid token. Please go back to MySlt App and try again!";
+        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+        warningMsgDescriptionHead.innerText = "Something went Wrong!";
         warning_message_modal.addEventListener('hidden.bs.modal', () => {
-          loginMainView.classList.remove("d-none");
+          window.location.href = '/adminProductList';
         });
         warningMessageModal.show();
       }
@@ -222,10 +182,15 @@ export default function ProductList() {
             localStorage.setItem('user_email', result.updatedEmail);
             successMessageModal = new bootstrap.Modal(success_message_modal);
             successMsgDescriptionHead.innerText = "Email updated successfully!";
+            setEmail(localStorage.getItem('user_email'));
             success_message_modal.addEventListener('hidden.bs.modal', () => {
-              handleBuyNowClick();
+              handleBuyConfirmationClick();
             });
             successMessageModal.show();
+          } else {
+            warningMessageModal = new bootstrap.Modal(warning_message_modal);
+            warningMsgDescriptionHead.innerText = result.response;
+            warningMessageModal.show();
           }
         } catch (error) {
           console.error('Error updating cutomer email:', error);
@@ -604,6 +569,37 @@ export default function ProductList() {
       </div>
       <WarningMessageModal />
       <SuccessMessageModal />
+
+      <div className="modal" tabIndex="-1" id="success_message_modal2">
+                <div className="modal-dialog position-relative top-0 end-0 p-3" style={{maxWidth: "450px"}}>
+                    <div className="modal-content">
+                        <div className="modal-header bg-success" id="msgModalHeader2">
+                            <h5 className="modal-title text01 w-100">
+                                <span>SUCCESS</span>
+                            </h5>
+                            <button type="button" className="btn-close bg-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+
+                            <div className="row g-2">
+
+                                <div className="col-12">
+                                    <h3 className="form-label text-center">
+                                        <span className="text04" id="successMsgDescriptionHead2"></span><br />
+                                    </h3><br /><br />
+                                    <div className="container col-4 p-3">
+                                        <div className="row justify-content-center">
+                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"
+                                                id="btnText">DONE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </>
   );
 }

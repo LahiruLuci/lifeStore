@@ -8,7 +8,7 @@ export async function GET(request){
     if (userId) {
         try {
             const db = await pool.getConnection();
-            const query = "SELECT p.PRODUCTNAME, s.SUBSCRIPTIONID, s.PRODUCT, s.LICENSEKEY, s.AMOUNT, s.LASTUPDATEDDATETIME, s.CREATEDDATETIME, st.DESCRIPTION AS STATUSDESCRIPTION,s.LASTUPDATEDUSER FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE USER = ? GROUP BY s.SUBSCRIPTIONID";
+            const query = "SELECT p.PRODUCTID, p.PRODUCTNAME, s.SUBSCRIPTIONID, s.PRODUCT, s.LICENSEKEY, s.AMOUNT, s.LASTUPDATEDDATETIME, s.CREATEDDATETIME, st.DESCRIPTION AS STATUSDESCRIPTION,s.LASTUPDATEDUSER FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE USER = ? GROUP BY s.SUBSCRIPTIONID";
             const [rows] = await db.execute(query, [userId]);
             db.release();
             return NextResponse.json(rows);
@@ -26,24 +26,17 @@ export async function GET(request){
 }
 
 export async function POST(req) {
-  const {subscriberId, user, admin_id, productName, licensekey, amount} = await req.json();
+  const {subscriberId, user, admin_id, productId, licensekey, amount} = await req.json();
 
     try {
 
       const db = await pool.getConnection();
-      const selectProductQuery = "SELECT * FROM product WHERE PRODUCTNAME= ?";
-      const [productResult] = await db.execute(selectProductQuery, productName);
-  
-      const productId = productResult[0].PRODUCTID;
-
-      let subscriptionResult = [];
-
       if(!admin_id === '' || !admin_id === null){
-        const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        subscriptionResult = await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', admin_id, admin_id]);
+        const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', admin_id, admin_id]);
       }else{
-        const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        subscriptionResult = await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', user, user]);
+        const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', user, user]);
       }
 
       db.release();
