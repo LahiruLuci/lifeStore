@@ -28,10 +28,11 @@ export default function AdminSubscriptionView() {
     const [subscriptions, setSubscriptions] = useState('');
     const [selectedsubscription, setSelectedsubscription] = useState('');
     const [subscriptionId, setSubscriptionId] = useState('');
+    const [productCode, setProductCode] = useState('');
     const [productName, setProductName] = useState('');
     const [createdDateTime, setCreatedDateTime] = useState('');
     const [licensekey, setLicensekey] = useState('');
-    const [isBrowser, setIsBrowser] = useState(false);
+    const [email, setEmail] = useState('');
 
     let successMessageModal;
     let warningMessageModal;
@@ -68,9 +69,11 @@ export default function AdminSubscriptionView() {
     const handleSubscriptionsEmailSendClick = (subscription) => {
         setSelectedsubscription(subscription);
         setSubscriptionId(subscription.SUBSCRIPTIONID);
-        setProductName(subscription.PRODUCTNAME);
-        setCreatedDateTime(subscription.CREATEDDATETIME);
+        if (localStorage.getItem('user_email')) {
+            setEmail(localStorage.getItem('user_email'));
+        }
         setLicensekey(subscription.LICENSEKEY);
+        setProductCode(subscription.PRODUCTCODE);
     };
 
     const handleUnsubscribeConfirm = async () => {
@@ -111,7 +114,7 @@ export default function AdminSubscriptionView() {
                     statusId,
                 };
 
-                const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
+                const patchData = await fetch(`${process.env.NEXT_PUBLIC_URL9}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
@@ -154,59 +157,55 @@ export default function AdminSubscriptionView() {
 
     const handleEmailSendConfirm = async () => {
 
-        let user = localStorage.getItem('customer_id');
-        let adminId = localStorage.getItem('admin_id');
         let email = localStorage.getItem('user_email');
         const success_message_modal = document.getElementById("success_message_modal");;
         const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
         const warning_message_modal = document.getElementById("warning_message_modal");;
         const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
-        let description = "Subscription Details";
+        const jwt = localStorage.getItem("customerToken");
 
-        try {
+        if (email) {
+            try {
 
-            const payload1 = {
-                user,
-                email,
-                adminId,
-                subscriptionId,
-                licensekey,
-                productName,
-                createdDateTime,
-                description,
-            };
+                const payload1 = {
+                    email: email,
+                    key: licensekey,
+                    product_code: Number(productCode),
+                };
 
-            const patchData = await fetch(`${abc}`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload1),
-            });
-
-            const result = await patchData.json();
-            if (result.message === "success!") {
-
-                const updatedSubscriptions = subscriptions.filter((s) => s.SUBSCRIPTIONID !== result.subscriptionId);
-                setSubscriptions(updatedSubscriptions);
-                successMsgDescriptionHead.innerText = "Product Unsubscribed Successfully.";
-                successMessageModal = new bootstrap.Modal(success_message_modal);
-                success_message_modal.addEventListener('hidden.bs.modal', () => {
-                    window.location.href = '/adminSubscription';
+                const postData = await fetch(`${process.env.NEXT_PRIVATE_URL6}`, {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${jwt}`,
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    body: JSON.stringify(payload1),
                 });
-                successMessageModal.show();
 
-            } else {
-                warningMsgDescriptionHead.innerText = "Something Wrong with Email Sending.";
-                warningMessageModal = new bootstrap.Modal(warning_message_modal);
-                warning_message_modal.addEventListener('hidden.bs.modal', () => {
-                    window.location.href = '/adminSubscription';
-                });
-                warningMessageModal.show();
+                const result = await postData.json();
+
+                if (result.success) {
+                    successMsgDescriptionHead.innerText = "Your product details have been sent to your default mail address.";
+                    successMessageModal = new bootstrap.Modal(success_message_modal);
+                    success_message_modal.addEventListener('hidden.bs.modal', () => {
+                        window.location.href = '/adminSubscription';
+                    });
+                    successMessageModal.show();
+
+                } else {
+                    warningMsgDescriptionHead.innerText = "Something Wrong with Email Sending.";
+                    warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                    warningMessageModal.show();
+                }
+
+            } catch (error) {
+                console.error('Error Unsubscribiung product:', error);
             }
-
-        } catch (error) {
-            console.error('Error Unsubscribiung product:', error);
+        } else {
+            warningMsgDescriptionHead.innerText = "Please go to your account and Insert a Email First.";
+            warningMessageModal = new bootstrap.Modal(warning_message_modal);
+            warningMessageModal.show();
         }
 
     };

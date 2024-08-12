@@ -21,7 +21,7 @@ const nextConfig = {
         'NEXT_PUBLIC_URL10': '/routes/userSubscriptionCount',
         'NEXT_PUBLIC_URL11': '/routes/adminProducts',
         'NEXT_PUBLIC_URL12': '/routes/userSubscription?USER=',
-        'NEXT_PUBLIC_URL13': '/routes/userSubscription',
+        'NEXT_PUBLIC_URL13': '/routes/userSuspend',
         'NEXT_PUBLIC_URL14': '/routes/allUsers',
         'NEXT_PUBLIC_URL15': '/routes/subscribedUsers',
         'NEXT_PUBLIC_URL16': '/routes/unsubscribedUsers',
@@ -36,6 +36,7 @@ const nextConfig = {
         'NEXT_PRIVATE_URL3': 'http://124.43.179.40:3000/api/auth/jwt-admin-rq',
         'NEXT_PRIVATE_URL4': 'http://124.43.179.40:3000/api/v1/kss/activate',
         'NEXT_PRIVATE_URL5': 'http://124.43.179.40:3000/api/v1/kss/deactivate',
+        'NEXT_PRIVATE_URL6': 'http://124.43.179.40:3000/api/v1/mail/resend-key',
 
         'EXPIRY_TIME1': '3600000',
         'EXPIRY_TIME2': '10000',

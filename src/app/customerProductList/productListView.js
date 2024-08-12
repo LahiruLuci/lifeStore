@@ -109,7 +109,7 @@ export default function ProductList() {
             amount: Number(amount),
           };
 
-          const postData2 = await fetch(`${process.env.NEXT_PUBLIC_URL13}`, {
+          const postData2 = await fetch(`${process.env.NEXT_PUBLIC_URL9}`, {
             method: "POST",
             headers: {
               "Content-type": "application/json",
