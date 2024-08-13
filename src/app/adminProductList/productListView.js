@@ -69,6 +69,7 @@ export default function ProductList() {
     const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
     const warning_message_modal = document.getElementById("warning_message_modal");
     const successMsgDescriptionHead2 = document.getElementById("successMsgDescriptionHead2");
+    const successMsgDescriptionHead22 = document.getElementById("successMsgDescriptionHead22");
     const success_message_modal2 = document.getElementById("success_message_modal2");
     const email = localStorage.getItem("user_email");
     const admin_id = localStorage.getItem("admin_id");
@@ -119,7 +120,8 @@ export default function ProductList() {
           const result2 = await postData2.json();
           if (result2.message == "Product Subscribed Successfully!") {
             successMessageModal2 = new bootstrap.Modal(success_message_modal2);
-            successMsgDescriptionHead2.innerText = "Product Subscribed Successfully!\nThe licensekey has been sent to your e-mail.";
+            successMsgDescriptionHead2.innerText = "Product Subscribed Successfully!";
+            successMsgDescriptionHead22.innerText = "The licensekey has been sent to your e-mail.";
             success_message_modal2.addEventListener('hidden.bs.modal', () => {
               window.location.href = '/adminSubscription';
             });
@@ -587,6 +589,7 @@ export default function ProductList() {
                                 <div className="col-12">
                                     <h3 className="form-label text-center">
                                         <span className="text04" id="successMsgDescriptionHead2"></span><br />
+                                        <span className="text04" id="successMsgDescriptionHead22"></span><br />
                                     </h3><br /><br />
                                     <div className="container col-4 p-3">
                                         <div className="row justify-content-center">
