@@ -30,6 +30,8 @@ const nextConfig = {
         'NEXT_PUBLIC_URL19': '/routes/items',
         'NEXT_PUBLIC_URL20': '/routes/products', 
         'NEXT_PUBLIC_URL21': '/routes/customerProducts', 
+        'NEXT_PUBLIC_URL22': '/routes/usersDetails?USERID=', 
+        'NEXT_PUBLIC_URL23': '/routes/usersDetails', 
 
         'NEXT_PRIVATE_URL1': 'http://124.43.179.40:3000/api/auth/jwt-val?jwt=',
         'NEXT_PRIVATE_URL2': 'http://124.43.179.40:3000/api/auth/jwt-rq',

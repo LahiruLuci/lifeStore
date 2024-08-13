@@ -420,10 +420,20 @@ const Navbar = () => {
                                                 <span className="title05">Cus.Search</span>
                                             </Link>
                                         </li>
-                                        <li className="nav-item">
-                                            <Link href="#" className="nav-link" onClick={superAdminEnd}>
-                                                <span className="title05 btn2">Log Out</span>
-                                            </Link>
+                                        <li className="nav-item dropdown">
+                                            <a href="#" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span className="title05"><i className="bi bi-person-circle fs-5"></i></span>
+                                            </a>
+                                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><Link href="/adminChangePassword" className="dropdown-item"><span className="title05"><i class="bi bi-person-lines-fill"></i>&nbsp;Change Password</span></Link></li>
+                                                <li><Link href="/help" className="dropdown-item"><span className="title05"><i class="bi bi-info-circle-fill"></i>&nbsp;Help</span></Link></li>
+                                                <li><hr className="dropdown-divider" /></li>
+                                                <li className="logOutbtn title05 text-center">
+                                                    <Link href="#" className="nav-link" onClick={superAdminEnd}>
+                                                        <span className="title055">Log Out</span>
+                                                    </Link>
+                                                </li>
+                                            </ul>
                                         </li>
                                     </>
                                 )}

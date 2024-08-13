@@ -172,7 +172,7 @@ const Login = () => {
                     const fetchedUserRole = systemDetails[0].USERROLE;
                     const startTime = new Date();
                     const updatedNow = new Date(startTime.getTime() + 2 * 60 * 60 * 1000);
-                    const hashedPassword = bcrypt.hashSync(password, 10);
+                    // const hashedPassword = bcrypt.hashSync(password, 10);
                     // alert(hashedPassword);
                     
                     const isMatch = await bcrypt.compare(password, fetchedPassword);

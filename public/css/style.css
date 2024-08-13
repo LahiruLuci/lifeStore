@@ -536,6 +536,20 @@
     border: none;
 }
 
+.btn44 {
+    padding: 5px;
+    background-color: #009982;
+    font-family: "Inter";
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+}
+
+.btn44:hover{
+    background-color: darkgreen;
+}
+
 .btn41 {
     font-family: "Inter";
     font-weight: bold;
