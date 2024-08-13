@@ -119,7 +119,7 @@ export default function ProductList() {
           const result2 = await postData2.json();
           if (result2.message == "Product Subscribed Successfully!") {
             successMessageModal2 = new bootstrap.Modal(success_message_modal2);
-            successMsgDescriptionHead2.innerText = "Product Subscribed Successfully!";
+            successMsgDescriptionHead2.innerText = "Product Subscribed Successfully!\nThe licensekey has been sent to your e-mail.";
             success_message_modal2.addEventListener('hidden.bs.modal', () => {
               window.location.href = '/adminSubscription';
             });
