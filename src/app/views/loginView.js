@@ -36,84 +36,101 @@ const Login = () => {
         const fetchUser = async () => {
             let warning_message_modal = document.getElementById("warning_message_modal");
             const loginMainView = document.getElementById("loginMainView");
-            try {
-                if (searchParams.get('jwt')) {
-                    const jwt = searchParams.get('jwt');
-                    // const jwt = "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..wZq1eW1Y9w1QRtOrT5TC3g.kjuzfCMIHullPwr0PjaU70DQHH6NEIXiSidLrtHATa0GhCPV3Yyo2V6OcuKxBIy8by0m2cf9EQ1dfwMzwQOdNtFVhb1RvQvhKsrrP19c5I0wUehEf_UGxV-e-Q6oe9cDA9eUGZHWnCd4GBw_nTGnV5RCywTAEgUM1jSZ3co7_v_wDlkMwLOHqUffF-6qITPT.Ug6rvLgE7VuOMnvvojwatA";
-                    // alert(jwt);
-                    const postData = await fetch(`${process.env.NEXT_PRIVATE_URL1}${jwt}`, {
-                        method: "GET",
-                        headers: {
-                            "Content-type": "application/json",
-                            "Access-Control-Allow-Origin": "*"
-                        },
-                    });
-                    const result = await postData.json();
-                    if (result.success) {
-                        const resultProps = result.response;
-                        if (resultProps.role == "customer" && !resultProps.subscriberId == null || resultProps.role == "customer" && !resultProps.subscriberId == "") {
-                            // alert(resultProps.subscriberId + " "+ resultProps.role + " "+ resultProps.jwt);
-
-                            try {
-                                warningMessageModal = new bootstrap.Modal(warning_message_modal);
-                                const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${resultProps.subscriberId}`);
-                                const systemDetails = await response.json();
-
-                                if (systemDetails.error) {
-                                    warningMsgDescriptionHead.innerText = systemDetails.error;
-                                    warningMessageModal.show();
-                                } else if (systemDetails.length > 0) {
-                                    if (systemDetails[0].USERID) {
-                                        const fetchedUSERID = systemDetails[0].USERID;
-                                        const fetchedUserRole = systemDetails[0].USERROLE;
-                                        const startTime = new Date();
-                                        const updatedNow = new Date(startTime.getTime() + 60 * 60 * 1000);
-                                        localStorage.setItem('SignOutTime', updatedNow.toISOString());
-                                        localStorage.setItem('user_id', fetchedUSERID);
-                                        localStorage.setItem('userRole', fetchedUserRole);
-                                        localStorage.setItem("customerToken", resultProps.jwt);
-                                        setUserId(resultProps.subscriberId);
-                                        setUserToken(resultProps.jwt);
-                                        if (systemDetails[0].EMAIL) {
-                                            const fetchedEmail = systemDetails[0].EMAIL;
-                                            localStorage.setItem('user_email', fetchedEmail);
-                                            setSelectedEmail(fetchedEmail);
+            if(!localStorage.getItem("user_id") && !localStorage.getItem("userRole")){
+                try {
+                    if (searchParams.get('jwt')) {
+                        const jwt = searchParams.get('jwt');
+                        // const jwt = "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..wZq1eW1Y9w1QRtOrT5TC3g.kjuzfCMIHullPwr0PjaU70DQHH6NEIXiSidLrtHATa0GhCPV3Yyo2V6OcuKxBIy8by0m2cf9EQ1dfwMzwQOdNtFVhb1RvQvhKsrrP19c5I0wUehEf_UGxV-e-Q6oe9cDA9eUGZHWnCd4GBw_nTGnV5RCywTAEgUM1jSZ3co7_v_wDlkMwLOHqUffF-6qITPT.Ug6rvLgE7VuOMnvvojwatA";
+                        // alert(jwt);
+                        const postData = await fetch(`${process.env.NEXT_PRIVATE_URL1}${jwt}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-type": "application/json",
+                                "Access-Control-Allow-Origin": "*"
+                            },
+                        });
+                        const result = await postData.json();
+                        if (result.success) {
+                            const resultProps = result.response;
+                            if (resultProps.role == "customer" && !resultProps.subscriberId == null || resultProps.role == "customer" && !resultProps.subscriberId == "") {
+                                // alert(resultProps.subscriberId + " "+ resultProps.role + " "+ resultProps.jwt);
+    
+                                try {
+                                    warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                                    const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${resultProps.subscriberId}`);
+                                    const systemDetails = await response.json();
+    
+                                    if (systemDetails.error) {
+                                        warningMsgDescriptionHead.innerText = systemDetails.error;
+                                        warningMessageModal.show();
+                                    } else if (systemDetails.length > 0) {
+                                        if (systemDetails[0].USERID) {
+                                            const fetchedUSERID = systemDetails[0].USERID;
+                                            const fetchedUserRole = systemDetails[0].USERROLE;
+                                            const startTime = new Date();
+                                            const updatedNow = new Date(startTime.getTime() + 60 * 60 * 1000);
+                                            localStorage.setItem('SignOutTime', updatedNow.toISOString());
+                                            localStorage.setItem('user_id', fetchedUSERID);
+                                            localStorage.setItem('userRole', fetchedUserRole);
+                                            localStorage.setItem("customerToken", resultProps.jwt);
+                                            setUserId(resultProps.subscriberId);
+                                            setUserToken(resultProps.jwt);
+                                            if (systemDetails[0].EMAIL) {
+                                                const fetchedEmail = systemDetails[0].EMAIL;
+                                                localStorage.setItem('user_email', fetchedEmail);
+                                                setSelectedEmail(fetchedEmail);
+                                            }
+    
+                                            setSelectedUserRole(fetchedUserRole);
+                                            LogIn(fetchedUserRole);
+                                        } else {
+                                            warningMsgDescriptionHead.innerText = "No user found";
+                                            warning_message_modal.addEventListener('hidden.bs.modal', () => {
+                                                window.location.href = '/logOutView';
+                                            });
+                                            warningMessageModal.show();
                                         }
-
-                                        setSelectedUserRole(fetchedUserRole);
-                                        LogIn(fetchedUserRole);
                                     } else {
                                         warningMsgDescriptionHead.innerText = "No user found";
-                                        warning_message_modal.addEventListener('hidden.bs.modal', () => {
-                                            window.location.href = '/logOutView';
-                                        });
                                         warningMessageModal.show();
                                     }
-                                } else {
-                                    warningMsgDescriptionHead.innerText = "No user found";
+                                } catch (error) {
+                                    warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
                                     warningMessageModal.show();
                                 }
-                            } catch (error) {
-                                warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+                            } else {
+                                warningMsgDescriptionHead.innerText = "No user found";
                                 warningMessageModal.show();
                             }
                         } else {
-                            warningMsgDescriptionHead.innerText = "No user found";
+                            warningMsgDescriptionHead.innerText = "Token expired or Invalid token. Please go back to MySlt App and try again!";
+                            warning_message_modal.addEventListener('hidden.bs.modal', () => {
+                                loginMainView.classList.remove("d-none");
+                            });
                             warningMessageModal.show();
                         }
                     } else {
-                        warningMsgDescriptionHead.innerText = "Token expired or Invalid token. Please go back to MySlt App and try again!";
-                        warning_message_modal.addEventListener('hidden.bs.modal', () => {
-                            loginMainView.classList.remove("d-none");
-                        });
-                        warningMessageModal.show();
+                        loginMainView.classList.remove("d-none");
                     }
-                } else {
-                    loginMainView.classList.remove("d-none");
+                } catch (error) {
+                    console.error('Error fetching:', error);
                 }
-            } catch (error) {
-                console.error('Error fetching:', error);
+            }else{
+                if (localStorage.getItem('customer_id') && localStorage.getItem("userRole")==1) {
+                    window.location.href = '/customerProductList';
+                } else if (localStorage.getItem('admin_id') && localStorage.getItem("userRole")==2) {
+                    window.location.href = '/adminHome';
+                } else if (localStorage.getItem('super_admin_id') && localStorage.getItem("userRole")==3) {
+                    window.location.href = '/dashboard';
+                } else {
+                    if(localStorage.getItem("userRole")==1){
+                        loginMainView.classList.add("d-none");l
+                    }else if(localStorage.getItem("userRole")==2 ||localStorage.getItem("userRole")==3){
+                        loginMainView.classList.remove("d-none");l
+                    }
+                }
             }
+            
         };
 
         fetchUser();
