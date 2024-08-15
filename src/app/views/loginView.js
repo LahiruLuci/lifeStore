@@ -259,7 +259,7 @@ const Login = () => {
                                     </div>
 
                                     <div className="col-12 text-start">
-                                        <span className="title02">Verion R - 1.0016 Powered by </span><a href="https://www.slt.lk/"
+                                        <span className="title02">Version R - 2.0.0 Powered by </span><a href="https://www.slt.lk/"
                                             className="text-decoration-none"><span className="title03">Sri Lanka Telecom</span></a>
                                     </div><br /><br />
                                 </div>

@@ -100,7 +100,7 @@ const Navbar = () => {
                     }),
                 });
                 const result1 = await postData1.json();
-                if (result1.success && result1.success) {
+                if (result1.success && result1.jwt) {
                     
                     try {
                         warningMessageModal = new bootstrap.Modal(warning_message_modal);
