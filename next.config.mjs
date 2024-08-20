@@ -33,12 +33,12 @@ const nextConfig = {
         'NEXT_PUBLIC_URL22': '/routes/usersDetails?USERID=', 
         'NEXT_PUBLIC_URL23': '/routes/usersDetails', 
 
-        'NEXT_PRIVATE_URL1': 'http://124.43.179.40:3000/api/auth/jwt-val?jwt=',
-        'NEXT_PRIVATE_URL2': 'http://124.43.179.40:3000/api/auth/jwt-rq',
-        'NEXT_PRIVATE_URL3': 'http://124.43.179.40:3000/api/auth/jwt-admin-rq',
-        'NEXT_PRIVATE_URL4': 'http://124.43.179.40:3000/api/v1/kss/activate',
-        'NEXT_PRIVATE_URL5': 'http://124.43.179.40:3000/api/v1/kss/deactivate',
-        'NEXT_PRIVATE_URL6': 'http://124.43.179.40:3000/api/v1/mail/resend-key',
+        'NEXT_PRIVATE_URL1': 'https://api.kaspersky-dp.slt.lk/api/auth/jwt-val?jwt=',
+        'NEXT_PRIVATE_URL2': 'https://api.kaspersky-dp.slt.lk/api/auth/jwt-rq',
+        'NEXT_PRIVATE_URL3': 'https://api.kaspersky-dp.slt.lk/api/auth/jwt-admin-rq',
+        'NEXT_PRIVATE_URL4': 'https://api.kaspersky-dp.slt.lk/api/v1/kss/activate',
+        'NEXT_PRIVATE_URL5': 'https://api.kaspersky-dp.slt.lk/api/v1/kss/deactivate',
+        'NEXT_PRIVATE_URL6': 'https://api.kaspersky-dp.slt.lk/api/v1/mail/resend-key',
 
         'EXPIRY_TIME1': '3600000',
         'EXPIRY_TIME2': '10000',
