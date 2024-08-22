@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 
 const AdminSubscriptionTableRows = ({ adminSubscriptions, onAdminSubscriptionsClick, onCustomerSubscriptionsUnsubscribeClick, onCustomerSubscriptionsEmailSendClick }) => {
     if (!adminSubscriptions || !Array.isArray(adminSubscriptions) || adminSubscriptions.length === 0) {
-        return <p>No admin Subscriptions available</p>;
+        return <p>No Subscriptions available for this customer</p>;
     } else {
 
         const onAdminSubscriptionClick = useCallback((adminSubscription) => {

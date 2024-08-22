@@ -84,7 +84,11 @@ const Navbar = () => {
             warningMsgDescriptionHead.innerText = "Please enter a Broadband ID";
             warningMessageModal.show();
             return;
-        } else {
+        } else if (!/^[a-zA-Z0-9]{11}$/.test(sltbbid)) {
+            warningMsgDescriptionHead.innerText = "Broadband ID must be exactly 11 characters long and contain only letters and numbers";
+            warningMessageModal.show();
+            return;
+        } else if(sltbbid){
             try {
                 const adminId = localStorage.getItem("admin_id");
                 const postData1 = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
