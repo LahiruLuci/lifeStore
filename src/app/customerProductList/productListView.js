@@ -1,11 +1,20 @@
 "use client"
-import jwt from 'jsonwebtoken';
 import { useEffect, useState } from "react";
 import Product from "./productView";
-import { getProductsProps } from './productView';
 import Image from "next/image";
 import WarningMessageModal from "../mod/WarningMessageModal";
 import SuccessMessageModal from '../mod/SuccessMessageModal';
+
+export async function getProductsProps() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL21}`);
+  const products = await res.json();
+
+  return {
+      props: {
+          products: products || [],
+      },
+  };
+}
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);

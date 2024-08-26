@@ -84,7 +84,7 @@ const Navbar = () => {
             warningMsgDescriptionHead.innerText = "Please enter a Broadband ID";
             warningMessageModal.show();
             return;
-        } else if (!/^[a-zA-Z0-9]{11}$/.test(sltbbid)) {
+        } else if (!/^[a-zA-Z0-9]{1,11}$/.test(sltbbid)) {
             warningMsgDescriptionHead.innerText = "Broadband ID must be exactly 11 characters long and contain only letters and numbers";
             warningMessageModal.show();
             return;

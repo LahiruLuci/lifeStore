@@ -4,18 +4,6 @@ import Image from 'next/image';
 import PropTypes from 'prop-types';
 import { useCallback } from 'react';
 
-
-export async function getProductsProps() {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL11}`);
-    const products = await res.json();
-
-    return {
-        props: {
-            products: products || [],
-        },
-    };
-}
-
 const Products = ({ products, onProductClick }) => {
     if (!products || !Array.isArray(products) || products.length === 0) {
         return <p>No products available</p>;

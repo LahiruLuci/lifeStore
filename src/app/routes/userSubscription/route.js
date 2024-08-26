@@ -31,7 +31,7 @@ export async function POST(req) {
     try {
 
       const db = await pool.getConnection();
-      if(!admin_id === '' || !admin_id === null){
+      if(admin_id){
         const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', admin_id, admin_id]);
       }else{
