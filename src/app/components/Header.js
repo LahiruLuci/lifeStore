@@ -88,7 +88,7 @@ const Navbar = () => {
             warningMsgDescriptionHead.innerText = "Broadband ID must be exactly 11 characters long and contain only letters and numbers";
             warningMessageModal.show();
             return;
-        } else if(sltbbid){
+        } else if (sltbbid) {
             try {
                 const adminId = localStorage.getItem("admin_id");
                 const postData1 = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
@@ -105,7 +105,7 @@ const Navbar = () => {
                 });
                 const result1 = await postData1.json();
                 if (result1.success && result1.jwt) {
-                    
+
                     try {
                         warningMessageModal = new bootstrap.Modal(warning_message_modal);
                         const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${sltbbid}`);
@@ -124,9 +124,9 @@ const Navbar = () => {
                                     localStorage.setItem('SignOutTime', updatedNow.toISOString());
                                     localStorage.setItem('customer_id', fetchedUSERID);
                                     localStorage.removeItem('user_email');
-                                    localStorage.setItem("customerToken", result1.jwt); 
+                                    localStorage.setItem("customerToken", result1.jwt);
                                     setUserId(sltbbid);
-                                    setUserToken(result1.jwt);                                   
+                                    setUserToken(result1.jwt);
                                     if (systemDetails[0].EMAIL) {
                                         const fetchedEmail = systemDetails[0].EMAIL;
                                         localStorage.setItem('user_email', fetchedEmail);
@@ -383,10 +383,19 @@ const Navbar = () => {
                                                 </ul>
                                             </li>
                                         )}
-                                        <li className="nav-item" id="adminLogout">
-                                            <Link href="#" className="nav-link" onClick={adminEnd}>
-                                                <span className="title05 btn2">Log Out</span>
-                                            </Link>
+                                        <li className="nav-item dropdown" id="adminLogout">
+                                            <a href="#" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span className="title05 btn2">Account</span>
+                                            </a>
+                                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><Link href="/adminChangePassword" className="dropdown-item"><span className="title05"><i class="bi bi-person-lines-fill"></i>&nbsp;Admin Password Edit</span></Link></li>
+                                                <li><hr className="dropdown-divider" /></li>
+                                                <Link href="#" className="nav-link" onClick={adminEnd}>
+                                                    <li className="logOutbtn title05 text-center">
+                                                        <span className="title055">Admin Log Out</span>
+                                                    </li>
+                                                </Link>
+                                            </ul>
                                         </li>
 
                                     </>

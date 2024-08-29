@@ -149,7 +149,7 @@ export default function ProductList() {
         }
       } else {
         warningMessageModal = new bootstrap.Modal(warning_message_modal);
-        warningMsgDescriptionHead.innerText = "Something went Wrong!";
+        warningMsgDescriptionHead.innerText = result.error + " : "+result.reason;
         warning_message_modal.addEventListener('hidden.bs.modal', () => {
           window.location.href = '/adminProductList';
         });

@@ -3,7 +3,7 @@ import { useState } from "react";
 import AdminChangePasswordView from "./adminChangePasswordView";
 import withAuth from "../utils/withAuth";
 
-const adminDetails = () => {
+const superadminDetails = () => {
 
   return (
     <>
@@ -13,4 +13,4 @@ const adminDetails = () => {
 
 }
 
-export default withAuth(adminDetails, [2]);
+export default withAuth(superadminDetails, [3]);

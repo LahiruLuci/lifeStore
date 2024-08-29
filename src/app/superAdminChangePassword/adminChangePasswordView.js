@@ -21,7 +21,7 @@ const AdminPasswordChangeView = () => {
     let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
     let warning_message_modal = document.getElementById("warning_message_modal");
     let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
-    const admin_id = localStorage.getItem("admin_id");
+    const admin_id = localStorage.getItem("super_admin_id");
 
     if (!currentPassword) {
       warningMessageModal = new bootstrap.Modal(warning_message_modal);
