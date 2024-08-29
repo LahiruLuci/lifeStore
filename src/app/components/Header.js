@@ -438,7 +438,7 @@ const Navbar = () => {
                                                 <span className="title05"><i className="bi bi-person-circle fs-5"></i></span>
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><Link href="/adminChangePassword" className="dropdown-item"><span className="title05"><i class="bi bi-person-lines-fill"></i>&nbsp;Change Password</span></Link></li>
+                                                <li><Link href="/superAdminChangePassword" className="dropdown-item"><span className="title05"><i class="bi bi-person-lines-fill"></i>&nbsp;Change Password</span></Link></li>
                                                 <li><hr className="dropdown-divider" /></li>
                                                 <li className="logOutbtn title05 text-center">
                                                     <Link href="#" className="nav-link" onClick={superAdminEnd}>
