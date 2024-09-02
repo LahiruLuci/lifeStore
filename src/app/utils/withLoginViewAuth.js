@@ -10,7 +10,7 @@ const withLoginViewAuth = (WrappedComponent, allowedRoles) => {
         useEffect(() => {
             const userRole = localStorage.getItem('userRole');
 
-            if (!userRole == 1 || allowedRoles.includes(null)) {
+            if (!userRole == 1 || !allowedRoles.includes(1)) {
                 router.replace('/');
             }else{
                 router.replace('/logOutView');
