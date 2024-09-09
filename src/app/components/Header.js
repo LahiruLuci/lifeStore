@@ -157,7 +157,7 @@ const Navbar = () => {
                     }
 
                 } else {
-                    const reason = result.reason;
+                    const reason = result1.reason;
                     warningMsgDescriptionHead.innerText = reason;
                     warningMessageModal.show();
                 }

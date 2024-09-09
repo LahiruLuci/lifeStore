@@ -5,17 +5,24 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const email = searchParams.get('EMAIL');
     const sltbbid = searchParams.get('SLTBBID');
-    if (email) {
+    if (sltbbid && email) {
         try {
             const db = await pool.getConnection();
-            const query = "SELECT USERID, SLTBBID, USERROLE, EMAIL, PASSWORD FROM `systemuser` WHERE EMAIL = ?";
-            const [rows] = await db.execute(query, [email]);
+            let query = "SELECT USERID, SLTBBID, USERROLE, EMAIL, PASSWORD FROM `systemuser` WHERE SLTBBID = ?";
+            let [rows] = await db.execute(query, [sltbbid]);
+            if (rows.length === 0) {
+                query = "INSERT INTO `systemuser` (USERID,SLTBBID,EMAIL) VALUES (?,?,?);";
+                await db.execute(query, [sltbbid,sltbbid,email]);
+
+                query = "SELECT USERID, SLTBBID, USERROLE, EMAIL, PASSWORD FROM `systemuser` WHERE SLTBBID = ? AND EMAIL = ?";
+                [rows] = await db.execute(query, [sltbbid,email]);
+            }
             db.release();
             return NextResponse.json(rows)
         } catch (error) {
             return NextResponse.json({
-                error: error.message
-            }, { status: 400 })
+                error: error
+            }, { status: 500 })
         }
     } else if (sltbbid) {
         try {
@@ -35,6 +42,18 @@ export async function GET(request) {
             return NextResponse.json({
                 error: error
             }, { status: 500 })
+        }
+    } else if (email) {
+        try {
+            const db = await pool.getConnection();
+            const query = "SELECT USERID, SLTBBID, USERROLE, EMAIL, PASSWORD FROM `systemuser` WHERE EMAIL = ?";
+            const [rows] = await db.execute(query, [email]);
+            db.release();
+            return NextResponse.json(rows)
+        } catch (error) {
+            return NextResponse.json({
+                error: error.message
+            }, { status: 400 })
         }
     } else {
         return NextResponse.json({

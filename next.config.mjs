@@ -32,6 +32,9 @@ const nextConfig = {
         'NEXT_PUBLIC_URL21': '/routes/customerProducts', 
         'NEXT_PUBLIC_URL22': '/routes/usersDetails?USERID=', 
         'NEXT_PUBLIC_URL23': '/routes/usersDetails', 
+        'NEXT_PUBLIC_URL24': '/routes/systemUsers?SLTBBID=',
+        'NEXT_PUBLIC_URL25': '&EMAIL=',
+        'NEXT_PUBLIC_URL26': '/routes/packageProduct?PRODUCTCODE=',
 
         'NEXT_PRIVATE_URL1': 'https://api.kaspersky-dp.slt.lk/api/auth/jwt-val?jwt=',
         'NEXT_PRIVATE_URL2': 'https://api.kaspersky-dp.slt.lk/api/auth/jwt-rq',
@@ -52,7 +55,7 @@ const nextConfig = {
                 pathname: '/img/**',
             },
             {
-                protocol: 'http',
+                protocol: 'http', 
                 hostname: '127.0.0.1',
                 port: '3000',
                 pathname: '/productImages/**',

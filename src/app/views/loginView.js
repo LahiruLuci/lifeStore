@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-"use client"
+'use client'
 import { useEffect, useState } from "react";
 import WarningMessageModal from "../mod/WarningMessageModal";
 import { useSearchParams } from "next/navigation";
 import bcrypt from 'bcryptjs';
-import { Suspense } from 'react'
 
 const Login = () => {
     const [selectedEmail, setSelectedEmail] = useState('');
@@ -131,9 +130,9 @@ const Login = () => {
                         window.location.href = '/dashboard';
                     } else {
                         if (localStorage.getItem("userRole") == 1) {
-                            loginMainView.classList.add("d-none"); 
+                            loginMainView.classList.add("d-none");
                         } else if (localStorage.getItem("userRole") == 2 || localStorage.getItem("userRole") == 3) {
-                            loginMainView.classList.remove("d-none"); 
+                            loginMainView.classList.remove("d-none");
                         }
                     }
                 }
@@ -231,7 +230,7 @@ const Login = () => {
     };
 
     return (
-        <Suspense>
+        <>
             <div className="d-none container-fluid vh-100 justify-content-center align-content-center" id="loginMainView">
                 <div className="row">
 
@@ -280,7 +279,7 @@ const Login = () => {
                 </div>
             </div>
             <WarningMessageModal />
-        </Suspense>
+        </>
     );
 }
 export default Login;
