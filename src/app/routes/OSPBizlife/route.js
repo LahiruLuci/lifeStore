@@ -1,0 +1,154 @@
+import { NextResponse } from "next/server";
+import pool from "../../config/mysql";
+
+export async function POST(request) {
+    const { searchParams } = new URL(request.url);
+    const email = searchParams.get('EMAIL');
+    const sltbbid = searchParams.get('SLTBBID');
+    const productCode = searchParams.get('PRODUCTCODE');
+    const amount = 0;
+    if (sltbbid && email && productCode) {
+        try {
+            const adminId = "BizlifePackage";
+            const postData1 = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "X-Secret": `${process.env.X_SECRET}`,
+                },
+                body: JSON.stringify({
+                    "subscriberId": sltbbid,
+                    "adminId": adminId,
+                }),
+            });
+            const result1 = await postData1.json();
+            if (result1.success && result1.jwt) {
+                const jwt = result1.jwt;
+                try {
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${sltbbid}`);
+                    const systemDetails = await response.json();
+
+                    if (systemDetails.error) {
+                        return NextResponse.json(systemDetails.error);
+                    } else if (systemDetails.length > 0) {
+                        if (systemDetails[0].USERID) {
+                            const fetchedUSERID = systemDetails[0].USERID;
+                            const fetchedEmail = systemDetails[0].EMAIL;
+
+                            if (fetchedUSERID && fetchedEmail && productCode) {
+                                return NextResponse.json("user entered");
+                                // try {
+                                //     const response = await fetch(`${process.env.NEXT_PUBLIC_URL26}${productCode}`);
+                                //     const systemProductDetails = await response.json();
+
+                                //     if (systemProductDetails.error) {
+                                //         alert(systemProductDetails.error);
+                                //     } else if (systemProductDetails.length > 0) {
+                                //         if (systemProductDetails[0].PRODUCTID) {
+                                //             const fetchedPRODUCTID = systemProductDetails[0].PRODUCTID;
+                                //             const fetchedPRODUCTCODE = systemProductDetails[0].PRODUCTCODE;
+                                //             const payload2 = {
+                                //                 productCode: Number(fetchedPRODUCTCODE),
+                                //                 email,
+                                //                 amount: Number(amount),
+                                //             };
+                                //             try {
+                                //                 const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL4}`, {
+                                //                     method: "POST",
+                                //                     headers: {
+                                //                         "Authorization": `Bearer ${jwt}`,
+                                //                         "Content-type": "application/json",
+                                //                         "Access-Control-Allow-Origin": "*"
+                                //                     },
+                                //                     body: JSON.stringify(payload2),
+                                //                 });
+                                //                 const result2 = await postData2.json();
+                                //                 if (result2.success) {
+                                //                     const resultProps = result2.response;
+                                //                     if (!resultProps.subscriptionId == null || !resultProps.subscriptionId == "") {
+
+                                //                         const subscriberId = resultProps.subscriptionId;
+                                //                         const licensekey = resultProps.key;
+                                //                         const productId = fetchedPRODUCTID;
+                                //                         const admin_id = adminId;
+                                //                         const user = sltbbid;
+
+                                //                         const payload3 = {
+                                //                             subscriberId,
+                                //                             admin_id,
+                                //                             user,
+                                //                             productId,
+                                //                             licensekey,
+                                //                             amount: Number(amount),
+                                //                         };
+
+                                //                         const postData3 = await fetch(`${process.env.NEXT_PUBLIC_URL9}`, {
+                                //                             method: "POST",
+                                //                             headers: {
+                                //                                 "Content-type": "application/json",
+                                //                             },
+                                //                             body: JSON.stringify(payload3),
+                                //                         });
+                                //                         const result3 = await postData3.json();
+                                //                         if (result3.message == "Product Subscribed Successfully!") {
+                                //                             return NextResponse.json("Product Subscribed Successfully!");
+                                //                         } else {
+                                //                             return NextResponse.json(result3.error);
+                                //                         }
+
+                                //                     } else {
+                                //                         return NextResponse.json("Invalid Subscription.");
+                                //                     }
+                                //                 } else {
+                                //                     return NextResponse.json(result2.error + " : " + result2.reason);
+                                //                 }
+
+
+                                //             } catch (error) {
+                                //                 return NextResponse.json({
+                                //                     error: error
+                                //                 }, { status: 404 });
+                                //             }
+
+
+                                //         } else {
+                                //             return NextResponse.json("No product found");
+                                //         }
+                                //     } else {
+                                //         return NextResponse.json("No product found");
+                                //     }
+                                // } catch (error) {
+                                //     return NextResponse.json({
+                                //         error: error
+                                //     }, { status: 404 })
+                                // }
+                            }else{
+                                return NextResponse.json("Send all the details(email, sltbbid, productcode)");
+                            }
+
+                        } else {
+                            return NextResponse.json("No user found");
+                        }
+                    } else {
+                        return NextResponse.json("No user found");
+                    }
+                } catch (error) {
+                    return NextResponse.json({
+                        error: error
+                    }, { status: 400 })
+                }
+
+            } else {
+                const reason = result1.reason;
+                return NextResponse.json(reason);
+            }
+
+        } catch (error) {
+            return NextResponse.json({
+                error: error
+            }, { status: 404 })
+        }
+    }
+
+}
