@@ -2,10 +2,7 @@ import { NextResponse } from "next/server";
 import pool from "../../config/mysql";
 
 export async function POST(request) {
-    const { searchParams } = new URL(request.url);
-    const email = searchParams.get('EMAIL');
-    const sltbbid = searchParams.get('SLTBBID');
-    const productCode = searchParams.get('PRODUCTCODE');
+    const { email, sltbbid, productCode } = await request.json();
     const amount = 0;
     if (sltbbid && email && productCode) {
         try {
@@ -26,7 +23,7 @@ export async function POST(request) {
             if (result1.success && result1.jwt) {
                 const jwt = result1.jwt;
                 try {
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_URL5}${sltbbid}`);
+                    const response = await fetch(`${process.env.NEXT_PUBLIC_URL24}${sltbbid}${process.env.NEXT_PUBLIC_URL25}${email}`);
                     const systemDetails = await response.json();
 
                     if (systemDetails.error) {
@@ -135,7 +132,7 @@ export async function POST(request) {
                     }
                 } catch (error) {
                     return NextResponse.json({
-                        error: error
+                        error: error.message
                     }, { status: 400 })
                 }
 
@@ -146,7 +143,7 @@ export async function POST(request) {
 
         } catch (error) {
             return NextResponse.json({
-                error: error
+                error: error.message
             }, { status: 404 })
         }
     }
