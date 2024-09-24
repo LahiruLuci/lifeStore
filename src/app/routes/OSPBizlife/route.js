@@ -23,28 +23,37 @@ export async function POST(request) {
             if (result1.success && result1.jwt) {
                 const jwt = result1.jwt;
                 try {
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_URL24}${sltbbid}${process.env.NEXT_PUBLIC_URL25}${email}`);
-                    const systemDetails = await response.json();
+                    const db = await pool.getConnection();
+                    let query = "SELECT USERID, SLTBBID, USERROLE, EMAIL, PASSWORD FROM `systemuser` WHERE SLTBBID = ?";
+                    let [rows] = await db.execute(query, [sltbbid]);
+                    if (rows.length === 0) {
+                        query = "INSERT INTO `systemuser` (USERID,SLTBBID,EMAIL,CREATEDUSER,LASTUPDATEDUSER) VALUES (?,?,?,?,?);";
+                        await db.execute(query, [sltbbid, sltbbid, email, adminId, adminId]);
 
-                    if (systemDetails.error) {
-                        return NextResponse.json(systemDetails.error);
-                    } else if (systemDetails.length > 0) {
-                        if (systemDetails[0].USERID) {
-                            const fetchedUSERID = systemDetails[0].USERID;
-                            const fetchedEmail = systemDetails[0].EMAIL;
+                        query = "SELECT USERID, SLTBBID, USERROLE, EMAIL, PASSWORD FROM `systemuser` WHERE SLTBBID = ? AND EMAIL = ?";
+                        [rows] = await db.execute(query, [sltbbid, email]);
+                    }
+                    db.release();
+                    if (rows.error) {
+                        return NextResponse.json(rows.error);
+                    } else if (rows.length > 0) {
+                        if (rows[0].USERID) {
+                            const fetchedUSERID = rows[0].USERID;
+                            const fetchedEmail = rows[0].EMAIL;
 
                             if (fetchedUSERID && fetchedEmail && productCode) {
                                 return NextResponse.json("user entered");
                                 // try {
-                                //     const response = await fetch(`${process.env.NEXT_PUBLIC_URL26}${productCode}`);
-                                //     const systemProductDetails = await response.json();
-
-                                //     if (systemProductDetails.error) {
-                                //         alert(systemProductDetails.error);
-                                //     } else if (systemProductDetails.length > 0) {
-                                //         if (systemProductDetails[0].PRODUCTID) {
-                                //             const fetchedPRODUCTID = systemProductDetails[0].PRODUCTID;
-                                //             const fetchedPRODUCTCODE = systemProductDetails[0].PRODUCTCODE;
+                                //     const db = await pool.getConnection();
+                                //     const query = "SELECT p.PRODUCTID, p.PRODUCTCODE FROM product p  WHERE p.PRODUCTCODE = ?;";
+                                //     const [productRows] = await db.execute(query, [productCode]);
+                                //     db.release();
+                                //     if (productRows.error) {
+                                //         alert(productRows.error);
+                                //     } else if (productRows.length > 0) {
+                                //         if (productRows[0].PRODUCTID) {
+                                //             const fetchedPRODUCTID = productRows[0].PRODUCTID;
+                                //             const fetchedPRODUCTCODE = productRows[0].PRODUCTCODE;
                                 //             const payload2 = {
                                 //                 productCode: Number(fetchedPRODUCTCODE),
                                 //                 email,
@@ -120,7 +129,7 @@ export async function POST(request) {
                                 //         error: error
                                 //     }, { status: 404 })
                                 // }
-                            }else{
+                            } else {
                                 return NextResponse.json("Send all the details(email, sltbbid, productcode)");
                             }
 

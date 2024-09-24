@@ -61,7 +61,7 @@ const Products = ({ products, onProductClick }) => {
                         <div className="productCardViewBody">
                             <div className="col-12">
                                 <div className="row">
-                                    <span className="productCardViewTitle">{product.PREDESCRIPTION}</span>
+                                <span className="productCardViewTitle" style={{ wordBreak: "break-word", whiteSpace: "normal", maxWidth: "18rem" }}>{product.PREDESCRIPTION}</span>
                                 </div>
                             </div>
                             <div className="productCardViewText">
@@ -243,8 +243,9 @@ const Products = ({ products, onProductClick }) => {
                                     </div>
                                     <div className="col-12 mb-2">
                                         <div className="row">
-                                            <div className="offset-4 col-4"><i className="bi bi-apple"></i>&nbsp;&nbsp;<i
-                                                className="bi bi-windows"></i></div>
+                                            <div className="col-12"><i className="bi bi-apple"></i>
+                                            &nbsp;&nbsp;<i className="bi bi-windows"></i>
+                                            &nbsp;&nbsp;<i className="bi bi-phone-fill"></i></div>
                                         </div>
                                     </div>
                                     <div className="container mt-2">

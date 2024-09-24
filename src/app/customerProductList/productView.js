@@ -239,7 +239,7 @@ const Products = ({ products, onProductClick }) => {
                                     <div className="col-12 mb-2">
                                         <div className="row">
                                             <div className="offset-4 col-4"><i className="bi bi-apple"></i>&nbsp;&nbsp;<i
-                                                className="bi bi-windows"></i></div>
+                                                className="bi bi-windows"></i>&nbsp;&nbsp;<i className="bi bi-phone-fill"></i></div>
                                         </div>
                                     </div>
                                     <div className="container mt-2">
