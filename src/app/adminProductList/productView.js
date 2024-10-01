@@ -22,7 +22,7 @@ const Products = ({ products, onProductClick }) => {
         return (
             <>
                 {products.map((product) => (
-                    <div className="productCardView p-2" style={{ width: "18rem" }} key={product.PRODUCTID}>
+                    <div className="productCardView p-2" style={{ width: "18rem" }} key={product.PRODUCTID} onClick={() => onSingleProductViewClick(product)}>
                         <div className="productCardViewHeader align-content-start">
                             <div className="col-12">
                                 <div className="row">

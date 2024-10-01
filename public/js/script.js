@@ -222,7 +222,7 @@ function customerSearchView(sltbbid) {
 
 function customerSearchView2(sltbbid) {
     localStorage.setItem('customer_id', sltbbid);
-    window.location.href = '/adminHome';
+    window.location.href = '/adminProductList';
 }
 
 function productView() {
