@@ -10,6 +10,7 @@ const nextConfig = {
         'NEXT_PUBLIC_URL': 'http://localhost:3000',
         'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
         'X_SECRET': 'Za5awxYpg4Clx6uDsjWEg',
+        'SECRET_CODE': 'dawyydgbi123129%^&98SEvseE',
 
         'NEXT_PUBLIC_URL3': '/routes/userSearch?SLTBBID=',
         'NEXT_PUBLIC_URL4': '/routes/userSearch?EMAIL=',
