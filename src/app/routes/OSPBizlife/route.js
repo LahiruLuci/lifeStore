@@ -42,7 +42,7 @@ export async function POST(request) {
                             const fetchedEmail = rows[0].EMAIL;
 
                             if (fetchedUSERID && fetchedEmail && productCode) {
-                                return NextResponse.json("user entered");
+                                // return NextResponse.json("user entered");
                                 try {
                                     const db = await pool.getConnection();
                                     const query = "SELECT p.PRODUCTID, p.PRODUCTCODE FROM product p  WHERE p.PRODUCTCODE = ?;";
@@ -80,28 +80,24 @@ export async function POST(request) {
                                                         const admin_id = adminId;
                                                         const user = sltbbid;
 
-                                                        const payload3 = {
-                                                            subscriberId,
-                                                            admin_id,
-                                                            user,
-                                                            productId,
-                                                            licensekey,
-                                                            amount: Number(amount),
-                                                        };
+                                                        try {
 
-                                                        const postData3 = await fetch(`${process.env.NEXT_PUBLIC_URL9}`, {
-                                                            method: "POST",
-                                                            headers: {
-                                                                "Content-type": "application/json",
-                                                            },
-                                                            body: JSON.stringify(payload3),
-                                                        });
-                                                        const result3 = await postData3.json();
-                                                        if (result3.message == "Product Subscribed Successfully!") {
-                                                            return NextResponse.json("Product Subscribed Successfully!");
-                                                        } else {
-                                                            return NextResponse.json(result3.error);
-                                                        }
+                                                            const db = await pool.getConnection();
+                                                            if(admin_id){
+                                                              const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                                              await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', admin_id, admin_id]);
+                                                            }else{
+                                                              const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                                              await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', user, user]);
+                                                            }
+                                                      
+                                                            db.release();
+                                                            return NextResponse.json({ message: "Product Subscribed Successfully!" , subscriberId});
+                                                          } catch (error) {
+                                                            return NextResponse.json({
+                                                              error: error.message,
+                                                            }, { status: 404 });
+                                                          }
 
                                                     } else {
                                                         return NextResponse.json("Invalid Subscription.");
@@ -113,7 +109,7 @@ export async function POST(request) {
 
                                             } catch (error) {
                                                 return NextResponse.json({
-                                                    error: error
+                                                    error: error.message
                                                 }, { status: 404 });
                                             }
 
