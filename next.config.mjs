@@ -11,6 +11,7 @@ const nextConfig = {
         'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
         'X_SECRET': 'Za5awxYpg4Clx6uDsjWEg',
         'SECRET_CODE': 'dawyydgbi123129%^&98SEvseE',
+        'SECRET_CODE2': 'iq8q156286y&*(8lI6%7657GBk',
 
         'NEXT_PUBLIC_URL3': '/routes/userSearch?SLTBBID=',
         'NEXT_PUBLIC_URL4': '/routes/userSearch?EMAIL=',

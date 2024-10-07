@@ -44,88 +44,120 @@ export async function POST(request) {
     
                                 if (fetchedUSERID && fetchedEmail && productCode) {
                                     // return NextResponse.json("user entered");
-                                    try {
+                                    let bizLifeSubscriptionsCount;
+                                    try {                                    
                                         const db = await pool.getConnection();
-                                        const query = "SELECT p.PRODUCTID, p.PRODUCTCODE FROM product p  WHERE p.PRODUCTCODE = ?;";
-                                        const [productRows] = await db.execute(query, [productCode]);
-                                        db.release();
-                                        if (productRows.error) {
-                                            alert(productRows.error);
-                                        } else if (productRows.length > 0) {
-                                            if (productRows[0].PRODUCTID) {
-                                                const fetchedPRODUCTID = productRows[0].PRODUCTID;
-                                                const fetchedPRODUCTCODE = productRows[0].PRODUCTCODE;
-                                                const payload2 = {
-                                                    productCode: Number(fetchedPRODUCTCODE),
-                                                    email,
-                                                    amount: Number(amount),
-                                                };
+                                        try {
+                                    
+                                          const selectSubscriptionsCountQuery = `SELECT COUNT(*) AS SUBSCRIPTIONCOUNT FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE s.USER = ? AND s.STATUS = ? AND s.CREATEDUSER = ?`;
+                                    
+                                          const [countResult] = await db.execute(selectSubscriptionsCountQuery, [fetchedUSERID, '3', "BizlifePackage"]);
+                                    
+                                          db.release();
+                                    
+                                          if (countResult.length > 0) {
+                                            bizLifeSubscriptionsCount = countResult[0].SUBSCRIPTIONCOUNT;
+                                            if(bizLifeSubscriptionsCount == 0 && bizLifeSubscriptionsCount != null){
                                                 try {
-                                                    const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL4}`, {
-                                                        method: "POST",
-                                                        headers: {
-                                                            "Authorization": `Bearer ${jwt}`,
-                                                            "Content-type": "application/json",
-                                                            "Access-Control-Allow-Origin": "*"
-                                                        },
-                                                        body: JSON.stringify(payload2),
-                                                    });
-                                                    const result2 = await postData2.json();
-                                                    if (result2.success) {
-                                                        const resultProps = result2.response;
-                                                        if (!resultProps.subscriptionId == null || !resultProps.subscriptionId == "") {
-    
-                                                            const subscriberId = resultProps.subscriptionId;
-                                                            const licensekey = resultProps.key;
-                                                            const productId = fetchedPRODUCTID;
-                                                            const admin_id = adminId;
-                                                            const user = sltbbid;
-    
+                                                    const db = await pool.getConnection();
+                                                    const query = "SELECT p.PRODUCTID, p.PRODUCTCODE FROM product p  WHERE p.PRODUCTCODE = ?;";
+                                                    const [productRows] = await db.execute(query, [productCode]);
+                                                    db.release();
+                                                    if (productRows.error) {
+                                                        alert(productRows.error);
+                                                    } else if (productRows.length > 0) {
+                                                        if (productRows[0].PRODUCTID) {
+                                                            const fetchedPRODUCTID = productRows[0].PRODUCTID;
+                                                            const fetchedPRODUCTCODE = productRows[0].PRODUCTCODE;
+                                                            const payload2 = {
+                                                                productCode: Number(fetchedPRODUCTCODE),
+                                                                email,
+                                                                amount: Number(amount),
+                                                            };
                                                             try {
-    
-                                                                const db = await pool.getConnection();
-                                                                if(admin_id){
-                                                                  const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                                                                  await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', admin_id, admin_id]);
-                                                                }else{
-                                                                  const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                                                                  await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', user, user]);
+                                                                const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL4}`, {
+                                                                    method: "POST",
+                                                                    headers: {
+                                                                        "Authorization": `Bearer ${jwt}`,
+                                                                        "Content-type": "application/json",
+                                                                        "Access-Control-Allow-Origin": "*"
+                                                                    },
+                                                                    body: JSON.stringify(payload2),
+                                                                });
+                                                                const result2 = await postData2.json();
+                                                                if (result2.success) {
+                                                                    const resultProps = result2.response;
+                                                                    if (!resultProps.subscriptionId == null || !resultProps.subscriptionId == "") {
+                
+                                                                        const subscriberId = resultProps.subscriptionId;
+                                                                        const licensekey = resultProps.key;
+                                                                        const productId = fetchedPRODUCTID;
+                                                                        const admin_id = adminId;
+                                                                        const user = sltbbid;
+                
+                                                                        try {
+                
+                                                                            const db = await pool.getConnection();
+                                                                            if(admin_id){
+                                                                              const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                                                              await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', admin_id, admin_id]);
+                                                                            }else{
+                                                                              const insertSubscriptionQuery = "INSERT INTO subscription (SUBSCRIPTIONID, USER, PRODUCT, PAYMENTMETHOD, LICENSEKEY, AMOUNT, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                                                              await db.execute(insertSubscriptionQuery, [subscriberId, user, productId, '2', licensekey, amount, '3', user, user]);
+                                                                            }
+                                                                      
+                                                                            db.release();
+                                                                            return NextResponse.json({ message: "Product Subscribed Successfully!" , subscriberId});
+                                                                          } catch (error) {
+                                                                            return NextResponse.json({
+                                                                              error: error.message,
+                                                                            }, { status: 404 });
+                                                                          }
+                
+                                                                    } else {
+                                                                        return NextResponse.json("Invalid Subscription.");
+                                                                    }
+                                                                } else {
+                                                                    return NextResponse.json(result2.error + " : " + result2.reason);
                                                                 }
-                                                          
-                                                                db.release();
-                                                                return NextResponse.json({ message: "Product Subscribed Successfully!" , subscriberId});
-                                                              } catch (error) {
+                
+                
+                                                            } catch (error) {
                                                                 return NextResponse.json({
-                                                                  error: error.message,
+                                                                    error: error.message
                                                                 }, { status: 404 });
-                                                              }
-    
+                                                            }
+                
+                
                                                         } else {
-                                                            return NextResponse.json("Invalid Subscription.");
+                                                            return NextResponse.json("No product found");
                                                         }
                                                     } else {
-                                                        return NextResponse.json(result2.error + " : " + result2.reason);
+                                                        return NextResponse.json("No product found");
                                                     }
-    
-    
                                                 } catch (error) {
                                                     return NextResponse.json({
-                                                        error: error.message
-                                                    }, { status: 404 });
+                                                        error: error
+                                                    }, { status: 404 })
                                                 }
-    
-    
-                                            } else {
-                                                return NextResponse.json("No product found");
+                                            }else{
+                                                return NextResponse.json({ message: "Already assigned a product!" });
                                             }
-                                        } else {
-                                            return NextResponse.json("No product found");
+                                          }
+                                          return NextResponse.json({ message: "Error with the product subscription!" });
+                                    
+                                        } catch (queryError) {
+                                          console.error('Error executing query:', queryError);
+                                          db.release();
+                                          return NextResponse.json({ error: queryError.message }, { status: 404 });
                                         }
-                                    } catch (error) {
+                                    
+                                      } catch (error) {
                                         return NextResponse.json({
-                                            error: error
-                                        }, { status: 404 })
-                                    }
+                                          error: error.message,
+                                        }, { status: 404 });
+                                      }
+                                    
                                 } else {
                                     return NextResponse.json("Send all the details(email, sltbbid, productcode)");
                                 }

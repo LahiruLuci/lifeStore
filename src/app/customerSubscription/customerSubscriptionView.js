@@ -77,9 +77,9 @@ export default function CustomerSubscriptionView() {
 
         let user = localStorage.getItem('customer_id');
         let statusId = 4;
-        const success_message_modal = document.getElementById("success_message_modal");;
+        const success_message_modal = document.getElementById("success_message_modal");
         const successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
-        const warning_message_modal = document.getElementById("warning_message_modal");;
+        const warning_message_modal = document.getElementById("warning_message_modal");
         const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         const jwt = localStorage.getItem("customerToken");
 
