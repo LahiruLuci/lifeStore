@@ -49,6 +49,9 @@ export async function POST(request) {
                                             const selectSubscriptionsCountQuery = `SELECT * FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE s.USER = ? AND s.STATUS = ? AND s.CREATEDUSER = ?`;
                                             const [countResult] = await db.execute(selectSubscriptionsCountQuery, [fetchedUSERID, '3', "BizlifePackage"]);
 
+                                            const selectSubscriptionsCountQuery2 = `SELECT * FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE s.USER = ? AND s.STATUS = ? AND s.CREATEDUSER = ?`;
+                                            const [countResult2] = await db.execute(selectSubscriptionsCountQuery2, [fetchedUSERID, '4', "BizlifePackage"]);
+
                                             db.release();
 
                                             if (countResult.length > 0) {
@@ -77,27 +80,34 @@ export async function POST(request) {
                                                         if (result2.success) {
                                                             try {
                                                                 const db = await pool.getConnection();
-                                                                if(!adminId ==='' || !adminId===null) {
-                                                                  const updateSubscriptionQuery = "UPDATE subscription SET STATUS = ?,  LASTUPDATEDUSER = ? WHERE SUBSCRIPTIONID = ?";
-                                                                  await db.execute(updateSubscriptionQuery, [parseInt(statusId), adminId, bizLifeSubscriptionId]);
-                                                                  if (statusId===4) {
-                                                                    description = "unsubscribed";
-                                                                  }
-                                                                } 
+                                                                if (!adminId === '' || !adminId === null) {
+                                                                    const updateSubscriptionQuery = "UPDATE subscription SET STATUS = ?,  LASTUPDATEDUSER = ? WHERE SUBSCRIPTIONID = ?";
+                                                                    await db.execute(updateSubscriptionQuery, [parseInt(statusId), adminId, bizLifeSubscriptionId]);
+                                                                    if (statusId === 4) {
+                                                                        description = "unsubscribed";
+                                                                    }
+                                                                }
                                                                 db.release();
-                                                                return NextResponse.json({ message: "success!", subscriptionId, description });
-                                                              } catch (error) {
+                                                                return NextResponse.json({ message: "Product Unsubscribed Successfully!", subscriptionId, description });
+                                                            } catch (error) {
                                                                 return NextResponse.json({
-                                                                  error: error.message,
+                                                                    error: error.message,
                                                                 }, { status: 404 });
-                                                              }
+                                                            }
                                                         } else {
                                                             return NextResponse.json({ message: "Something Wrong with Product Unsubscription." });
                                                         }
 
                                                     } catch (error) {
-                                                        return NextResponse.json({ message: 'Error Unsubscribing product:', error});
+                                                        return NextResponse.json({ message: 'Error Unsubscribing product:', error });
                                                     }
+                                                } else {
+                                                    return NextResponse.json({ message: "No such a product available!" });
+                                                }
+                                            }
+                                            if (countResult2.length > 0) {
+                                                if (countResult2[0].SUBSCRIPTIONID) {
+                                                    return NextResponse.json({ message: "Product Unsubscribed Already!" });
                                                 } else {
                                                     return NextResponse.json({ message: "No such a product available!" });
                                                 }

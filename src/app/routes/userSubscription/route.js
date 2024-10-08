@@ -8,7 +8,7 @@ export async function GET(request){
     if (userId) {
         try {
             const db = await pool.getConnection();
-            const query = "SELECT p.PRODUCTID, p.PRODUCTCODE, p.PRODUCTNAME, s.SUBSCRIPTIONID, s.PRODUCT, s.LICENSEKEY, s.AMOUNT, s.LASTUPDATEDDATETIME, s.CREATEDDATETIME, st.DESCRIPTION AS STATUSDESCRIPTION,s.LASTUPDATEDUSER FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE USER = ? GROUP BY s.SUBSCRIPTIONID ORDER BY FIELD(s.STATUS, 3, 2, 4)";
+            const query = "SELECT p.PRODUCTID, p.PRODUCTCODE, p.PRODUCTNAME, s.SUBSCRIPTIONID, s.PRODUCT, s.LICENSEKEY, s.AMOUNT, s.LASTUPDATEDDATETIME, s.CREATEDDATETIME, st.DESCRIPTION AS STATUSDESCRIPTION, s.CREATEDUSER,s.LASTUPDATEDUSER FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE USER = ? GROUP BY s.SUBSCRIPTIONID ORDER BY FIELD(s.STATUS, 3, 2, 4)";
             const [rows] = await db.execute(query, [userId]);
             db.release();
             return NextResponse.json(rows);
