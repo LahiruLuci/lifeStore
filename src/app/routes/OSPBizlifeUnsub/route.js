@@ -55,14 +55,13 @@ export async function POST(request) {
                                             db.release();
 
                                             if (countResult.length > 0) {
-                                                const bizLifeSubscriptionId = countResult[0].SUBSCRIPTIONID;
-                                                if (bizLifeSubscriptionId && bizLifeSubscriptionId != null) {
-                                                    let statusId = 4;
+                                                const subscriptionId = countResult[0].SUBSCRIPTIONID;
+                                                if (subscriptionId && subscriptionId != null) {
 
                                                     try {
 
                                                         const payload2 = {
-                                                            subscriptionId: bizLifeSubscriptionId,
+                                                            subscriptionId,
                                                         };
 
                                                         const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL5}`, {
@@ -76,17 +75,13 @@ export async function POST(request) {
                                                         });
 
                                                         const result2 = await postData2.json();
-                                                        let description;
                                                         if (result2.success) {
+                                                            const description = "unsubscribed";
                                                             try {
                                                                 const db = await pool.getConnection();
-                                                                if (!adminId === '' || !adminId === null) {
-                                                                    const updateSubscriptionQuery = "UPDATE subscription SET STATUS = ?,  LASTUPDATEDUSER = ? WHERE SUBSCRIPTIONID = ?";
-                                                                    await db.execute(updateSubscriptionQuery, [parseInt(statusId), adminId, bizLifeSubscriptionId]);
-                                                                    if (statusId === 4) {
-                                                                        description = "unsubscribed";
-                                                                    }
-                                                                }
+                                                                const updateSubscriptionQuery = "UPDATE subscription SET STATUS = ?,  LASTUPDATEDUSER = ? WHERE SUBSCRIPTIONID = ?";
+                                                                await db.execute(updateSubscriptionQuery, ['4', adminId, subscriptionId]);
+                                                                
                                                                 db.release();
                                                                 return NextResponse.json({ message: "Product Unsubscribed Successfully!", subscriptionId, description });
                                                             } catch (error) {
