@@ -16,6 +16,7 @@ const AdminPasswordChangeView = () => {
   let successMessageModal;
   let warningMessageModal;
 
+  //update admin password
   const updatePassword = async () => {
     let success_message_modal = document.getElementById("success_message_modal");
     let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");

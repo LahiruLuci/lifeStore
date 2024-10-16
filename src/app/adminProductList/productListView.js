@@ -36,6 +36,7 @@ export default function ProductList() {
   let successMessageModal;
   let successMessageModal2;
 
+  //load products
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -51,6 +52,7 @@ export default function ProductList() {
     fetchProducts();
   }, []);
 
+  //setup the products details in admin view
   const handleProductClick = async (product) => {
     setUser(localStorage.getItem('customer_id'));
     setEmail(localStorage.getItem('user_email'));
@@ -67,6 +69,7 @@ export default function ProductList() {
 
   };
 
+  //go back to productList view in admin view
   const productListHome = () => {
     const productListViewId = document.getElementById("productListViewId");
     const singleAdminProductViewId = document.getElementById("singleAdminProductViewId");
@@ -74,6 +77,7 @@ export default function ProductList() {
     singleAdminProductViewId.classList.add("d-none");
   }
 
+  //product buying process
   const handleBuyNowClick = async () => {
 
     const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
@@ -162,6 +166,7 @@ export default function ProductList() {
     }
   };
 
+  //email update process
   const emailConfirmation = async () => {
     const changeEmail1 = document.getElementById("adminChangeEmail1").value;
     const changeEmail2 = document.getElementById("adminChangeEmail2").value;
@@ -225,6 +230,7 @@ export default function ProductList() {
     }
   }
 
+  //product buying confirmation process
   const handleBuyConfirmationClick = async () => {
     let user = localStorage.getItem('customer_id');
 
@@ -268,6 +274,7 @@ export default function ProductList() {
   let aswva;
   let productSubscribeWarningMessageModal;
 
+  //same user same product buying confirmation
   const SubscriptionsWarningSubscribeViewAsk = (x) => {
     productSubscribeWarningMessageModal = document.getElementById("admin_product_subscribe_warning_message_modal");
     const subscribeWarningMsgDescriptionHead = document.getElementById("adminSubscribeWarningMsgDescriptionHead");
@@ -283,6 +290,7 @@ export default function ProductList() {
   let assva;
   let productSubscribeSelectionMessageModal;
 
+  //buying confirmation
   function SubscriptionsSubscribeViewAsk() {
 
     productSubscribeSelectionMessageModal = document.getElementById("admin_product_subscribe_selection_message_modal");
@@ -295,6 +303,7 @@ export default function ProductList() {
 
   let assvea;
 
+  //buying email confirmation
   function SubscriptionsSubscribeViewEmailAsk() {
 
     if (email == null || email == '') {
@@ -315,6 +324,7 @@ export default function ProductList() {
 
   let assveca;
 
+  //buying new email confirmation
   function SubscriptionsSubscribeViewEmailChangeAsk() {
 
     const productSubscribeEmailChangeMessageModal = document.getElementById("admin_product_subscribe_email_change_message_modal");

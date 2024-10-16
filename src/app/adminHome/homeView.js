@@ -9,6 +9,7 @@ export default function HomeView() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    //load products
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -24,6 +25,7 @@ export default function HomeView() {
         fetchProducts();
     }, []);
 
+    //go to new products descriptions
     const homeSeeMoreBtn = () =>{
         const adminHomeId = document.getElementById("adminHomeId");
         const adminProductDescriptionHomeId = document.getElementById("adminProductDescriptionHomeId");

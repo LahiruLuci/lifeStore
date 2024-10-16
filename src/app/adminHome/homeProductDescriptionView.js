@@ -2,6 +2,7 @@
 
 export default function HomeProductDescriptionView() {
 
+    //back to admin home page
     const backToadminHome = () =>{
         const adminHomeId = document.getElementById("adminHomeId");
         const adminProductDescriptionHomeId = document.getElementById("adminProductDescriptionHomeId");

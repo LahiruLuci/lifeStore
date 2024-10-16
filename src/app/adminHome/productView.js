@@ -5,7 +5,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useCallback } from 'react';
 
-
+//load products
 export async function getProductsProps() {
     const res = await fetch(`${process.env.NEXT_PUBLIC_URL8}`);
     const products = await res.json();

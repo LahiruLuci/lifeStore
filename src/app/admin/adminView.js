@@ -18,6 +18,7 @@ export default function AdminView() {
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
 
+    //load admin
     useEffect(() => {
         const fetchAdmins = async () => {
             try {
@@ -36,6 +37,7 @@ export default function AdminView() {
     let successMessageModal;
     let warningMessageModal;
 
+    //add admin
     const addAdmin = async () => {
         const userId = document.getElementById("adminId").value;
         const normalPassword = document.getElementById("adminPassword3").value;
@@ -96,6 +98,7 @@ export default function AdminView() {
 
     };
 
+    //update admin
     const updateAdmin = async () => {
         const normalPassword = document.getElementById("editAdminPassword1").value;
         const password = bcrypt.hashSync(normalPassword, 10);
@@ -132,6 +135,7 @@ export default function AdminView() {
 
     };
 
+    //delete admin
     const deleteAdmin = async (user) => {
         const userId = user.USERID;
         try {
@@ -156,6 +160,7 @@ export default function AdminView() {
         }
     };
 
+    //set the admin details
     const handleAdminEditClick = (admin) => {
         setSelectedAdmin(admin);
         setUserId(admin.USERID);
@@ -169,6 +174,7 @@ export default function AdminView() {
         setPassword2(admin.PASSWORD);
     };
 
+    //checking the admin add textField validations
     const onAdminAddViewClick = () => {
         const userId = document.getElementById("adminId").value;
         const password = document.getElementById("adminPassword3").value;
@@ -265,12 +271,14 @@ export default function AdminView() {
 
     };
 
+    //
     const handleAddConfirm = () => {
         cav.hide();
         aavca.hide();
         addAdmin();
     };
 
+    //checking the admin edit textField validations
     const onAdminEditViewClick = () => {
         const editAdminPassword1 = document.getElementById("editAdminPassword1").value;
         const editAdminPassword2 = document.getElementById("editAdminPassword2").value;
@@ -314,6 +322,7 @@ export default function AdminView() {
             }
         }
     };
+
 
     const handleEditConfirm = () => {
         if (selectedAdmin) {

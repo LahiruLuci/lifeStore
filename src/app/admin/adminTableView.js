@@ -21,16 +21,19 @@ const AdminTableRows = ({ admins, onAdminEditClick, onAdminDeleteClick }) => {
         return <p>No admins available</p>;
     } else {
 
+        //Admin Edit Modal viewing and set the selected admin details to them.
         const onAdminEditViewClick = useCallback((admin) => {
             EditAdminView();
             onAdminEditClick(admin);
         }, [onAdminEditClick]);
 
+        //Admin delete confirmation modal viewing
         const onAdminDeleteViewClick = useCallback((admin) => {
             setSelectedAdmin(admin);
             AdminDeleteViewClickAsk();
         }, []);
 
+        //After Click Yes in the Delete confirmation message
         const handleDeleteConfirm = () => {
             if (selectedAdmin) {
                 onAdminDeleteClick(selectedAdmin);
