@@ -8,6 +8,8 @@ const Products = ({ products, onProductClick }) => {
     if (!products || !Array.isArray(products) || products.length === 0) {
         return <p>No products available</p>;
     } else {
+
+        //feature identification
         const hasFeature = (featuresString, feature) => {
             const regex = new RegExp(`\\b${feature}\\b`, 'i');
             return regex.test(featuresString);

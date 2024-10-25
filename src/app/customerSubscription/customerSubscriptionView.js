@@ -154,6 +154,7 @@ export default function CustomerSubscriptionView() {
         const warning_message_modal = document.getElementById("warning_message_modal");;
         const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         const jwt = localStorage.getItem("customerToken");
+        const subscriptionId = subscriptionId;
 
         if (email) {
             try {
@@ -162,6 +163,7 @@ export default function CustomerSubscriptionView() {
                     email: email,
                     key: licensekey,
                     product_code: Number(productCode),
+                    subscriptionId: subscriptionId,
                 };
 
                 const postData = await fetch(`${process.env.NEXT_PRIVATE_URL6}`, {

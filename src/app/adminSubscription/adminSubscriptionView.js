@@ -37,6 +37,7 @@ export default function AdminSubscriptionView() {
     let successMessageModal;
     let warningMessageModal;
 
+    //loading customers subscriptions
     useEffect(() => {
 
         const fetchUserSubscriptions = async () => {
@@ -53,6 +54,7 @@ export default function AdminSubscriptionView() {
         fetchUserSubscriptions();
     }, []);
 
+    //set subscription details
     const handleSubscriptionsClick = (subscription) => {
         setSelectedsubscription(subscription);
         setSubscriptionId(subscription.SUBSCRIPTIONID);
@@ -61,6 +63,7 @@ export default function AdminSubscriptionView() {
         setLicensekey(subscription.LICENSEKEY);
     };
 
+    //
     const handleSubscriptionsUnsubscribeClick = (subscription) => {
         setSelectedsubscription(subscription);
         setSubscriptionId(subscription.SUBSCRIPTIONID);
@@ -163,6 +166,7 @@ export default function AdminSubscriptionView() {
         const warning_message_modal = document.getElementById("warning_message_modal");;
         const warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         const jwt = localStorage.getItem("customerToken");
+        const subscriptionId = subscriptionId;
 
         if (email) {
             try {
@@ -171,7 +175,14 @@ export default function AdminSubscriptionView() {
                     email: email,
                     key: licensekey,
                     product_code: Number(productCode),
+                    subscriptionId: subscriptionId,
                 };
+
+                // const payload1 = {
+                //     email: email,
+                //     key: licensekey,
+                //     product_code: Number(productCode),
+                // };
 
                 const postData = await fetch(`${process.env.NEXT_PRIVATE_URL6}`, {
                     method: "POST",

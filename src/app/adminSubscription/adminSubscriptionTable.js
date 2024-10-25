@@ -8,16 +8,19 @@ const AdminSubscriptionTableRows = ({ adminSubscriptions, onAdminSubscriptionsCl
         return <p>No Subscriptions available for this customer</p>;
     } else {
 
+        //admins subscription licensekey modal viewing
         const onAdminSubscriptionClick = useCallback((adminSubscription) => {
             AdminLiceseKeyView();
             onAdminSubscriptionsClick(adminSubscription);
         }, [onAdminSubscriptionsClick]);
 
+        //admins unsubscription confirmation modal viewing
         const onCustomerSubscriptionUnsubscribeClick = useCallback((adminSubscription) => {
             SubscriptionsUnsubscribeViewAsk2();
             onCustomerSubscriptionsUnsubscribeClick(adminSubscription);
         }, [onCustomerSubscriptionsUnsubscribeClick]);
 
+        //admins customer subscription email sending confimation modal viewing
         const onCustomerEmailSendClick = useCallback((adminSubscription) => {
             SubscriptionsEmailSendViewAsk2();
             onCustomerSubscriptionsEmailSendClick(adminSubscription);

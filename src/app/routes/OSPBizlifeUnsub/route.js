@@ -90,21 +90,21 @@ export async function POST(request) {
                                                                 }, { status: 404 });
                                                             }
                                                         } else {
-                                                            return NextResponse.json({ message: "Something Wrong with Product Unsubscription." });
+                                                            return NextResponse.json({ error: "Something Wrong with Product Unsubscription." });
                                                         }
 
                                                     } catch (error) {
-                                                        return NextResponse.json({ message: 'Error Unsubscribing product:', error });
+                                                        return NextResponse.json({ error: 'Error Unsubscribing product:', error });
                                                     }
                                                 } else {
-                                                    return NextResponse.json({ message: "No such a product available!" });
+                                                    return NextResponse.json({ error: "No such a product available!" });
                                                 }
                                             }
                                             if (countResult2.length > 0) {
                                                 if (countResult2[0].SUBSCRIPTIONID) {
-                                                    return NextResponse.json({ message: "Product Unsubscribed Already!" });
+                                                    return NextResponse.json({ error: "Product Unsubscribed Already!" });
                                                 } else {
-                                                    return NextResponse.json({ message: "No such a product available!" });
+                                                    return NextResponse.json({ error: "No such a product available!" });
                                                 }
                                             }
                                             return NextResponse.json({ message: "Error with the product subscription!" });
@@ -122,14 +122,14 @@ export async function POST(request) {
                                     }
 
                                 } else {
-                                    return NextResponse.json("Send all the details(email, sltbbid, productcode)");
+                                    return NextResponse.json({error:"Send all the details(email, sltbbid, productcode)"});
                                 }
 
                             } else {
-                                return NextResponse.json("No user found");
+                                return NextResponse.json({error:"No user found"});
                             }
                         } else {
-                            return NextResponse.json("No user found");
+                            return NextResponse.json({error:"No user found"});
                         }
                     } catch (error) {
                         return NextResponse.json({
@@ -149,7 +149,7 @@ export async function POST(request) {
             }
         }
     } else {
-        return NextResponse.json("Something wrong with the Secret!");
+        return NextResponse.json({error:"Something wrong with the Secret!"});
     }
 
 }

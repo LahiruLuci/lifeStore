@@ -115,7 +115,7 @@ export async function POST(request) {
                                                                           }
                 
                                                                     } else {
-                                                                        return NextResponse.json("Invalid Subscription.");
+                                                                        return NextResponse.json({error:"Invalid Subscription."});
                                                                     }
                                                                 } else {
                                                                     return NextResponse.json(result2.error + " : " + result2.reason);
@@ -130,10 +130,10 @@ export async function POST(request) {
                 
                 
                                                         } else {
-                                                            return NextResponse.json("No product found");
+                                                            return NextResponse.json({error:"No product found"});
                                                         }
                                                     } else {
-                                                        return NextResponse.json("No product found");
+                                                        return NextResponse.json({error:"No product found"});
                                                     }
                                                 } catch (error) {
                                                     return NextResponse.json({
@@ -144,7 +144,7 @@ export async function POST(request) {
                                                 return NextResponse.json({ message: "Already assigned a product!" });
                                             }
                                           }
-                                          return NextResponse.json({ message: "Error with the product subscription!" });
+                                          return NextResponse.json({ error: "Error with the product subscription!" });
                                     
                                         } catch (queryError) {
                                           console.error('Error executing query:', queryError);
@@ -159,14 +159,14 @@ export async function POST(request) {
                                       }
                                     
                                 } else {
-                                    return NextResponse.json("Send all the details(email, sltbbid, productcode)");
+                                    return NextResponse.json({error:"Send all the details(email, sltbbid, productcode)"});
                                 }
     
                             } else {
-                                return NextResponse.json("No user found");
+                                return NextResponse.json({error:"No user found"});
                             }
                         } else {
-                            return NextResponse.json("No user found");
+                            return NextResponse.json({error:"No user found"});
                         }
                     } catch (error) {
                         return NextResponse.json({
@@ -186,7 +186,7 @@ export async function POST(request) {
             }
         }
     }else{
-        return NextResponse.json("Something wrong with the Secret!");
+        return NextResponse.json({error:"Something wrong with the Secret!"});
     }
 
 }
