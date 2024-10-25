@@ -171,18 +171,18 @@ export default function AdminSubscriptionView() {
         if (email) {
             try {
 
-                const payload1 = {
-                    email: email,
-                    key: licensekey,
-                    product_code: Number(productCode),
-                    subscriptionId: subscriptionId,
-                };
-
                 // const payload1 = {
                 //     email: email,
                 //     key: licensekey,
                 //     product_code: Number(productCode),
+                //     subscriptionId: subscriptionId,
                 // };
+
+                const payload1 = {
+                    email: email,
+                    key: licensekey,
+                    product_code: Number(productCode),
+                };
 
                 const postData = await fetch(`${process.env.NEXT_PRIVATE_URL6}`, {
                     method: "POST",
