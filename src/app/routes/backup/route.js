@@ -2,10 +2,9 @@ import { NextResponse } from "next/server";
 import pool from "../../config/mysql";
 
 export async function POST(request) {
-    const { email, sltbbid, productCode } = await request.json();
-    const secretCode = request.headers.get("Authorization");
+    const { email, sltbbid, productCode, SECRETCODE } = await request.json();
     const amount = 0;
-    if(secretCode === `Bearer ${process.env.SECRET_CODE}`){
+    if(SECRETCODE == process.env.SECRET_CODE){
         if (sltbbid && email && productCode) {
             try {
                 const adminId = "BizlifePackage";
@@ -108,10 +107,7 @@ export async function POST(request) {
                                                                             }
                                                                       
                                                                             db.release();
-                                                                            return NextResponse.json({ 
-                                                                                error: 0,
-                                                                                message: "Product Subscribed Successfully!" , subscriberId
-                                                                            });
+                                                                            return NextResponse.json({ message: "Product Subscribed Successfully!" , subscriberId});
                                                                           } catch (error) {
                                                                             return NextResponse.json({
                                                                               error: error.message,
@@ -119,10 +115,7 @@ export async function POST(request) {
                                                                           }
                 
                                                                     } else {
-                                                                        return NextResponse.json({
-                                                                            error: 1,
-                                                                            message: "Invalid Subscription."
-                                                                        });
+                                                                        return NextResponse.json({error:"Invalid Subscription."});
                                                                     }
                                                                 } else {
                                                                     return NextResponse.json(result2.error + " : " + result2.reason);
@@ -137,16 +130,10 @@ export async function POST(request) {
                 
                 
                                                         } else {
-                                                            return NextResponse.json({
-                                                                error:1,
-                                                                message: "No product found"
-                                                            });
+                                                            return NextResponse.json({error:"No product found"});
                                                         }
                                                     } else {
-                                                        return NextResponse.json({
-                                                            error: 1,
-                                                            message: "No product found"
-                                                        });
+                                                        return NextResponse.json({error:"No product found"});
                                                     }
                                                 } catch (error) {
                                                     return NextResponse.json({
@@ -154,16 +141,10 @@ export async function POST(request) {
                                                     }, { status: 404 })
                                                 }
                                             }else{
-                                                return NextResponse.json({ 
-                                                    error: 0,
-                                                    message: "Already assigned a product!",
-                                                 });
+                                                return NextResponse.json({ message: "Already assigned a product!" });
                                             }
                                           }
-                                          return NextResponse.json({ 
-                                            error: 1,
-                                            message: "Error with the product subscription!"
-                                           });
+                                          return NextResponse.json({ error: "Error with the product subscription!" });
                                     
                                         } catch (queryError) {
                                           console.error('Error executing query:', queryError);
@@ -178,23 +159,14 @@ export async function POST(request) {
                                       }
                                     
                                 } else {
-                                    return NextResponse.json({
-                                        error: 1,
-                                        message: "Send all the details(email, sltbbid, productcode)"
-                                    });
+                                    return NextResponse.json({error:"Send all the details(email, sltbbid, productcode)"});
                                 }
     
                             } else {
-                                return NextResponse.json({
-                                    error:1,
-                                    message: "No user found"
-                                });
+                                return NextResponse.json({error:"No user found"});
                             }
                         } else {
-                            return NextResponse.json({
-                                error:1,
-                                message: "No user found"
-                            });
+                            return NextResponse.json({error:"No user found"});
                         }
                     } catch (error) {
                         return NextResponse.json({
@@ -214,10 +186,7 @@ export async function POST(request) {
             }
         }
     }else{
-        return NextResponse.json({
-            error: 1,
-            message: "Something wrong with the Secret!"
-        });
+        return NextResponse.json({error:"Something wrong with the Secret!"});
     }
 
 }
