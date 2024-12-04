@@ -5,7 +5,7 @@ export async function POST(request) {
     const { email, sltbbid, productCode } = await request.json();
     const secretCode = request.headers.get("Authorization");
     const amount = 0;
-    if(secretCode === `Bearer ${process.env.SECRET_CODE}`){
+    if(secretCode == process.env.SECRET_CODE){
         if (sltbbid && email && productCode) {
             try {
                 const adminId = "BizlifePackage";
