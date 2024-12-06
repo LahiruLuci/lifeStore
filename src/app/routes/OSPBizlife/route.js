@@ -3,12 +3,12 @@ import pool from "../../config/mysql";
 
 export async function POST(request) {
     const { email, sltbbid, productCode } = await request.json();
-    const secretCode = request.headers.get("Authorization");
+    const secretCode = request.headers.get('SECRETCODE');
     const amount = 0;
     if(secretCode == process.env.SECRET_CODE){
         if (sltbbid && email && productCode) {
             try {
-                const adminId = "BizlifePackage";
+                const adminId = "KasperskyWithCRM";
                 const postData1 = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
                     method: "POST",
                     headers: {
@@ -45,20 +45,20 @@ export async function POST(request) {
     
                                 if (fetchedUSERID && fetchedEmail && productCode) {
                                     // return NextResponse.json("user entered");
-                                    let bizLifeSubscriptionsCount;
+                                    let cRMSubscriptionsCount;
                                     try {                                    
                                         const db = await pool.getConnection();
                                         try {
                                     
                                           const selectSubscriptionsCountQuery = `SELECT COUNT(*) AS SUBSCRIPTIONCOUNT FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE s.USER = ? AND s.STATUS = ? AND s.CREATEDUSER = ?`;
                                     
-                                          const [countResult] = await db.execute(selectSubscriptionsCountQuery, [fetchedUSERID, '3', "BizlifePackage"]);
+                                          const [countResult] = await db.execute(selectSubscriptionsCountQuery, [fetchedUSERID, '3', "CRMPackage"]);
                                     
                                           db.release();
                                     
                                           if (countResult.length > 0) {
-                                            bizLifeSubscriptionsCount = countResult[0].SUBSCRIPTIONCOUNT;
-                                            if(bizLifeSubscriptionsCount == 0 && bizLifeSubscriptionsCount != null){
+                                            cRMSubscriptionsCount = countResult[0].SUBSCRIPTIONCOUNT;
+                                            if(cRMSubscriptionsCount == 0 && cRMSubscriptionsCount != null){
                                                 try {
                                                     const db = await pool.getConnection();
                                                     const query = "SELECT p.PRODUCTID, p.PRODUCTCODE FROM product p  WHERE p.PRODUCTCODE = ?;";
