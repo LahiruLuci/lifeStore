@@ -48,10 +48,10 @@ export async function POST(request) {
                                         try {
 
                                             const selectSubscriptionsCountQuery = `SELECT * FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE s.USER = ? AND s.STATUS = ? AND s.CREATEDUSER = ?`;
-                                            const [countResult] = await db.execute(selectSubscriptionsCountQuery, [fetchedUSERID, '3', "CRMPackage"]);
+                                            const [countResult] = await db.execute(selectSubscriptionsCountQuery, [fetchedUSERID, '3', "KasperskyWithCRM"]);
 
                                             const selectSubscriptionsCountQuery2 = `SELECT * FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE s.USER = ? AND s.STATUS = ? AND s.CREATEDUSER = ?`;
-                                            const [countResult2] = await db.execute(selectSubscriptionsCountQuery2, [fetchedUSERID, '4', "CRMPackage"]);
+                                            const [countResult2] = await db.execute(selectSubscriptionsCountQuery2, [fetchedUSERID, '4', "KasperskyWithCRM"]);
 
                                             db.release();
 
