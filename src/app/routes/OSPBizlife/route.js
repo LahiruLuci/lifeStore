@@ -114,7 +114,8 @@ export async function POST(request) {
                                                                             });
                                                                           } catch (error) {
                                                                             return NextResponse.json({
-                                                                              error: error.message,
+                                                                                error: 1,
+                                                                                Message: error.message,
                                                                             }, { status: 404 });
                                                                           }
                 
@@ -131,7 +132,8 @@ export async function POST(request) {
                 
                                                             } catch (error) {
                                                                 return NextResponse.json({
-                                                                    error: error.message
+                                                                    error: 1,
+                                                                    Message: error.message
                                                                 }, { status: 404 });
                                                             }
                 
@@ -150,12 +152,13 @@ export async function POST(request) {
                                                     }
                                                 } catch (error) {
                                                     return NextResponse.json({
-                                                        error: error
+                                                        error: 1,
+                                                        Message: error
                                                     }, { status: 404 })
                                                 }
                                             }else{
                                                 return NextResponse.json({ 
-                                                    error: 0,
+                                                    error: 1,
                                                     message: "Already assigned a product!",
                                                  });
                                             }
@@ -173,7 +176,8 @@ export async function POST(request) {
                                     
                                       } catch (error) {
                                         return NextResponse.json({
-                                          error: error.message,
+                                            error: 1,
+                                            Message: error.message,
                                         }, { status: 404 });
                                       }
                                     
@@ -198,7 +202,8 @@ export async function POST(request) {
                         }
                     } catch (error) {
                         return NextResponse.json({
-                            error: error.message
+                            error: 1,
+                            Message: error.message
                         }, { status: 400 })
                     }
     
@@ -209,13 +214,14 @@ export async function POST(request) {
     
             } catch (error) {
                 return NextResponse.json({
-                    error: error.message
+                    error: 1,
+                    Message: error.message
                 }, { status: 404 })
             }
         }
     }else{
         return NextResponse.json({
-            //error: error.message,
+            error: 1,
             message: "Something wrong with the Secret!"
         });
     }

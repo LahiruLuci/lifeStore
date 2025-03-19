@@ -85,27 +85,31 @@ export async function POST(request) {
                                                                 
                                                                 db.release();
                                                                 return NextResponse.json({ 
-                                                                    status: successfull,
+                                                                    error: 0,
                                                                     message: "Product Unsubscribed Successfully!", subscriptionId, description
                                                                  });
                                                             } catch (error) {
                                                                 return NextResponse.json({
-                                                                    error: error.message,
+                                                                    error : 1, 
+                                                                    message: error.message,
                                                                 }, { status: 404 });
                                                             }
                                                         } else {
                                                             return NextResponse.json({ 
-                                                                status: error,
+                                                                error: 1,
                                                                 message: "Something Wrong with Product Unsubscription."
                                                              });
                                                         }
 
                                                     } catch (error) {
-                                                        return NextResponse.json({ error: 'Error Unsubscribing product:', error });
+                                                        return NextResponse.json({ 
+                                                            error: 1,
+                                                            Message: 'Error Unsubscribing product:', error 
+                                                        });
                                                     }
                                                 } else {
                                                     return NextResponse.json({ 
-                                                        status: error,
+                                                        error: 1,
                                                         message: "No such a product available!"
                                                      });
                                                 }
@@ -113,55 +117,60 @@ export async function POST(request) {
                                             if (countResult2.length > 0) {
                                                 if (countResult2[0].SUBSCRIPTIONID) {
                                                     return NextResponse.json({ 
-                                                        status: successfull,
+                                                        error: 1,
                                                         message: "Product Unsubscribed Already!" 
                                                      });
                                                 } else {
                                                     return NextResponse.json({ 
-                                                        status: error,
+                                                        error: 1,
                                                         message: "No such a product available!"
                                                      });
                                                 }
                                             }
                                             return NextResponse.json({ 
-                                                status: error,
+                                                error: 1,
                                                 message: "Error with the product subscription!"
                                              });
 
                                         } catch (queryError) {
                                             console.error('Error executing query:', queryError);
                                             db.release();
-                                            return NextResponse.json({ error: queryError.message }, { status: 404 });
+                                            return NextResponse.json({ 
+                                                error : 1,
+                                                Message: queryError.message 
+                                            }, { status: 404 });
                                         }
 
                                     } catch (error) {
                                         return NextResponse.json({
-                                            error: error.message,
+                                            error: 1,
+                                            Message: error.message,
                                         }, { status: 404 });
                                     }
 
                                 } else {
                                     return NextResponse.json({
-                                        status: error,
+                                        error:1,
                                         message: "Send all the details(email, sltbbid, productcode)"
                                     });
                                 }
 
                             } else {
                                 return NextResponse.json({
-                                    status: error,
+                                    error: 1,
                                     message: "No user found"
                                 });
                             }
                         } else {
                             return NextResponse.json({
-                                status: error,
+                                error: 1,
                                 message: "No user found"
                             });
                         }
                     } catch (error) {
                         return NextResponse.json({
-                            error: error.message
+                            error: 1,
+                            Message: error.message
                         }, { status: 400 })
                     }
 
@@ -172,13 +181,14 @@ export async function POST(request) {
 
             } catch (error) {
                 return NextResponse.json({
-                    error: error.message
+                    error : 1,
+                    Message: error.message
                 }, { status: 404 })
             }
         }
     } else {
         return NextResponse.json({
-            status: error,
+            error: 1,
             message: "Something wrong with the Secret!"
         });
     }
