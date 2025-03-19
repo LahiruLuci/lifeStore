@@ -128,10 +128,12 @@ const Login = () => {
                         window.location.href = '/adminHome';
                     } else if (localStorage.getItem('super_admin_id') && localStorage.getItem("userRole") == 3) {
                         window.location.href = '/dashboard';
-                    } else {
+                    } else if (localStorage.getItem('admin_id') && localStorage.getItem("userRole") == 4) {
+                        window.location.href = '/adminProductPortfolio';
+                    }else {
                         if (localStorage.getItem("userRole") == 1) {
                             loginMainView.classList.add("d-none");
-                        } else if (localStorage.getItem("userRole") == 2 || localStorage.getItem("userRole") == 3) {
+                        } else if (localStorage.getItem("userRole") == 2 || localStorage.getItem("userRole") == 3 || localStorage.getItem("userRole") == 4) {
                             loginMainView.classList.remove("d-none");
                         }
                     }
@@ -154,6 +156,9 @@ const Login = () => {
         } else if (fetchedUserRole == 3) {
             localStorage.setItem('super_admin_id', user_id);
             window.location.href = '/dashboard';
+        }else if (fetchedUserRole == 4) {
+            localStorage.setItem('admin_id', user_id);
+            window.location.href = '/adminHome';
         } else {
             window.location.href = '/logOutView';
         }

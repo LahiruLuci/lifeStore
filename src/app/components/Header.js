@@ -424,6 +424,11 @@ const Navbar = () => {
                                             </Link>
                                         </li>
                                         <li className="nav-item">
+                                            <Link href="/admin2(withoutUnsub)" className="nav-link">
+                                                <span className="title05">Admin2</span>
+                                            </Link>
+                                        </li>
+                                        <li className="nav-item">
                                             <Link href="/auditTrace" className="nav-link">
                                                 <span className="title05">Audit Trace</span>
                                             </Link>
@@ -447,6 +452,73 @@ const Navbar = () => {
                                                 </li>
                                             </ul>
                                         </li>
+                                    </>
+                                )}
+
+                                {userrole == 4 && (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link href="/adminHome" className="nav-link">
+                                                <span className="title05">Home</span>
+                                            </Link>
+                                        </li>
+                                        {localStorage.getItem('customer_id') && (
+                                            <li className="nav-item">
+                                                <Link href="/adminProductList" className="nav-link">
+                                                    <span className="title05">Product List</span>
+                                                </Link>
+                                            </li>
+                                        )}
+                                        <li className="nav-item">
+                                            <Link href="/adminProductPortfolio" className="nav-link">
+                                                <span className="title05">Product Portfolio</span>
+                                            </Link>
+                                        </li>
+                                        {localStorage.getItem('customer_id') && (
+                                            <li className="nav-item">
+                                                <Link href="/adminSubscription(withoutUnsub)" className="nav-link">
+                                                    <span className="title05">Subscription</span>
+                                                </Link>
+                                            </li>
+                                        )}
+
+                                        <li className="nav-item">
+                                            <Link href="#" className="nav-link" onClick={handleCustomerSearchModal2}>
+                                                <span className="title05">Cus.Search</span>
+                                            </Link>
+                                        </li>
+                                        {localStorage.getItem('customer_id') && (
+                                            <li className="nav-item dropdown" id="customerLogout">
+                                                <a href="#" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <span className="title05"><i className="bi bi-person-circle fs-5"></i></span>
+                                                </a>
+                                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                    <li><Link href="/customerDetails" className="dropdown-item"><span className="title05"><i class="bi bi-person-lines-fill"></i>&nbsp;Your Account</span></Link></li>
+                                                    <li><Link href="/help" className="dropdown-item"><span className="title05"><i class="bi bi-info-circle-fill"></i>&nbsp;Help</span></Link></li>
+                                                    <li><hr className="dropdown-divider" /></li>
+                                                    <Link href="#" className="nav-link" onClick={customerEnd}>
+                                                        <li className="logOutbtn title05 text-center">
+                                                            <span className="title055">Log Out</span>
+                                                        </li>
+                                                    </Link>
+                                                </ul>
+                                            </li>
+                                        )}
+                                        <li className="nav-item dropdown" id="adminLogout">
+                                            <a href="#" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span className="title05 btn2">Account</span>
+                                            </a>
+                                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                <li><Link href="/adminChangePassword" className="dropdown-item"><span className="title05"><i class="bi bi-person-lines-fill"></i>&nbsp;Admin Password Edit</span></Link></li>
+                                                <li><hr className="dropdown-divider" /></li>
+                                                <Link href="#" className="nav-link" onClick={adminEnd}>
+                                                    <li className="logOutbtn title05 text-center">
+                                                        <span className="title055">Admin Log Out</span>
+                                                    </li>
+                                                </Link>
+                                            </ul>
+                                        </li>
+
                                     </>
                                 )}
 

@@ -215,7 +215,7 @@ export async function POST(request) {
         }
     }else{
         return NextResponse.json({
-            error: 1,
+            //error: error.message,
             message: "Something wrong with the Secret!"
         });
     }

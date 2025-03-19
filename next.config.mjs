@@ -7,7 +7,7 @@ const nextConfig = {
         'MYSQL_PORT': '3306',
         'MYSQL_DATABASE': 'kaspersky_db',
         'MYSQL_USER': 'root',
-        'MYSQL_PASSWORD': 'k000oH)YW~OG,1%(y(eZ',
+        'MYSQL_PASSWORD': 'k000oH)YW~OG,1%(y(eZ', //k000oH)YW~OG,1%(y(eZ
         'NEXT_PUBLIC_URL': 'http://localhost:3000',
         'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
         'X_SECRET': 'Za5awxYpg4Clx6uDsjWEg',
@@ -38,6 +38,7 @@ const nextConfig = {
         'NEXT_PUBLIC_URL24': '/routes/systemUsers?SLTBBID=',
         'NEXT_PUBLIC_URL25': '&EMAIL=',
         'NEXT_PUBLIC_URL26': '/routes/packageProduct?PRODUCTCODE=',
+        'NEXT_PUBLIC_URL27': '/routes/adminsWithoutUnsub',
 
         'NEXT_PRIVATE_URL1': 'https://api.kaspersky-dp.slt.lk/api/auth/jwt-val?jwt=',
         'NEXT_PRIVATE_URL2': 'https://api.kaspersky-dp.slt.lk/api/auth/jwt-rq',

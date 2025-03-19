@@ -71,7 +71,7 @@ export default function AdminView() {
                 mobile,
             };
 
-            const postData = await fetch(`${process.env.NEXT_PUBLIC_URL7}`, {
+            const postData = await fetch(`${process.env.NEXT_PUBLIC_URL27}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "admins/json",
@@ -86,7 +86,7 @@ export default function AdminView() {
                 successMsgDescriptionHead.innerText = "Admin Successfully Entered.";
 
                 success_message_modal.addEventListener('hidden.bs.modal', () => {
-                    window.location.href = '/admin';
+                    window.location.href = '/admin2(withoutUnsub)';
                 });
 
                 successMessageModal.show();
@@ -113,7 +113,7 @@ export default function AdminView() {
                 password,
             };
 
-            const response = await fetch(`${process.env.NEXT_PUBLIC_URL7}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL27}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'admins/json',
@@ -126,7 +126,7 @@ export default function AdminView() {
                 const updatedAdmins = admins.map(a => (a.USERID === selectedAdmin.USERID ? result.updateAdmin : a));
                 setAdmins(updatedAdmins);
                 successMsgDescriptionHead.innerText = "Admin Details Updated Successfully!";
-                window.location.href = '/admin';
+                window.location.href = '/admin2(withoutUnsub)';
                 successMessageModal.show();
             }
         } catch (error) {
@@ -139,7 +139,7 @@ export default function AdminView() {
     const deleteAdmin = async (user) => {
         const userId = user.USERID;
         try {
-            const deleteData = await fetch(`${process.env.NEXT_PUBLIC_URL7}`, {
+            const deleteData = await fetch(`${process.env.NEXT_PUBLIC_URL27}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "admins/json",
@@ -152,7 +152,7 @@ export default function AdminView() {
                 const updatedAdmins = admins.filter((a) => a.USERID !== userId);
                 setAdmins(updatedAdmins);
                 successMsgDescriptionHead.innerText = "Admin deleted successfully!";
-                window.location.href = '/admin';
+                window.location.href = '/admin2(withoutUnsub)';
                 successMessageModal.show();
             }
         } catch (error) {
@@ -333,7 +333,7 @@ export default function AdminView() {
     return (
         <>
             <div className="col-12 mt-3 p-3">
-                <span className="title06">ADMIN DETAILS</span>
+                <span className="title06">ADMIN (withoutUnsub) DETAILS</span>
             </div>
 
             <div className="container-fluid align-content-center justify-content-between">

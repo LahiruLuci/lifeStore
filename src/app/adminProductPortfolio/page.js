@@ -13,4 +13,4 @@ const adminProductPortfolio = () => {
 
 }
 
-export default withAuth(adminProductPortfolio, [2]);
+export default withAuth(adminProductPortfolio, [2,4]);

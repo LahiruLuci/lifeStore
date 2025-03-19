@@ -54,10 +54,10 @@ const AdminSubscriptionTableRows = ({ adminSubscriptions, onAdminSubscriptionsCl
                                                 <div className="row p-3 align-content-center justify-content-center">
                                                     <button className="m-1 col-lg-6 viewLicenseKey-Button" onClick={() => onAdminSubscriptionClick(adminSubscription)}>View license
                                                         key</button>
-                                                    {adminSubscription.CREATEDUSER != "KasperskyWithCRM" && (
+                                                    {adminSubscription.CREATEDUSER != "BizlifePackage" && (
                                                         <>
-                                                            <button className="m-1 col-lg-4 unsubscribe-button"
-                                                                onClick={() => onCustomerSubscriptionUnsubscribeClick(adminSubscription)}>Unsubscribe</button>
+                                                            {/* <button className="m-1 col-lg-4 unsubscribe-button"
+                                                                onClick={() => onCustomerSubscriptionUnsubscribeClick(adminSubscription)}>Unsubscribe</button> */}
                                                         </>
                                                     )}
                                                     <button className="m-1 col-lg-1 email-Button" onClick={() => onCustomerEmailSendClick(adminSubscription)}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-envelope-at" viewBox="0 0 16 16">

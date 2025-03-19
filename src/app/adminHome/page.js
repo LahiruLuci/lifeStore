@@ -19,4 +19,4 @@ const adminHome = () => {
 
 }
 
-export default withAuth(adminHome,[2]);
+export default withAuth(adminHome,[2,4]);
