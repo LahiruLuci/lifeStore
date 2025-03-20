@@ -7,7 +7,7 @@ export async function POST(request) {
     if(SECRETCODE == process.env.SECRET_CODE){
         if (sltbbid && email && productCode) {
             try {
-                const adminId = "BizlifePackage";
+                const adminId = "KasperskyWithCRM";
                 const postData1 = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
                     method: "POST",
                     headers: {
@@ -51,7 +51,7 @@ export async function POST(request) {
                                     
                                           const selectSubscriptionsCountQuery = `SELECT COUNT(*) AS SUBSCRIPTIONCOUNT FROM subscription s LEFT JOIN product p ON s.PRODUCT = p.PRODUCTID LEFT JOIN status st ON st.STATUSID = s.STATUS WHERE s.USER = ? AND s.STATUS = ? AND s.CREATEDUSER = ?`;
                                     
-                                          const [countResult] = await db.execute(selectSubscriptionsCountQuery, [fetchedUSERID, '3', "BizlifePackage"]);
+                                          const [countResult] = await db.execute(selectSubscriptionsCountQuery, [fetchedUSERID, '3', "KasperskyWithCRM"]);
                                     
                                           db.release();
                                     

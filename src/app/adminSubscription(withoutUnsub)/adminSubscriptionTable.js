@@ -54,7 +54,7 @@ const AdminSubscriptionTableRows = ({ adminSubscriptions, onAdminSubscriptionsCl
                                                 <div className="row p-3 align-content-center justify-content-center">
                                                     <button className="m-1 col-lg-6 viewLicenseKey-Button" onClick={() => onAdminSubscriptionClick(adminSubscription)}>View license
                                                         key</button>
-                                                    {adminSubscription.CREATEDUSER != "BizlifePackage" && (
+                                                    {adminSubscription.CREATEDUSER != "KasperskyWithCRM" && (
                                                         <>
                                                             {/* <button className="m-1 col-lg-4 unsubscribe-button"
                                                                 onClick={() => onCustomerSubscriptionUnsubscribeClick(adminSubscription)}>Unsubscribe</button> */}

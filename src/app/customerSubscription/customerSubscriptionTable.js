@@ -50,7 +50,7 @@ const CustomerSubscriptionTableRows = ({ customerSubscriptions, onCustomerSubscr
                                                 <div className="row p-3 align-content-center justify-content-center">
                                                     <button className="m-1 col-lg-6 viewLicenseKey-Button" onClick={() => onCustomerSubscriptionClick(customerSubscription)}>View license
                                                         key</button>
-                                                    {customerSubscription.CREATEDUSER != "BizlifePackage" && (
+                                                    {customerSubscription.CREATEDUSER != "KasperskyWithCRM" && (
                                                         <>
                                                             <button className="m-1 col-lg-4 unsubscribe-button"
                                                                 onClick={() => onCustomerSubscriptionUnsubscribeClick(customerSubscription)}>Unsubscribe</button>
