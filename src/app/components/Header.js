@@ -63,6 +63,16 @@ const Navbar = () => {
         }
     };
 
+    let csm3;
+    const handleCustomerSearchModal3 = () => {
+
+        const customerSearchModal = document.getElementById("customerSearchModal3");
+        if (customerSearchModal) {
+            csm2 = new bootstrap.Modal(customerSearchModal);
+            csm2.show();
+        }
+    };
+
     const handleSearch = (sltbbid) => {
         let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         let warning_message_modal = document.getElementById("warning_message_modal");
@@ -233,6 +243,132 @@ const Navbar = () => {
             warningMessageModal.show();
         }
     };
+
+    const idSearch2 = async () => {
+        let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
+        let warning_message_modal = document.getElementById("warning_message_modal");
+        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+
+        const sltbbid = document.getElementById('SLTBBID2').value;
+        setSltbbid(sltbbid);
+        if (!sltbbid) {
+            warningMsgDescriptionHead.innerText = "Please enter a Broadband ID";
+            warningMessageModal.show();
+            return;
+        }
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL3}${sltbbid}`);
+            const customerDetails = await response.json();
+
+            if (customerDetails.error) {
+                alert(customerDetails.error);
+            } else if (customerDetails.length > 0) {
+                setEmail(customerDetails[0].EMAIL);
+            } else {
+                warningMsgDescriptionHead.innerText = "Invalid SLTBBID.";
+                warningMessageModal.show();
+            }
+        } catch (error) {
+            warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+            warningMessageModal.show();
+        }
+    };
+
+    const emailSearch2 = async () => {
+        let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
+        let warning_message_modal = document.getElementById("warning_message_modal");
+        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+
+        const email = document.getElementById('EMAIL2').value;
+        setEmail(email);
+        if (!email) {
+            warningMsgDescriptionHead.innerText = "Please enter an Email";
+            warningMessageModal.show();
+            return;
+        }
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL4}${email}`);
+            const customerDetails = await response.json();
+
+            if (customerDetails.error) {
+                alert(customerDetails.error);
+            } else if (customerDetails.length > 0) {
+                setSltbbid(customerDetails[0].SLTBBID);
+            } else {
+                warningMsgDescriptionHead.innerText = "Invalid Email.";
+                warningMessageModal.show();
+            }
+        } catch (error) {
+            warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+            warningMessageModal.show();
+        }
+    };
+
+    const idSearch3 = async () => {
+        let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
+        let warning_message_modal = document.getElementById("warning_message_modal");
+        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+
+        const sltbbid = document.getElementById('SLTBBID3').value;
+        setSltbbid(sltbbid);
+        if (!sltbbid) {
+            warningMsgDescriptionHead.innerText = "Please enter a Broadband ID";
+            warningMessageModal.show();
+            return;
+        }
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL3}${sltbbid}`);
+            const customerDetails = await response.json();
+
+            if (customerDetails.error) {
+                alert(customerDetails.error);
+            } else if (customerDetails.length > 0) {
+                setEmail(customerDetails[0].EMAIL);
+            } else {
+                warningMsgDescriptionHead.innerText = "Invalid SLTBBID.";
+                warningMessageModal.show();
+            }
+        } catch (error) {
+            warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+            warningMessageModal.show();
+        }
+    };
+
+    const emailSearch3 = async () => {
+        let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
+        let warning_message_modal = document.getElementById("warning_message_modal");
+        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+
+        const email = document.getElementById('EMAIL3').value;
+        setEmail(email);
+        if (!email) {
+            warningMsgDescriptionHead.innerText = "Please enter an Email";
+            warningMessageModal.show();
+            return;
+        }
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_URL4}${email}`);
+            const customerDetails = await response.json();
+
+            if (customerDetails.error) {
+                alert(customerDetails.error);
+            } else if (customerDetails.length > 0) {
+                setSltbbid(customerDetails[0].SLTBBID);
+            } else {
+                warningMsgDescriptionHead.innerText = "Invalid Email.";
+                warningMessageModal.show();
+            }
+        } catch (error) {
+            warningMsgDescriptionHead.innerText = "An error occurred while searching for the user";
+            warningMessageModal.show();
+        }
+    };
+
+
 
     const userEnd = () => {
         localStorage.removeItem('customer_id');
@@ -483,7 +619,7 @@ const Navbar = () => {
                                         )}
 
                                         <li className="nav-item">
-                                            <Link href="#" className="nav-link" onClick={handleCustomerSearchModal2}>
+                                            <Link href="#" className="nav-link" onClick={handleCustomerSearchModal3}>
                                                 <span className="title05">Cus.Search</span>
                                             </Link>
                                         </li>
@@ -602,7 +738,7 @@ const Navbar = () => {
                                 <div className="col-12">
                                     <label className="form-label title04">Broadband ID : </label>
                                     <div className="input-group mb-1">
-                                        <input type="text" className="form-control" id="SLTBBID" value={sltbbid} onChange={(e) => setSltbbid(e.target.value)} />
+                                        <input type="text" className="form-control" id="SLTBBID2" value={sltbbid} onChange={(e) => setSltbbid(e.target.value)} />
                                         <button className="btn btn-secondary" type="button" id="bib" onClick={idSearch}>
                                             <i className="bi bi-search" />
                                         </button>
@@ -611,7 +747,65 @@ const Navbar = () => {
                                 <div className="col-12">
                                     <label className="form-label title04">Email : </label>
                                     <div className="input-group mb-1">
-                                        <input type="email" className="form-control" id="EMAIL" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                        <input type="email" className="form-control" id="EMAIL2" value={email} onChange={(e) => setEmail(e.target.value)} />
+                                        <button
+                                            className="btn btn-secondary"
+                                            type="button"
+                                            id="emailb"
+                                            onClick={emailSearch}
+                                        >
+                                            <i className="bi bi-envelope" />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button
+                                type="button"
+                                className="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={() => handleSearchTwo(sltbbid)}
+                            >
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal align-content-end" tabIndex={-1} id="customerSearchModal3">
+                <div className="modal-dialog position-absolute top-0 end-0 p-3">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title title01">Customer Search</h5>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            />
+                        </div>
+                        <div className="modal-body">
+                            <div className="row g-3">
+                                <div className="col-12">
+                                    <label className="form-label title04">Broadband ID : </label>
+                                    <div className="input-group mb-1">
+                                        <input type="text" className="form-control" id="SLTBBID3" value={sltbbid} onChange={(e) => setSltbbid(e.target.value)} />
+                                        <button className="btn btn-secondary" type="button" id="bib" onClick={idSearch}>
+                                            <i className="bi bi-search" />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="col-12">
+                                    <label className="form-label title04">Email : </label>
+                                    <div className="input-group mb-1">
+                                        <input type="email" className="form-control" id="EMAIL3" value={email} onChange={(e) => setEmail(e.target.value)} />
                                         <button
                                             className="btn btn-secondary"
                                             type="button"

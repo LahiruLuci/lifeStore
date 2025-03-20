@@ -39,15 +39,15 @@ export default function AdminView() {
 
     //add admin
     const addAdmin = async () => {
-        const userId = document.getElementById("adminId").value;
-        const normalPassword = document.getElementById("adminPassword3").value;
-        const password4 = document.getElementById("adminPassword4").value;
-        const initials = document.getElementById("adminInitialsName").value;
-        const preferredName = document.getElementById("adminPreferredName").value;
-        const lastName = document.getElementById("adminLastName").value;
-        const email = document.getElementById("adminEmail").value;
-        const nic = document.getElementById("adminNIC").value;
-        const mobile = document.getElementById("adminMobile").value;
+        const userId = document.getElementById("admin(withoutUnsub)Id").value;
+        const normalPassword = document.getElementById("admin(withoutUnsub)Password3").value;
+        const password4 = document.getElementById("admin(withoutUnsub)Password4").value;
+        const initials = document.getElementById("admin(withoutUnsub)InitialsName").value;
+        const preferredName = document.getElementById("admin(withoutUnsub)PreferredName").value;
+        const lastName = document.getElementById("admin(withoutUnsub)LastName").value;
+        const email = document.getElementById("admin(withoutUnsub)Email").value;
+        const nic = document.getElementById("admin(withoutUnsub)NIC").value;
+        const mobile = document.getElementById("admin(withoutUnsub)Mobile").value;
         let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
         let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         let success_message_modal = document.getElementById("success_message_modal");
@@ -55,13 +55,13 @@ export default function AdminView() {
         warningMessageModal = new bootstrap.Modal(warning_message_modal);
         successMessageModal = new bootstrap.Modal(success_message_modal);
         const password = bcrypt.hashSync(normalPassword, 10);
-        const adminId = localStorage.getItem('user_id');
+        const admin_withoutUnsub_Id = localStorage.getItem('user_id');
 
         try {
 
             const paycreate = {
                 userId,
-                adminId,
+                admin_withoutUnsub_Id,
                 password,
                 initials,
                 preferredName,
@@ -100,15 +100,15 @@ export default function AdminView() {
 
     //update admin
     const updateAdmin = async () => {
-        const normalPassword = document.getElementById("editAdminPassword1").value;
+        const normalPassword = document.getElementById("editAdmin(withoutUnsub)Password1").value;
         const password = bcrypt.hashSync(normalPassword, 10);
-        const adminId = localStorage.getItem('user_id');
+        const admin_withoutUnsub_Id = localStorage.getItem('user_id');
 
         try {
 
             const payload = {
                 userId,
-                adminId,
+                admin_withoutUnsub_Id,
                 mobile,
                 password,
             };
@@ -176,15 +176,15 @@ export default function AdminView() {
 
     //checking the admin add textField validations
     const onAdminAddViewClick = () => {
-        const userId = document.getElementById("adminId").value;
-        const password = document.getElementById("adminPassword3").value;
-        const password4 = document.getElementById("adminPassword4").value;
-        const initials = document.getElementById("adminInitialsName").value;
-        const preferredName = document.getElementById("adminPreferredName").value;
-        const lastName = document.getElementById("adminLastName").value;
-        const email = document.getElementById("adminEmail").value;
-        const nic = document.getElementById("adminNIC").value;
-        const mobile = document.getElementById("adminMobile").value;
+        const userId = document.getElementById("admin(withoutUnsub)Id").value;
+        const password = document.getElementById("admin(withoutUnsub)Password3").value;
+        const password4 = document.getElementById("admin(withoutUnsub)Password4").value;
+        const initials = document.getElementById("admin(withoutUnsub)InitialsName").value;
+        const preferredName = document.getElementById("admin(withoutUnsub)PreferredName").value;
+        const lastName = document.getElementById("admin(withoutUnsub)LastName").value;
+        const email = document.getElementById("admin(withoutUnsub)Email").value;
+        const nic = document.getElementById("admin(withoutUnsub)NIC").value;
+        const mobile = document.getElementById("admin(withoutUnsub)Mobile").value;
         let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
         let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         let createAdminModal = document.getElementById("createAdminModal");
@@ -280,9 +280,9 @@ export default function AdminView() {
 
     //checking the admin edit textField validations
     const onAdminEditViewClick = () => {
-        const editAdminPassword1 = document.getElementById("editAdminPassword1").value;
-        const editAdminPassword2 = document.getElementById("editAdminPassword2").value;
-        const mobile = document.getElementById("editAdminMobile").value;
+        const editAdmin_withoutUnsub_Password1 = document.getElementById("editAdmin(withoutUnsub)Password1").value;
+        const editAdmin_withoutUnsub_Password2 = document.getElementById("editAdmin(withoutUnsub)Password2").value;
+        const mobile = document.getElementById("editAdmin(withoutUnsub)Mobile").value;
         let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
         let success_message_modal = document.getElementById("success_message_modal");
         let warning_message_modal = document.getElementById("warning_message_modal");
@@ -295,14 +295,14 @@ export default function AdminView() {
                 eav.show();
             });
             warningMessageModal.show();
-        } else if (editAdminPassword1 == "") {
+        } else if (editAdmin_withoutUnsub_Password1 == "") {
             warningMsgDescriptionHead.innerText = "Please Enter a Password.";
             eav.hide();
             warning_message_modal.addEventListener('hidden.bs.modal', () => {
                 eav.show();
             });
             warningMessageModal.show();
-        } else if (editAdminPassword2 == "") {
+        } else if (editAdmin_withoutUnsub_Password2 == "") {
             warningMsgDescriptionHead.innerText = "Please Re-Enter a Your Password.";
             eav.hide();
             warning_message_modal.addEventListener('hidden.bs.modal', () => {
@@ -310,7 +310,7 @@ export default function AdminView() {
             });
             warningMessageModal.show();
         } else {
-            if (editAdminPassword1 == editAdminPassword2) {
+            if (editAdmin_withoutUnsub_Password1 == editAdmin_withoutUnsub_Password2) {
                 AdminEditViewClickAsk();
             } else {
                 warningMsgDescriptionHead.innerText = "These passwords are not equal !.";
@@ -447,7 +447,7 @@ export default function AdminView() {
                                         <div className="row">
                                             <span className="title13 col-12 col-lg-4">Mobile Number</span>
                                             <div className="mb-1 col-12 col-lg-8">
-                                                <input type="text" className="form-control" id="editAdminMobile" value={mobile} onChange={(e) => setMobile(e.target.value)} />
+                                                <input type="text" className="form-control" id="editAdmin(withoutUnsub)Mobile" value={mobile} onChange={(e) => setMobile(e.target.value)} />
                                             </div>
                                         </div>
                                     </div>
@@ -455,7 +455,7 @@ export default function AdminView() {
                                         <div className="row">
                                             <span className="title13 col-12 col-lg-4">Create Password</span>
                                             <div className="mb-1 col-12 col-lg-8">
-                                                <input type="password" className="form-control" id="editAdminPassword1" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                                <input type="password" className="form-control" id="editAdmin(withoutUnsub)Password1" value={password} onChange={(e) => setPassword(e.target.value)} />
                                             </div>
                                         </div>
                                     </div>
@@ -463,7 +463,7 @@ export default function AdminView() {
                                         <div className="row">
                                             <span className="title13 col-12 col-lg-4">Retype Password</span>
                                             <div className="mb-1 col-12 col-lg-8">
-                                                <input type="password" className="form-control" id="editAdminPassword2" value={password2} onChange={(e) => setPassword2(e.target.value)} />
+                                                <input type="password" className="form-control" id="editAdmin(withoutUnsub)Password2" value={password2} onChange={(e) => setPassword2(e.target.value)} />
                                             </div>
                                         </div>
                                     </div>
@@ -492,7 +492,7 @@ export default function AdminView() {
                                     <div className="row">
                                         <span className="title13 col-12 col-lg-5">Admin ID</span>
                                         <div className="mb-1 col-12 col-lg-7">
-                                            <input type="text" className="form-control" style={{ "::placeholder": { color: "#990000" } }}  id="adminId" placeholder="*Do not use this '-' symbol*" />
+                                            <input type="text" className="form-control" style={{ "::placeholder": { color: "#990000" } }}  id="admin(withoutUnsub)Id" placeholder="*Do not use this '-' symbol*" />
                                         </div>
                                     </div>
                                 </div>
@@ -500,7 +500,7 @@ export default function AdminView() {
                                     <div className="row">
                                         <span className="title13 col-12 col-lg-5">Name(Initials) </span>
                                         <div className="mb-1 col-12 col-lg-7">
-                                            <input type="text" className="form-control" id="adminInitialsName" />
+                                            <input type="text" className="form-control" id="admin(withoutUnsub)InitialsName" />
                                         </div>
                                     </div>
                                 </div>
@@ -508,7 +508,7 @@ export default function AdminView() {
                                     <div className="row">
                                         <span className="title13 col-12 col-lg-5">Name(Preferred Name) </span>
                                         <div className="mb-1 col-12 col-lg-7">
-                                            <input type="text" className="form-control" id="adminPreferredName" />
+                                            <input type="text" className="form-control" id="admin(withoutUnsub)PreferredName" />
                                         </div>
                                     </div>
                                 </div>
@@ -516,7 +516,7 @@ export default function AdminView() {
                                     <div className="row">
                                         <span className="title13 col-12 col-lg-5">Name(Last Name) </span>
                                         <div className="mb-1 col-12 col-lg-7">
-                                            <input type="text" className="form-control" id="adminLastName" />
+                                            <input type="text" className="form-control" id="admin(withoutUnsub)LastName" />
                                         </div>
                                     </div>
                                 </div>
@@ -524,7 +524,7 @@ export default function AdminView() {
                                     <div className="row">
                                         <span className="title13 col-12 col-lg-5">Email </span>
                                         <div className="mb-1 col-12 col-lg-7">
-                                            <input type="text" className="form-control" id="adminEmail" />
+                                            <input type="text" className="form-control" id="admin(withoutUnsub)Email" />
                                         </div>
                                     </div>
                                 </div>
@@ -532,7 +532,7 @@ export default function AdminView() {
                                     <div className="row">
                                         <span className="title13 col-12 col-lg-5">NIC </span>
                                         <div className="mb-1 col-12 col-lg-7">
-                                            <input type="text" className="form-control" id="adminNIC" />
+                                            <input type="text" className="form-control" id="admin(withoutUnsub)NIC" />
                                         </div>
                                     </div>
                                 </div>
@@ -540,7 +540,7 @@ export default function AdminView() {
                                     <div className="row">
                                         <span className="title13 col-12 col-lg-5">Mobile Number </span>
                                         <div className="mb-1 col-12 col-lg-7">
-                                            <input type="text" className="form-control" id="adminMobile" />
+                                            <input type="text" className="form-control" id="admin(withoutUnsub)Mobile" />
                                         </div>
                                     </div>
                                 </div>
@@ -548,7 +548,7 @@ export default function AdminView() {
                                     <div className="row">
                                         <span className="title13 col-12 col-lg-5">Create password </span>
                                         <div className="mb-1 col-12 col-lg-7">
-                                            <input type="password" className="form-control" id="adminPassword3" />
+                                            <input type="password" className="form-control" id="admin(withoutUnsub)Password3" />
                                         </div>
                                     </div>
                                 </div>
@@ -556,7 +556,7 @@ export default function AdminView() {
                                     <div className="row">
                                         <span className="title13 col-12 col-lg-5">Retype Password </span>
                                         <div className="mb-1 col-12 col-lg-7">
-                                            <input type="password" className="form-control" id="adminPassword4" />
+                                            <input type="password" className="form-control" id="admin(withoutUnsub)Password4" />
                                         </div>
                                     </div>
                                 </div>

@@ -17,11 +17,11 @@ export async function GET() {
 
 export async function POST(req) {
   try {
-    const { userId, adminId, password, initials, preferredName, lastName, email, nic, mobile } = await req.json();
+    const { userId, admin_withoutUnsub_Id, password, initials, preferredName, lastName, email, nic, mobile } = await req.json();
 
     const db = await pool.getConnection();
     const insertAdminQuery = "INSERT INTO systemuser (USERID, PASSWORD, INITIALS, PREFERREDNAME, LASTNAME, EMAIL, NIC, MOBILE, USERROLE, STATUS, CREATEDUSER, LASTUPDATEDUSER) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    await db.execute(insertAdminQuery, [userId, password, initials, preferredName, lastName, email, nic, mobile, '4', '1', adminId, adminId]);
+    await db.execute(insertAdminQuery, [userId, password, initials, preferredName, lastName, email, nic, mobile, '4', '1', admin_withoutUnsub_Id, admin_withoutUnsub_Id]);
 
     db.release();
     return NextResponse.json({ message: "Admin added successfully!", userId });
@@ -34,11 +34,11 @@ export async function POST(req) {
 
 export async function PATCH(req) {
   try {
-    const { userId, adminId, mobile, password } = await req.json();
+    const { userId, admin_withoutUnsub_Id, mobile, password } = await req.json();
 
     const db = await pool.getConnection();
     const updateAdminQuery = "UPDATE systemuser SET MOBILE = ?, PASSWORD = ?, LASTUPDATEDUSER = ? WHERE USERID = ?";
-    await db.execute(updateAdminQuery, [mobile, password, adminId, userId]);
+    await db.execute(updateAdminQuery, [mobile, password, admin_withoutUnsub_Id, userId]);
 
 
     db.release();
