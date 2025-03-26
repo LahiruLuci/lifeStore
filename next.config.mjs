@@ -13,6 +13,7 @@ const nextConfig = {
         'X_SECRET': 'Za5awxYpg4Clx6uDsjWEg',
         'SECRET_CODE': 'dawyydgbi123129%^&98SEvseE',
         'SECRET_CODE2': 'iq8q156286y&*(8lI6%7657GBk',
+        'SECRET_CODE3': 'aT4x92@#Lm&(76vYp$53qNkW',
 
         'NEXT_PUBLIC_URL3': '/routes/userSearch?SLTBBID=',
         'NEXT_PUBLIC_URL4': '/routes/userSearch?EMAIL=',
@@ -46,6 +47,8 @@ const nextConfig = {
         'NEXT_PRIVATE_URL4': 'https://api.kaspersky-dp.slt.lk/api/v1/kss/activate',
         'NEXT_PRIVATE_URL5': 'https://api.kaspersky-dp.slt.lk/api/v1/kss/deactivate',
         'NEXT_PRIVATE_URL6': 'https://api.kaspersky-dp.slt.lk/api/v1/mail/resend-key',
+        'NEXT_PRIVATE_URL7': 'https://api.kaspersky-dp.slt.lk/api/v1/kss/suspend',
+        'NEXT_PRIVATE_URL8': 'https://api.kaspersky-dp.slt.lk/api/v1/kss/reactivate',
 
         'EXPIRY_TIME1': '3600000',
         'EXPIRY_TIME2': '10000',
