@@ -49,10 +49,10 @@ export async function POST(request) {
                     const [result] = await db.execute(query, [sltbbid]);
                     const user = result[0]?.SUBSCRIPTIONID;
                     db.release();
-                    // console.log(user);
-                    // console.log(sltbbid);
+                    console.log(user);
+                    console.log(sltbbid);
                     const payload = {
-                        subscriberId: sltbbid
+                        subscriberId: user
                     };
                             try{
                                 const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL7}`, {
@@ -118,7 +118,7 @@ export async function POST(request) {
                     // console.log(user);
                     // console.log(sltbbid);
                     const payload = {
-                        subscriberId: sltbbid
+                        subscriberId: user
                     };
                             try{
                                 const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL8}`, {
