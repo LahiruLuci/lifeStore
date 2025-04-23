@@ -3,7 +3,7 @@ import pool from "../../config/mysql";
 
 export async function POST(request) {
     try {
-        const { sltbbid, status } = await request.json(); //consider this sltbbid as front end subscription table SUBSCRIPTIONID column
+        const { sltbbid, status } = await request.json(); 
         const secretCode = request.headers.get('SECRETCODE');
 
         // Validate secret code
@@ -45,7 +45,7 @@ export async function POST(request) {
                 
                 try {
                     db = await pool.getConnection();
-                    let query = "SELECT s.USER, s.SUBSCRIPTIONID, p.PRODUCTCODE FROM subscription s INNER JOIN product p ON s.PRODUCT = p.PRODUCTID WHERE s.CREATEDUSER = 'KasperskyWithCRM' AND s.SUBSCRIPTIONID = ?";
+                    let query = "SELECT s.USER, s.SUBSCRIPTIONID, p.PRODUCTCODE FROM subscription s INNER JOIN product p ON s.PRODUCT = p.PRODUCTID WHERE s.CREATEDUSER = 'KasperskyWithCRM' AND s.USER = ?";
                     const [result] = await db.execute(query, [sltbbid]);
                     const user = result[0]?.SUBSCRIPTIONID;
                     db.release();
@@ -111,7 +111,7 @@ export async function POST(request) {
                     let db;
                 try {
                     db = await pool.getConnection();
-                    let query = "SELECT s.USER, s.SUBSCRIPTIONID, p.PRODUCTCODE FROM subscription s INNER JOIN product p ON s.PRODUCT = p.PRODUCTID WHERE s.CREATEDUSER = 'KasperskyWithCRM' AND s.SUBSCRIPTIONID = ?";
+                    let query = "SELECT s.USER, s.SUBSCRIPTIONID, p.PRODUCTCODE FROM subscription s INNER JOIN product p ON s.PRODUCT = p.PRODUCTID WHERE s.CREATEDUSER = 'KasperskyWithCRM' AND s.USER = ?";
                     const [result] = await db.execute(query, [sltbbid]);
                     const user = result[0]?.SUBSCRIPTIONID;
                     db.release();
