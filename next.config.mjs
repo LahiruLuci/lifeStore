@@ -14,6 +14,8 @@ const nextConfig = {
         'SECRET_CODE': 'dawyydgbi123129%^&98SEvseE',
         'SECRET_CODE2': 'iq8q156286y&*(8lI6%7657GBk',
         'SECRET_CODE3': 'aT4x92@#Lm&(76vYp$53qNkW',
+        'SECRET_CODE4' : 'Bf9#Xq8@Lm&(27yVp$61zNkR',
+        'SECRET_CODE5' : 'Qw7@Tp9#Lm&(35xYv$82zNkR',
 
         'NEXT_PUBLIC_URL3': '/routes/userSearch?SLTBBID=',
         'NEXT_PUBLIC_URL4': '/routes/userSearch?EMAIL=',
