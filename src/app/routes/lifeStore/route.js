@@ -44,7 +44,7 @@ export async function POST(request){
                             // console.log(payload2);
 
                             try{
-                                const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL4}`, {
+                                const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL9}`, {
                                     method: "POST",
                                     headers: {
                                         "Authorization": `Bearer ${jwt}`,

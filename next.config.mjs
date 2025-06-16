@@ -51,6 +51,7 @@ const nextConfig = {
         'NEXT_PRIVATE_URL6': 'https://api.kaspersky-dp.slt.lk/api/v1/mail/resend-key',
         'NEXT_PRIVATE_URL7': 'https://api.kaspersky-dp.slt.lk/api/v1/kss/suspend',
         'NEXT_PRIVATE_URL8': 'https://api.kaspersky-dp.slt.lk/api/v1/kss/reactivate',
+        'NEXT_PRIVATE_URL9': 'https://api.kaspersky-dp.slt.lk/api/v1/kss-ifestore/lifeStore_activate',
 
         'EXPIRY_TIME1': '3600000',
         'EXPIRY_TIME2': '10000',
