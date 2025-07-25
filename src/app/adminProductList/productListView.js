@@ -181,9 +181,9 @@ export default function ProductList() {
     let success_message_modal = document.getElementById("success_message_modal");
     let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
     let warning_message_modal = document.getElementById("warning_message_modal");
-    let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
+    let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead"); 
 
-    console.log(first_name);
+    console.log("first name ", first_name);
 
     if (first_name && last_name && phone && email && address && city && order_id && items && currency) {
       const response = await fetch("../api/payhere", {
@@ -208,12 +208,12 @@ export default function ProductList() {
       const html = await response.text();
       console.log(html);
 
-      window.open(html.url, "_blank");
-      // const blob = new Blob([html], { type: "text/html" });
-      // const url = URL.createObjectURL(blob);
-      // const payhereWindow = window.open(url, "_blank");
+      //window.open(html.url, "_blank");
+      const blob = new Blob([html], { type: "text/html" });
+      const url = URL.createObjectURL(blob);
+      const payhereWindow = window.open(url, "_blank");
 
-      // setTimeout(() => URL.revokeObjectURL(url), 5000);
+      setTimeout(() => URL.revokeObjectURL(url), 5000);
       // if (data && data.url) {
       //     // Redirect to the PayHere URL
       //     window.location.href = data.url;
