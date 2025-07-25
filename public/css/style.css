@@ -61,7 +61,7 @@
 
 .logoSM {
     background-image: url("../img/logo-sm.jpg");
-    height: 11px;
+    height: 15px;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -294,7 +294,7 @@
 
 .title07 {
     font-family: "Inter";
-    font-size: 13px;
+    font-size: 14px;
     text-align: left;
     font-weight: bold;
     letter-spacing: 0.1px;
@@ -312,7 +312,7 @@
 
 .title08 {
     font-family: "Inter";
-    font-size: 9px;
+    font-size: 12px;
     letter-spacing: 0.1px;
     font-weight: bold;
     color: #676161;
@@ -887,7 +887,7 @@
     margin-bottom: var(--bs-card-title-spacer-y);
     text-align: center;
     font-family: "Inter";
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.1px;
     font-weight: 900;
     color: #000000;
@@ -922,7 +922,7 @@
     margin-bottom: 0;
     font-family: "Inter";
     color: #676161;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
     justify-content: center;
     align-items: start;
@@ -1368,6 +1368,11 @@
     color: #586563;
     font-size: 14px;
     text-align: center;
+}
+
+.text07 {
+    color: rgb(252, 24, 24);
+    font-size: 11px;
 }
 
 .btncat{

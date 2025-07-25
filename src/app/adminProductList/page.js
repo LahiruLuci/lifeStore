@@ -3,7 +3,7 @@ import ProductList from './productListView';
 import withAuth from "../utils/withAuth";
 
 
-const adminProductList = () => { 
+const AdminProductList = () => { 
 
   return (
     <ProductList />
@@ -11,4 +11,4 @@ const adminProductList = () => {
 
 }
 
-export default withAuth(adminProductList,[2,4]);
+export default AdminProductList;

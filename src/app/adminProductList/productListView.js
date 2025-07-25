@@ -10,9 +10,9 @@ export async function getProductsProps() {
   const products = await res.json();
 
   return {
-      props: {
-          products: products || [],
-      },
+    props: {
+      products: products || [],
+    },
   };
 }
 
@@ -95,140 +95,179 @@ export default function ProductList() {
       amount: Number(amount),
     };
 
-    try {
+    // try {
 
-      const jwt = localStorage.getItem("customerToken");
-      const postData = await fetch(`${process.env.NEXT_PRIVATE_URL4}`, {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${jwt}`,
-          "Content-type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        },
-        body: JSON.stringify(payload),
-      });
-      const result = await postData.json();
-      if (result.success) {
-        const resultProps = result.response;
-        if (!resultProps.subscriptionId == null || !resultProps.subscriptionId == "") {
+    //   const jwt = localStorage.getItem("customerToken");
+    //   const postData = await fetch(`${process.env.NEXT_PRIVATE_URL4}`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Authorization": `Bearer ${jwt}`,
+    //       "Content-type": "application/json",
+    //       "Access-Control-Allow-Origin": "*"
+    //     },
+    //     body: JSON.stringify(payload),
+    //   });
+    //   const result = await postData.json();
+    //   if (result.success) {
+    //     const resultProps = result.response;
+    //     if (!resultProps.subscriptionId == null || !resultProps.subscriptionId == "") {
 
-          const subscriberId = resultProps.subscriptionId;
-          const licensekey = resultProps.key;
+    //       const subscriberId = resultProps.subscriptionId;
+    //       const licensekey = resultProps.key;
 
-          const payload2 = {
-            subscriberId,
-            admin_id,
-            user,
-            productId,
-            licensekey,
-            amount: Number(amount),
-          };
+    //       const payload2 = {
+    //         subscriberId,
+    //         admin_id,
+    //         user,
+    //         productId,
+    //         licensekey,
+    //         amount: Number(amount),
+    //       };
 
-          const postData2 = await fetch(`${process.env.NEXT_PUBLIC_URL9}`, {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(payload2),
-          });
-          const result2 = await postData2.json();
-          if (result2.message == "Product Subscribed Successfully!") {
-            successMessageModal2 = new bootstrap.Modal(success_message_modal2);
-            successMsgDescriptionHead2.innerText = "Product Subscribed Successfully!";
-            successMsgDescriptionHead22.innerText = "The licensekey has been sent to your e-mail.";
-            success_message_modal2.addEventListener('hidden.bs.modal', () => {
-              window.location.href = '/adminSubscription';
-            });
-            successMessageModal2.show();
-          } else {
-            warningMessageModal = new bootstrap.Modal(warning_message_modal);
-            warningMsgDescriptionHead.innerText = "Subscription proccess Failed.";
-            warningMessageModal.show();
-          }
+    //       const postData2 = await fetch(`${process.env.NEXT_PUBLIC_URL9}`, {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-type": "application/json",
+    //         },
+    //         body: JSON.stringify(payload2),
+    //       });
+    //       const result2 = await postData2.json();
+    //       if (result2.message == "Product Subscribed Successfully!") {
+    //         successMessageModal2 = new bootstrap.Modal(success_message_modal2);
+    //         successMsgDescriptionHead2.innerText = "Product Subscribed Successfully!";
+    //         successMsgDescriptionHead22.innerText = "The licensekey has been sent to your e-mail.";
+    //         success_message_modal2.addEventListener('hidden.bs.modal', () => {
+    //           window.location.href = '/adminSubscription';
+    //         });
+    //         successMessageModal2.show();
+    //       } else {
+    //         warningMessageModal = new bootstrap.Modal(warning_message_modal);
+    //         warningMsgDescriptionHead.innerText = "Subscription proccess Failed.";
+    //         warningMessageModal.show();
+    //       }
 
-        } else {
-          warningMessageModal = new bootstrap.Modal(warning_message_modal);
-          warningMsgDescriptionHead.innerText = "Invalid Subscription.";
-          warningMessageModal.show();
-        }
-      } else {
-        warningMessageModal = new bootstrap.Modal(warning_message_modal);
-        warningMsgDescriptionHead.innerText = result.error + " : "+result.reason;
-        warning_message_modal.addEventListener('hidden.bs.modal', () => {
-          window.location.href = '/adminProductList';
-        });
-        warningMessageModal.show();
-      }
+    //     } else {
+    //       warningMessageModal = new bootstrap.Modal(warning_message_modal);
+    //       warningMsgDescriptionHead.innerText = "Invalid Subscription.";
+    //       warningMessageModal.show();
+    //     }
+    //   } else {
+    //     warningMessageModal = new bootstrap.Modal(warning_message_modal);
+    //     warningMsgDescriptionHead.innerText = result.error + " : "+result.reason;
+    //     warning_message_modal.addEventListener('hidden.bs.modal', () => {
+    //       window.location.href = '/adminProductList';
+    //     });
+    //     warningMessageModal.show();
+    //   }
 
 
-    } catch (error) {
-      console.error('Error generating token:', error);
-    }
+    // } catch (error) {
+    //   console.error('Error generating token:', error);
+    // }
   };
 
-  //email update process
+  //get the token from backend 
   const emailConfirmation = async () => {
-    const changeEmail1 = document.getElementById("adminChangeEmail1").value;
-    const changeEmail2 = document.getElementById("adminChangeEmail2").value;
+    const first_name = document.getElementById("userFName").value;
+    const last_name = document.getElementById("userLName").value;
+    const phone = document.getElementById("userContactNumber").value;
+    const email = document.getElementById("userEmail").value;
+    const address = document.getElementById("address").value;
+    const city = document.getElementById("city").value;
+    const order_id = "ORDER_" + Date.now();
+    const items = productName;
+    const currency = "LKR";
+
     let success_message_modal = document.getElementById("success_message_modal");
     let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
     let warning_message_modal = document.getElementById("warning_message_modal");
     let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
-    const customer_id = localStorage.getItem("customer_id");
 
-    if (changeEmail1 == changeEmail2) {
+    console.log(first_name);
 
-      if (changeEmail1) {
-        try {
-
-          const payload = {
-            userId: customer_id,
-            email: changeEmail1,
-          };
-
-          const response = await fetch(`${process.env.NEXT_PUBLIC_URL18}`, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-          });
-
-          const result = await response.json();
-          if (result.message == "Email updated successfully!") {
-            localStorage.setItem('user_email', result.updatedEmail);
-            successMessageModal = new bootstrap.Modal(success_message_modal);
-            successMsgDescriptionHead.innerText = "Email updated successfully!";
-            setEmail(localStorage.getItem('user_email'));
-            success_message_modal.addEventListener('hidden.bs.modal', () => {
-              handleBuyConfirmationClick();
-            });
-            successMessageModal.show();
-          } else {
-            warningMessageModal = new bootstrap.Modal(warning_message_modal);
-            warningMsgDescriptionHead.innerText = result.response;
-            warningMessageModal.show();
-          }
-        } catch (error) {
-          console.error('Error updating cutomer email:', error);
-        }
-      } else {
-        warningMessageModal = new bootstrap.Modal(warning_message_modal);
-        warningMsgDescriptionHead.innerText = "Please enter your email correctly!";
-        warning_message_modal.addEventListener('hidden.bs.modal', () => {
-          assveca.show();
-        });
-        warningMessageModal.show();
-      }
-    } else {
-      warningMessageModal = new bootstrap.Modal(warning_message_modal);
-      warningMsgDescriptionHead.innerText = "Enter the same email address!";
-      warning_message_modal.addEventListener('hidden.bs.modal', () => {
-        assveca.show();
+    if (first_name && last_name && phone && email && address && city && order_id && items && currency) {
+      const response = await fetch("../api/payhere", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", 
+        },
+        body: JSON.stringify({
+          first_name,
+          last_name,
+          phone,
+          email,
+          address,
+          city,
+          order_id,
+          items,
+          currency,
+          amount,
+        }),
       });
-      warningMessageModal.show();
+
+      const html = await response.text();
+      console.log(html);
+
+      window.open(html.url, "_blank");
+      // const blob = new Blob([html], { type: "text/html" });
+      // const url = URL.createObjectURL(blob);
+      // const payhereWindow = window.open(url, "_blank");
+
+      // setTimeout(() => URL.revokeObjectURL(url), 5000);
+      // if (data && data.url) {
+      //     // Redirect to the PayHere URL
+      //     window.location.href = data.url;
+      //   } else {
+      //     // Handle error case
+      //     console.error('No URL received from PayHere');
+      //     warningMessageModal = new bootstrap.Modal(warning_message_modal);
+      //     warningMsgDescriptionHead.innerText = "Payment initialization failed";
+      //     warningMessageModal.show();
+      //   }
     }
-  }
+
+    // if (userFName && userContactNumber && userEmail) {
+    //   try {
+    //     const payload = {
+    //       subscriberId: userContactNumber,
+    //       adminId: userEmail,
+    //     };
+
+    //     const response = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
+    //       method: 'POST',
+    //       headers: {
+    //         "Content-type": "application/json",
+    //         "Access-Control-Allow-Origin": "*",
+    //         "X-Secret": `${process.env.X_SECRET}`,
+    //       },
+    //       body: JSON.stringify(payload),
+    //     });
+
+    //     const result = await response.json();
+    //     if (result.success && result.jwt) {
+    //       localStorage.setItem('user_token', result.jwt);
+    //       console.log("User jwt: ", result.jwt);
+    //       successMessageModal = new bootstrap.Modal(success_message_modal);
+    //       successMsgDescriptionHead.innerText = "User Token successfull!";
+    //       successMessageModal.show();
+    //     } else {
+    //       warningMessageModal = new bootstrap.Modal(warning_message_modal);
+    //       warningMsgDescriptionHead.innerText = result.response;
+    //       warningMessageModal.show();
+    //     }
+    //   } catch (error) {
+    //     console.error('Error updating cutomer email:', error);
+    //   }
+    // } else {
+    //   warningMessageModal = new bootstrap.Modal(warning_message_modal);
+    //   warningMsgDescriptionHead.innerText = "Enter all the details!";
+    //   warning_message_modal.addEventListener('hidden.bs.modal', () => {
+    //     assveca.show();
+    //   });
+    //   warningMessageModal.show();
+    // }
+  };
+
 
   //product buying confirmation process
   const handleBuyConfirmationClick = async () => {
@@ -304,23 +343,23 @@ export default function ProductList() {
   let assvea;
 
   //buying email confirmation
-  function SubscriptionsSubscribeViewEmailAsk() {
+  // function SubscriptionsSubscribeViewEmailAsk() {
 
-    if (email == null || email == '') {
-      SubscriptionsSubscribeViewEmailChangeAsk();
-    } else {
-      const productSubscribeEmailSelectionMessageModal = document.getElementById("admin_product_subscribe_email_selection_message_modal");
-      const subscribeEmailSelectionMsgDescriptionHead1 = document.getElementById("adminSubscribeEmailSelectionMsgDescriptionHead1");
-      const subscribeEmailSelectionMsgDescriptionHead2 = document.getElementById("adminSubscribeEmailSelectionMsgDescriptionHead2");
-      const subscribeEmailSelectionMsgDescriptionHead3 = document.getElementById("adminSubscribeEmailSelectionMsgDescriptionHead3");
-      subscribeEmailSelectionMsgDescriptionHead1.innerText = "Do you Wish to subscribe for";
-      subscribeEmailSelectionMsgDescriptionHead2.innerText = productName.toString();
-      subscribeEmailSelectionMsgDescriptionHead3.innerText = "With the following email address for \n User : " + user;
-      assvea = new bootstrap.Modal(productSubscribeEmailSelectionMessageModal);
-      assvea.show();
-    }
+  //   if (email == null || email == '') {
+  //     SubscriptionsSubscribeViewEmailChangeAsk();
+  //   } else {
+  //     const productSubscribeEmailSelectionMessageModal = document.getElementById("admin_product_subscribe_email_selection_message_modal");
+  //     const subscribeEmailSelectionMsgDescriptionHead1 = document.getElementById("adminSubscribeEmailSelectionMsgDescriptionHead1");
+  //     const subscribeEmailSelectionMsgDescriptionHead2 = document.getElementById("adminSubscribeEmailSelectionMsgDescriptionHead2");
+  //     const subscribeEmailSelectionMsgDescriptionHead3 = document.getElementById("adminSubscribeEmailSelectionMsgDescriptionHead3");
+  //     subscribeEmailSelectionMsgDescriptionHead1.innerText = "Do you Wish to subscribe for";
+  //     subscribeEmailSelectionMsgDescriptionHead2.innerText = productName.toString();
+  //     subscribeEmailSelectionMsgDescriptionHead3.innerText = "With the following email address for \n User : " + user;
+  //     assvea = new bootstrap.Modal(productSubscribeEmailSelectionMessageModal);
+  //     assvea.show();
+  //   }
 
-  }
+  // }
 
   let assveca;
 
@@ -332,10 +371,20 @@ export default function ProductList() {
     const subscribeEmailChangeMsgDescriptionHead2 = document.getElementById("adminSubscribeEmailChangeMsgDescriptionHead2");
     const subscribeEmailChangeMsgDescriptionHead3 = document.getElementById("adminSubscribeEmailChangeMsgDescriptionHead3");
     const subscribeEmailChangeMsgDescriptionHead4 = document.getElementById("adminSubscribeEmailChangeMsgDescriptionHead4");
+    const subscribeEmailChangeMsgDescriptionHead5 = document.getElementById("adminSubscribeEmailChangeMsgDescriptionHead5");
+    const subscribeEmailChangeMsgDescriptionHead6 = document.getElementById("adminSubscribeEmailChangeMsgDescriptionHead6");
+    const subscribeEmailChangeMsgDescriptionHead7 = document.getElementById("adminSubscribeEmailChangeMsgDescriptionHead7");
+    const subscribeEmailChangeMsgDescriptionHead8 = document.getElementById("adminSubscribeEmailChangeMsgDescriptionHead8");
+    const subscribeEmailChangeMsgDescriptionHead9 = document.getElementById("adminSubscribeEmailChangeMsgDescriptionHead9");
     subscribeEmailChangeMsgDescriptionHead1.innerText = "Do you Wish to subscribe for";
     subscribeEmailChangeMsgDescriptionHead2.innerText = productName.toString();
-    subscribeEmailChangeMsgDescriptionHead3.innerText = "With a new email address :";
-    subscribeEmailChangeMsgDescriptionHead4.innerText = "confirm email address :";
+    subscribeEmailChangeMsgDescriptionHead3.innerText = "First Name :";
+    subscribeEmailChangeMsgDescriptionHead4.innerText = "Last Name : ";
+    subscribeEmailChangeMsgDescriptionHead5.innerText = "Contact Number : ";
+    subscribeEmailChangeMsgDescriptionHead6.innerText = "Email : ";
+    subscribeEmailChangeMsgDescriptionHead7.innerText = "*The Kaspersky key will be send to this email.";
+    subscribeEmailChangeMsgDescriptionHead8.innerText = "City : ";
+    subscribeEmailChangeMsgDescriptionHead9.innerText = "Address : ";
     assveca = new bootstrap.Modal(productSubscribeEmailChangeMessageModal);
     assveca.show();
 
@@ -349,11 +398,13 @@ export default function ProductList() {
           <span className="title06">PRODUCT LIST</span>
         </div>
 
-        <div className="container-fluid align-items-center justify-content-between">
-          <div className="col-12">
-            <div className="row align-content-center justify-content-center justify-content-lg-start p-3">
-              <div className="horizontal-scroll-container">
-                {loading ? <p>Loading...</p> : <Product products={products} onProductClick={handleProductClick} />}
+        <div className="container-fluid">
+          <div className="row justify-content-center">
+            <div className="col-10">
+              <div className="row justify-content-center p-3">
+                <div className="horizontal-scroll-container">
+                  {loading ? <p>Loading...</p> : <Product products={products} onProductClick={handleProductClick} />}
+                </div>
               </div>
             </div>
           </div>
@@ -367,7 +418,7 @@ export default function ProductList() {
           </div>
 
           <div className="container align-items-center justify-content-center">
-            <div className="col-12 border border-3 cardBoxView">
+            <div className="col-12 border-3 cardBoxView">
               <div className="text-black row">
                 <div className="col-lg-5 col-12 p-3">
                   <div className="row">
@@ -376,7 +427,7 @@ export default function ProductList() {
                         <Image src={`${process.env.NEXT_PUBLIC_URL2 + productImageLocation}`} alt="No picture" className="productImage container-fluid" width={1000} height={1000} />
                       </div>
                     </div>
-                    <span className="title18 text-start">MONTHLY PLAN</span><br />
+                    <span className="title18 text-start">ANNUAL PLAN</span><br />
                     <span className="title14">LKR {amount}</span><br />
                     <span className="title02 text-center">All prices are exclusive of taxes</span>
                   </div>
@@ -401,7 +452,7 @@ export default function ProductList() {
                         ))}
                       </div>
                     </div>
-                    <button className="col-lg-7 offset-lg-5 col-12 btn9 p-2" onClick={handleBuyConfirmationClick}><span className="title10"></span>Buy Now</button>
+                    <button className="col-lg-7 offset-lg-5 col-12 btn9 p-2" onClick={SubscriptionsSubscribeViewEmailChangeAsk}><span className="title10"></span>Buy Now</button>
                   </div>
                 </div>
               </div>
@@ -410,7 +461,7 @@ export default function ProductList() {
         </div>
       </div>
 
-      <div class="modal justify-content-center align-content-center" tabIndex="-1" id="admin_product_subscribe_selection_message_modal">
+      {/* <div class="modal justify-content-center align-content-center" tabIndex="-1" id="admin_product_subscribe_selection_message_modal">
         <div class="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
           <div class="modal-content">
             <div class="modal-header bg-success">
@@ -446,7 +497,7 @@ export default function ProductList() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="modal justify-content-center align-content-center" tabIndex="-1" id="admin_product_subscribe_email_selection_message_modal">
         <div className="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
@@ -496,7 +547,7 @@ export default function ProductList() {
       </div>
 
       <div className="modal justify-content-center align-content-center" tabIndex="-1" id="admin_product_subscribe_email_change_message_modal">
-        <div className="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
+        <div className="modal-dialog position-relative p-3" style={{ maxWidth: "650px" }}>
           <div className="modal-content">
             <div className="modal-header bg-success">
               <h5 className="modal-title text01 w-100">
@@ -511,35 +562,91 @@ export default function ProductList() {
                   <h3 className="form-label text-center">
                     <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead1"></span><br />
                     <span className="text05" id="adminSubscribeEmailChangeMsgDescriptionHead2"></span><br />
-                    <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead3"></span><br />
-
+                    {/* <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead3"></span><br /> */}
                   </h3>
                   <form>
                     <div className="col-12">
                       <div className="row justify-content-center">
-                        <div className='col-12'>
-                          <div className='row p-3'>
-                            <input type="email" className="form-control text-center" id="adminChangeEmail1" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required />
+                        <div className="row">
+                          {/* left side column */}
+                          <div className="col-md-6">
+                            <h3 className="form-label text-center">
+                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead3"></span><br />
+                            </h3>
+                            <div className='col-12'>
+                              <div className='row p-2'>
+                                <input type="text" className="form-control form-control-lg text-center w-100" id="userFName" placeholder="Victor" title="Please enter your first name" required style={{ minWidth: '250px' }} />
+                              </div>
+                            </div>
+                            <br />
+
+                            <h3 className="form-label text-center">
+                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead5"></span><br />
+                            </h3>
+                            <div className='col-12'>
+                              <div className='row p-2'>
+                                <input type="text" className="form-control form-control-lg text-center w-100" id="userContactNumber" placeholder="07xxxxxxxx" title="Please enter a valid telephone number" pattern="^(\+?1[-.\s]?)?\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$" required style={{ minWidth: '250px' }} />
+                              </div>
+                            </div>
+                            <br />
+
+                            <h3 className="form-label text-center">
+                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead6"></span><br />
+                            </h3>
+                            <div className='col-12'>
+                              <div className='row p-2 pb-0'>
+                                <input type="email" className="form-control form-control-lg text-center w-100" id="userEmail" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required style={{ minWidth: '250px' }} />
+                              </div>
+                            </div>
+                            <h3 className="form-label text-left pt-0">
+                              <span className="text07" id="adminSubscribeEmailChangeMsgDescriptionHead7"></span><br />
+                            </h3>
+                          </div>
+
+                          {/* right side column */}
+                          <div className="col-md-6">
+                            <h3 className="form-label text-center">
+                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead4"></span><br />
+                            </h3>
+                            <div className='col-12'>
+                              <div className='row p-2'>
+                                <input type="text" className="form-control form-control-lg text-center w-100" id="userLName" placeholder="Tylor" title="Please enter your last name" required style={{ minWidth: '250px' }} />
+                              </div>
+                            </div>
+                            <br />
+                            <h3 className="form-label text-center">
+                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead8"></span><br />
+                            </h3>
+                            <div className='col-12'>
+                              <div className='row p-2'>
+                                <input type="text" className="form-control form-control-lg text-center w-100" id="city" placeholder="Colombo" title="Please enter your last name" required style={{ minWidth: '250px' }} />
+                              </div>
+                            </div>
+                            <br />
+                            <h3 className="form-label text-center">
+                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead9"></span><br />
+                            </h3>
+                            <div className='col-12'>
+                              <div className='row p-2'>
+                                <input type="text" className="form-control form-control-lg text-center w-100" id="address" placeholder="Colombo" title="Please enter your last name" required style={{ minWidth: '250px' }} />
+                              </div>
+                            </div>
+                            <br />
                           </div>
                         </div>
-                        <h3 className="form-label text-center">
-                          <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead4"></span><br />
-                        </h3><br />
-                        <div className='col-12'>
-                          <div className='row p-3'>
-                            <input type="email" className="form-control text-center" id="adminChangeEmail2" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required />
+
+                        <div className="row justify-content-center mt-3 gap-4">
+                          <div className="col-5 p-2">
+                            <div className="row justify-content-center">
+                              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                                CANCEL
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                        <div className="col-5 p-3">
-                          <div className="row justify-content-center">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                              CANCEL
-                            </button>
-                          </div>
-                        </div>
-                        <div className="col-5 p-3">
-                          <div className="row justify-content-center">
-                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={emailConfirmation}>CONFIRM</button>
+                          <div className="col-5 p-2">
+                            <div className="row justify-content-center">
+                              <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={emailConfirmation}>CONFIRM</button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -593,36 +700,36 @@ export default function ProductList() {
       <SuccessMessageModal />
 
       <div className="modal" tabIndex="-1" id="success_message_modal2">
-                <div className="modal-dialog position-relative top-0 end-0 p-3" style={{maxWidth: "450px"}}>
-                    <div className="modal-content">
-                        <div className="modal-header bg-success" id="msgModalHeader2">
-                            <h5 className="modal-title text01 w-100">
-                                <span>SUCCESS</span>
-                            </h5>
-                            <button type="button" className="btn-close bg-white" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-
-                            <div className="row g-2">
-
-                                <div className="col-12">
-                                    <h3 className="form-label text-center">
-                                        <span className="text04" id="successMsgDescriptionHead2"></span><br />
-                                        <span className="text04" id="successMsgDescriptionHead22"></span><br />
-                                    </h3><br /><br />
-                                    <div className="container col-4 p-3">
-                                        <div className="row justify-content-center">
-                                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"
-                                                id="btnText">DONE</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div className="modal-dialog position-relative top-0 end-0 p-3" style={{ maxWidth: "450px" }}>
+          <div className="modal-content">
+            <div className="modal-header bg-success" id="msgModalHeader2">
+              <h5 className="modal-title text01 w-100">
+                <span>SUCCESS</span>
+              </h5>
+              <button type="button" className="btn-close bg-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
             </div>
+            <div className="modal-body">
+
+              <div className="row g-2">
+
+                <div className="col-12">
+                  <h3 className="form-label text-center">
+                    <span className="text04" id="successMsgDescriptionHead2"></span><br />
+                    <span className="text04" id="successMsgDescriptionHead22"></span><br />
+                  </h3><br /><br />
+                  <div className="container col-4 p-3">
+                    <div className="row justify-content-center">
+                      <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"
+                        id="btnText">DONE</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

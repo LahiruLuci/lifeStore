@@ -26,7 +26,7 @@ const Products = ({ products, onProductClick }) => {
                 {products.map((product) => (
                     <div className="productCardView p-2" style={{ width: "18rem" }} key={product.PRODUCTID} onClick={() => onSingleProductViewClick(product)}>
                         <div className="productCardViewHeader align-content-start">
-                            <div className="col-12">
+                            <div className="col-15">
                                 <div className="row">
                                     <div className="col-3 p-0">
                                         <Image src={`${process.env.NEXT_PUBLIC_URL2 + product.IMAGELOCATION}`} alt="No picture" className="productBackground" width={600} height={600} />
@@ -245,7 +245,7 @@ const Products = ({ products, onProductClick }) => {
                                         </div>
                                     </div>
                                     <div className="container mt-2">
-                                        <button className="col-12 btn4 p-2" onClick={() => onSingleProductViewClick(product)} ><span className="title10">MONTHLY PLAN - LKR
+                                        <button className="col-12 btn4 p-2" onClick={() => onSingleProductViewClick(product)} ><span className="title10">ANNUAL PLAN - LKR
                                             &nbsp;{product.AMOUNT}</span>
                                         </button>
                                     </div>

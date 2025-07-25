@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function ProductPortfolioItems2() {
     return (
         <>
-            <div className="col-12 col-md-6 col-lg-6">
+            {/* <div className="col-12 col-md-6 col-lg-6">
                 <div className="row p-3">
                     <div className="offset-3 col-6">
                         <div className="row justify-content-center align-content-center">
@@ -159,7 +159,7 @@ export default function ProductPortfolioItems2() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="col-12 col-md-6 col-lg-6">
                 <div className="row p-3">
                     <div className="offset-3 col-6">

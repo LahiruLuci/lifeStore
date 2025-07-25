@@ -5,9 +5,9 @@ const nextConfig = {
     env: {
         'MYSQL_HOST': '127.0.0.1',
         'MYSQL_PORT': '3306',
-        'MYSQL_DATABASE': 'kaspersky_db',
+        'MYSQL_DATABASE': 'lifestore_db',
         'MYSQL_USER': 'root',
-        'MYSQL_PASSWORD': 'k000oH)YW~OG,1%(y(eZ', //k000oH)YW~OG,1%(y(eZ
+        'MYSQL_PASSWORD': '', //k000oH)YW~OG,1%(y(eZ
         'NEXT_PUBLIC_URL': 'http://localhost:3000',
         'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
         'X_SECRET': 'Za5awxYpg4Clx6uDsjWEg',
@@ -17,8 +17,12 @@ const nextConfig = {
         'SECRET_CODE4' : 'Bf9#Xq8@Lm&(27yVp$61zNkR',
         'SECRET_CODE5' : 'Qw7@Tp9#Lm&(35xYv$82zNkR',
 
+        'PAYHERE_MERCHANT_ID':'1211149',
+        'PAYHERE_SECRET':'sandboxMerchantSecret',
+
+
         'NEXT_PUBLIC_URL3': '/routes/userSearch?SLTBBID=',
-        'NEXT_PUBLIC_URL4': '/routes/userSearch?EMAIL=',
+        'NEXT_PUBLIC_URL4': '/routes/userSearch?EMAIL=', 
         'NEXT_PUBLIC_URL5': '/routes/systemUsers?SLTBBID=',
         'NEXT_PUBLIC_URL6': '/routes/systemUsers?EMAIL=',
         'NEXT_PUBLIC_URL7': '/routes/admins',
