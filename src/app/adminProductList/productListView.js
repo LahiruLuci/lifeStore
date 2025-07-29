@@ -183,7 +183,7 @@ export default function ProductList() {
     let warning_message_modal = document.getElementById("warning_message_modal");
     let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead"); 
 
-    console.log("first name ", first_name);
+    // console.log("first name ", first_name);
 
     if (first_name && last_name && phone && email && address && city && order_id && items && currency) {
       const response = await fetch("../api/payhere", {
@@ -206,24 +206,17 @@ export default function ProductList() {
       });
 
       const html = await response.text();
-      console.log(html);
 
-      //window.open(html.url, "_blank");
+      // Open the PayHere payment form in a new window
       const blob = new Blob([html], { type: "text/html" });
       const url = URL.createObjectURL(blob);
       const payhereWindow = window.open(url, "_blank");
 
       setTimeout(() => URL.revokeObjectURL(url), 5000);
-      // if (data && data.url) {
-      //     // Redirect to the PayHere URL
-      //     window.location.href = data.url;
-      //   } else {
-      //     // Handle error case
-      //     console.error('No URL received from PayHere');
-      //     warningMessageModal = new bootstrap.Modal(warning_message_modal);
-      //     warningMsgDescriptionHead.innerText = "Payment initialization failed";
-      //     warningMessageModal.show();
-      //   }
+    }else{
+      warningMessageModal = new bootstrap.Modal(warning_message_modal);
+      warningMsgDescriptionHead.innerText = "Fill all the informations.";
+      warningMessageModal.show();
     }
 
     // if (userFName && userContactNumber && userEmail) {
@@ -246,10 +239,10 @@ export default function ProductList() {
     //     const result = await response.json();
     //     if (result.success && result.jwt) {
     //       localStorage.setItem('user_token', result.jwt);
-    //       console.log("User jwt: ", result.jwt);
-    //       successMessageModal = new bootstrap.Modal(success_message_modal);
-    //       successMsgDescriptionHead.innerText = "User Token successfull!";
-    //       successMessageModal.show();
+    //       // console.log("User jwt: ", result.jwt);
+    //       // successMessageModal = new bootstrap.Modal(success_message_modal);
+    //       // successMsgDescriptionHead.innerText = "User Token successfull!";
+    //       // successMessageModal.show();
     //     } else {
     //       warningMessageModal = new bootstrap.Modal(warning_message_modal);
     //       warningMsgDescriptionHead.innerText = result.response;
@@ -270,61 +263,61 @@ export default function ProductList() {
 
 
   //product buying confirmation process
-  const handleBuyConfirmationClick = async () => {
-    let user = localStorage.getItem('customer_id');
+  // const handleBuyConfirmationClick = async () => {
+  //   let user = localStorage.getItem('customer_id');
 
-    try {
+  //   try {
 
-      const payload = {
-        user,
-        productName,
-      };
+  //     const payload = {
+  //       user,
+  //       productName,
+  //     };
 
-      const postData = await fetch(`${process.env.NEXT_PUBLIC_URL10}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+  //     const postData = await fetch(`${process.env.NEXT_PUBLIC_URL10}`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(payload),
+  //     });
 
-      const result = await postData.json();
-      if (result.message === "Product Count!") {
-        if (result.subscriptionsCount >= 1) {
-          SubscriptionsWarningSubscribeViewAsk(result.subscriptionsCount);
-        } else {
-          SubscriptionsSubscribeViewAsk();
-        }
+  //     const result = await postData.json();
+  //     if (result.message === "Product Count!") {
+  //       if (result.subscriptionsCount >= 1) {
+  //         SubscriptionsWarningSubscribeViewAsk(result.subscriptionsCount);
+  //       } else {
+  //         SubscriptionsSubscribeViewAsk();
+  //       }
 
-      } else {
-        SubscriptionsSubscribeViewAsk();
-      }
+  //     } else {
+  //       SubscriptionsSubscribeViewAsk();
+  //     }
 
-    } catch (error) {
-      console.error('Error adding product:', error);
-    }
-  }
+  //   } catch (error) {
+  //     console.error('Error adding product:', error);
+  //   }
+  // }
 
-  const hasFeature = (featuresString, feature) => {
-    const regex = new RegExp(`\\b${feature}\\b`, 'i');
-    return regex.test(featuresString);
-  };
+  // const hasFeature = (featuresString, feature) => {
+  //   const regex = new RegExp(`\\b${feature}\\b`, 'i');
+  //   return regex.test(featuresString);
+  // };
 
   let aswva;
   let productSubscribeWarningMessageModal;
 
   //same user same product buying confirmation
-  const SubscriptionsWarningSubscribeViewAsk = (x) => {
-    productSubscribeWarningMessageModal = document.getElementById("admin_product_subscribe_warning_message_modal");
-    const subscribeWarningMsgDescriptionHead = document.getElementById("adminSubscribeWarningMsgDescriptionHead");
-    if (x > 1) {
-      subscribeWarningMsgDescriptionHead.innerText = "You already subscribed this item " + x + " times.\nDo you want to subscribe it again ?";
-    } else {
-      subscribeWarningMsgDescriptionHead.innerText = "You already subscribed this item " + x + " time.\nDo you want to subscribe it again ?";
-    }
-    aswva = new bootstrap.Modal(productSubscribeWarningMessageModal);
-    aswva.show();
-  }
+  // const SubscriptionsWarningSubscribeViewAsk = (x) => {
+  //   productSubscribeWarningMessageModal = document.getElementById("admin_product_subscribe_warning_message_modal");
+  //   const subscribeWarningMsgDescriptionHead = document.getElementById("adminSubscribeWarningMsgDescriptionHead");
+  //   if (x > 1) {
+  //     subscribeWarningMsgDescriptionHead.innerText = "You already subscribed this item " + x + " times.\nDo you want to subscribe it again ?";
+  //   } else {
+  //     subscribeWarningMsgDescriptionHead.innerText = "You already subscribed this item " + x + " time.\nDo you want to subscribe it again ?";
+  //   }
+  //   aswva = new bootstrap.Modal(productSubscribeWarningMessageModal);
+  //   aswva.show();
+  // }
 
   let assva;
   let productSubscribeSelectionMessageModal;

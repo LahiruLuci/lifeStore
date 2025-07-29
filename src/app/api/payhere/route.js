@@ -28,7 +28,7 @@ export async function POST(request) {
 
     const return_url = "http://localhost:3000/adminProductList";
     const cancel_url = "http://localhost:3000/payment-cancel";
-    const notify_url = "http://localhost:3000/api/payhere-notify";
+    const notify_url = "https://ebony-sm-lou-classified.trycloudflare.com/api/payhere-notify";
 
     //build form
     const form = `
