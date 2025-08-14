@@ -176,20 +176,85 @@ export default function ProductList() {
     const city = document.getElementById("city").value;
     const order_id = "ORDER_" + Date.now();
     const items = productName;
+    const pCode = Number(productCode);
     const currency = "LKR";
+    const fullName = first_name + " " + last_name;
 
     let success_message_modal = document.getElementById("success_message_modal");
     let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
     let warning_message_modal = document.getElementById("warning_message_modal");
-    let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead"); 
+    let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
 
     // console.log("first name ", first_name);
 
+    // if (first_name && last_name && phone && email && address && city && order_id && items && currency) {
+    //   const response = await fetch("../api/payhere", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       first_name,
+    //       last_name,
+    //       phone,
+    //       email,
+    //       address,
+    //       city,
+    //       order_id,
+    //       items,
+    //       currency,
+    //       amount,
+    //     }),
+    //   });
+
+    //   const html = await response.text();
+
+    //   // Open the PayHere payment form in a new window
+    //   const blob = new Blob([html], { type: "text/html" });
+    //   const url = URL.createObjectURL(blob);
+    //   const payhereWindow = window.open(url, "_blank");
+
+    //   setTimeout(() => URL.revokeObjectURL(url), 5000);
+
+    //   // Store user details after opening PayHere window
+    //   try {
+    //     const storeResponse = await fetch("../api/store-customerData", {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         order_id,
+    //         fullName,
+    //         phone,
+    //         email,
+    //       })
+    //     });
+
+    //     if (!storeResponse.ok) {
+    //       throw new Error('Failed to store order');
+    //     }
+
+    //   } catch (error) {
+    //     console.error("Error storing order:", error);
+    //     warningMessageModal = new bootstrap.Modal(warning_message_modal);
+    //     warningMsgDescriptionHead.innerText = "Error storing order details.";
+    //     warningMessageModal.show();
+    //   }
+
+    // } else {
+    //   warningMessageModal = new bootstrap.Modal(warning_message_modal);
+    //   warningMsgDescriptionHead.innerText = "Fill all the informations.";
+    //   warningMessageModal.show();
+    // }
+
+    
+    // Inside emailConfirmation function, after storing customer data:
     if (first_name && last_name && phone && email && address && city && order_id && items && currency) {
       const response = await fetch("../api/payhere", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", 
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           first_name,
@@ -212,18 +277,160 @@ export default function ProductList() {
       const url = URL.createObjectURL(blob);
       const payhereWindow = window.open(url, "_blank");
 
+      // Store user details after opening PayHere window
+      try {
+        const storeResponse = await fetch("../api/store-customerData", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            order_id,
+            fullName,
+            phone,
+            email,
+            pCode,
+          })
+        });
+        console.log(storeResponse);
+
+        if (!storeResponse.ok) {
+          throw new Error('Failed to store order');
+        }
+
+        // Set up an interval to check payment status
+        const checkPaymentStatus = setInterval(async () => {
+          try {
+            const statusResponse = await fetch(`../api/get-customerData?orderId=${order_id}`);
+            const statusData = await statusResponse.json();
+
+            if (statusData.success && statusData.data) {
+              const customerData = statusData.data;
+              console.log(customerData);
+
+              // Check if payment status exists
+              if (customerData.PAYHERESTATUSCODE) {
+                clearInterval(checkPaymentStatus); // Stop checking
+
+                // Handle payment status
+                if (customerData.PAYHERESTATUSCODE === 2) {
+                  console.log("Payment Successful!");
+                  if (phone && email) {
+                    try {
+                      const payload = {
+                        subscriberId: phone,
+                        adminId: email,
+                      };
+
+                      const response = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
+                        method: 'POST',
+                        headers: {
+                          "Content-type": "application/json",
+                          "Access-Control-Allow-Origin": "*",
+                          "X-Secret": `${process.env.X_SECRET}`,
+                        },
+                        body: JSON.stringify(payload),
+                      });
+
+                      const result = await response.json();
+                      if (result.success && result.jwt) {
+                        localStorage.setItem('user_token', result.jwt);
+                        console.log("User jwt: ", result.jwt);
+                        const activatePayloard = {
+                          email,
+                          productCode: pCode,
+                          year: 1
+                        }
+                        // try {
+                        //   const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL9}`, {
+                        //     method: "POST",
+                        //     headers: {
+                        //       "Authorization": `Bearer ${jwt}`,
+                        //       "Content-type": "application/json",
+                        //       "Access-Control-Allow-Origin": "*"
+                        //     },
+                        //     body: JSON.stringify(activatePayloard),
+                        //   });
+                        //   const result2 = await postData2.json();
+                        //   if (result2.success) {
+                        //     const resultProps = result2.response;
+                        //     if (!resultProps.key == null || !resultProps.key == "") {
+                        //       const licensekey = resultProps.key;
+
+                        //       return NextResponse.json({
+                        //         error: 0,
+                        //         message: "Product Subscribed Successfully!",
+                        //         key: licensekey
+                        //       });
+                        //     } else {
+                        //       return NextResponse.json({
+                        //         error: 1,
+                        //         message: "Invalid Subscription."
+                        //       });
+                        //     }
+                        //   } else {
+                        //     return NextResponse.json({
+                        //       error: 1,
+                        //       message: "Product not Subscribe."
+                        //     });
+                        //   }
+                        // } catch (error) {
+                        //   return NextResponse.json({
+                        //     error: 1,
+                        //     message: error.message
+                        //   }, { status: 404 })
+                        // }
+
+                      } else {
+                        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                        warningMsgDescriptionHead.innerText = result.response;
+                        warningMessageModal.show();
+                      }
+                    } catch (error) {
+                      console.error('Error updating cutomer email:', error);
+                    }
+                  } else {
+                    warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                    warningMsgDescriptionHead.innerText = "Enter all the details!";
+                    warning_message_modal.addEventListener('hidden.bs.modal', () => {
+                      assveca.show();
+                    });
+                    warningMessageModal.show();
+                  }
+
+                }
+              }
+            }
+          } catch (error) {
+            console.error('Error checking payment status:', error);
+          }
+        }, 5000); // Check every 5 seconds
+
+        // Stop checking after 5 minutes (300000 ms) to prevent infinite checking
+        setTimeout(() => {
+          clearInterval(checkPaymentStatus);
+        }, 300000);
+
+      } catch (error) {
+        console.error("Error storing order:", error);
+        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+        warningMsgDescriptionHead.innerText = "Error storing order details.";
+        warningMessageModal.show();
+      }
+
       setTimeout(() => URL.revokeObjectURL(url), 5000);
-    }else{
+
+    } else {
       warningMessageModal = new bootstrap.Modal(warning_message_modal);
       warningMsgDescriptionHead.innerText = "Fill all the informations.";
       warningMessageModal.show();
     }
 
-    // if (userFName && userContactNumber && userEmail) {
+    // if (phone && email) {
     //   try {
     //     const payload = {
-    //       subscriberId: userContactNumber,
-    //       adminId: userEmail,
+    //       subscriberId: phone,
+    //       adminId: email,
     //     };
 
     //     const response = await fetch(`${process.env.NEXT_PRIVATE_URL3}`, {
@@ -239,7 +446,7 @@ export default function ProductList() {
     //     const result = await response.json();
     //     if (result.success && result.jwt) {
     //       localStorage.setItem('user_token', result.jwt);
-    //       // console.log("User jwt: ", result.jwt);
+    //       console.log("User jwt: ", result.jwt);
     //       // successMessageModal = new bootstrap.Modal(success_message_modal);
     //       // successMsgDescriptionHead.innerText = "User Token successfull!";
     //       // successMessageModal.show();
@@ -253,7 +460,7 @@ export default function ProductList() {
     //   }
     // } else {
     //   warningMessageModal = new bootstrap.Modal(warning_message_modal);
-    //   warningMsgDescriptionHead.innerText = "Enter all the details!";
+    //   warningMsgDescriptionHead.innerText = "Missing parameters!";
     //   warning_message_modal.addEventListener('hidden.bs.modal', () => {
     //     assveca.show();
     //   });
