@@ -27,8 +27,8 @@ export async function POST(request) {
     const hash = md5(merchant_id + order_id + amountFormatted + currency + hashedSecret).toString().toUpperCase();
 
     const return_url = "http://localhost:3000/adminProductList";
-    const cancel_url = "http://localhost:3000/payment-cancel";
-    const notify_url = "https://45b9e1ce965b.ngrok-free.app/api/payhere-notify";
+    const cancel_url = "http://localhost:3000/adminProductList";
+    const notify_url = "https://e56d3a2d9045.ngrok-free.app/api/payhere-notify";
 
     //build form
     const form = `

@@ -166,7 +166,7 @@ export default function ProductList() {
     // }
   };
 
-  //get the token from backend 
+  //lifestore function to confirm email and payment
   const emailConfirmation = async () => {
     const first_name = document.getElementById("userFName").value;
     const last_name = document.getElementById("userLName").value;
@@ -185,68 +185,7 @@ export default function ProductList() {
     let warning_message_modal = document.getElementById("warning_message_modal");
     let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
 
-    // console.log("first name ", first_name);
-
-    // if (first_name && last_name && phone && email && address && city && order_id && items && currency) {
-    //   const response = await fetch("../api/payhere", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       first_name,
-    //       last_name,
-    //       phone,
-    //       email,
-    //       address,
-    //       city,
-    //       order_id,
-    //       items,
-    //       currency,
-    //       amount,
-    //     }),
-    //   });
-
-    //   const html = await response.text();
-
-    //   // Open the PayHere payment form in a new window
-    //   const blob = new Blob([html], { type: "text/html" });
-    //   const url = URL.createObjectURL(blob);
-    //   const payhereWindow = window.open(url, "_blank");
-
-    //   setTimeout(() => URL.revokeObjectURL(url), 5000);
-
-    //   // Store user details after opening PayHere window
-    //   try {
-    //     const storeResponse = await fetch("../api/store-customerData", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         order_id,
-    //         fullName,
-    //         phone,
-    //         email,
-    //       })
-    //     });
-
-    //     if (!storeResponse.ok) {
-    //       throw new Error('Failed to store order');
-    //     }
-
-    //   } catch (error) {
-    //     console.error("Error storing order:", error);
-    //     warningMessageModal = new bootstrap.Modal(warning_message_modal);
-    //     warningMsgDescriptionHead.innerText = "Error storing order details.";
-    //     warningMessageModal.show();
-    //   }
-
-    // } else {
-    //   warningMessageModal = new bootstrap.Modal(warning_message_modal);
-    //   warningMsgDescriptionHead.innerText = "Fill all the informations.";
-    //   warningMessageModal.show();
-    // }
+    
 
     
     // Inside emailConfirmation function, after storing customer data:
@@ -275,7 +214,7 @@ export default function ProductList() {
       // Open the PayHere payment form in a new window
       const blob = new Blob([html], { type: "text/html" });
       const url = URL.createObjectURL(blob);
-      const payhereWindow = window.open(url, "_blank");
+      const payhereWindow = window.open(url, "_self");
 
       // Store user details after opening PayHere window
       try {
@@ -341,45 +280,46 @@ export default function ProductList() {
                           productCode: pCode,
                           year: 1
                         }
-                        // try {
-                        //   const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL9}`, {
-                        //     method: "POST",
-                        //     headers: {
-                        //       "Authorization": `Bearer ${jwt}`,
-                        //       "Content-type": "application/json",
-                        //       "Access-Control-Allow-Origin": "*"
-                        //     },
-                        //     body: JSON.stringify(activatePayloard),
-                        //   });
-                        //   const result2 = await postData2.json();
-                        //   if (result2.success) {
-                        //     const resultProps = result2.response;
-                        //     if (!resultProps.key == null || !resultProps.key == "") {
-                        //       const licensekey = resultProps.key;
+                        try {
+                          const postData2 = await fetch(`${process.env.NEXT_PRIVATE_URL9}`, {
+                            method: "POST",
+                            headers: {
+                              "Authorization": `Bearer ${jwt}`,
+                              "Content-type": "application/json",
+                              "Access-Control-Allow-Origin": "*"
+                            },
+                            body: JSON.stringify(activatePayloard),
+                          });
+                          const result2 = await postData2.json();
+                          if (result2.success) {
+                            const resultProps = result2.response;
+                            if (!resultProps.key == null || !resultProps.key == "") {
+                              const licensekey = resultProps.key;
+                              console.log("License Key: ", licensekey);
 
-                        //       return NextResponse.json({
-                        //         error: 0,
-                        //         message: "Product Subscribed Successfully!",
-                        //         key: licensekey
-                        //       });
-                        //     } else {
-                        //       return NextResponse.json({
-                        //         error: 1,
-                        //         message: "Invalid Subscription."
-                        //       });
-                        //     }
-                        //   } else {
-                        //     return NextResponse.json({
-                        //       error: 1,
-                        //       message: "Product not Subscribe."
-                        //     });
-                        //   }
-                        // } catch (error) {
-                        //   return NextResponse.json({
-                        //     error: 1,
-                        //     message: error.message
-                        //   }, { status: 404 })
-                        // }
+                              return NextResponse.json({
+                                error: 0,
+                                message: "Product Subscribed Successfully!",
+                                key: licensekey
+                              });
+                            } else {
+                              return NextResponse.json({
+                                error: 1,
+                                message: "Invalid Subscription."
+                              });
+                            }
+                          } else {
+                            return NextResponse.json({
+                              error: 1,
+                              message: "Product not Subscribe."
+                            });
+                          }
+                        } catch (error) {
+                          return NextResponse.json({
+                            error: 1,
+                            message: error.message
+                          }, { status: 404 })
+                        }
 
                       } else {
                         warningMessageModal = new bootstrap.Modal(warning_message_modal);
