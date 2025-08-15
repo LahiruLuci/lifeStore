@@ -4,10 +4,11 @@ const nextConfig = {
 
     env: {
         'MYSQL_HOST': '127.0.0.1',
-        'MYSQL_PORT': '3306',
+        'MYSQL_PORT': '3307',
         'MYSQL_DATABASE': 'lifestore_db',
         'MYSQL_USER': 'root',
         'MYSQL_PASSWORD': '', //k000oH)YW~OG,1%(y(eZ
+        'LICENSE_SECRET':'super-long-random-secret',
         'NEXT_PUBLIC_URL': 'http://localhost:3000',
         'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
         'X_SECRET': 'Za5awxYpg4Clx6uDsjWEg',
