@@ -11,23 +11,23 @@ export default function Footer() {
                             <ul className="list-inline text-end footer-icons">
                                 <li className="list-inline-item text-center">
                                     <a className="text-light text-decoration-none" target="_blank"
-                                        href="http://facebook.com/"><div className="smicon1"></div></a>
+                                        href="https://web.facebook.com/SLTMobitel?_rdc=1&_rdr"><div className="smicon1"></div></a>
                                 </li>
                                 <li className="list-inline-item text-center">
                                     <a className="text-light text-decoration-none" target="_blank"
-                                        href="https://twitter.com/"><div className="smicon2"></div></a>
+                                        href="https://x.com/slt_mobitel"><div className="smicon2"></div></a>
                                 </li>
                                 <li className="list-inline-item text-center">
                                     <a className="text-light text-decoration-none" target="_blank"
-                                        href="https://www.linkedin.com/"><div className="smicon3"></div></a>
+                                        href="https://www.linkedin.com/company/srilankatelecom/posts/?feedView=all"><div className="smicon3"></div></a>
                                 </li>
                                 <li className="list-inline-item text-center">
                                     <a className="text-light text-decoration-none" target="_blank"
-                                        href="https://www.instagram.com/"><div className="smicon4"></div></a>
+                                        href="https://www.instagram.com/sltmobitel_official/?hl=en"><div className="smicon4"></div></a>
                                 </li>
                                 <li className="list-inline-item text-center">
                                     <a className="text-light text-decoration-none" target="_blank"
-                                        href="https://www.youtube.com/"><div className="smicon5"></div></a>
+                                        href="https://www.youtube.com/@SLTMobitel"><div className="smicon5"></div></a>
                                 </li>
                             </ul>
                         </div>
