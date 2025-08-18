@@ -1785,7 +1785,7 @@ export default function ProductList() {
         let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
 
         warningMsgDescriptionHead.innerText = 
-          "Payment was cancelled.";
+          "Payment failed. Please check your payment details and try again.";
 
         warning_message_modal.addEventListener("hidden.bs.modal", () => {
           document.body.classList.remove("modal-open");
