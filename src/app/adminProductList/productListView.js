@@ -2492,156 +2492,148 @@ setTimeout(() => {
               <h5 className="modal-title text01 w-100">
                 <i className="bi bi-question-circle msgHeaderTitle text-white"></i>&nbsp;<span>CONFIRMATION !</span>
               </h5>
-              <button type="button" className="btn-close bg-white" data-bs-dismiss="modal"
-                aria-label="Close"></button>
+              <button type="button" className="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div className="modal-body">
               <div className="row g-2">
                 <div className="col-12">
                   <h3 className="form-label text-center">
                     <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead1"></span><br />
                     <span className="text05" id="adminSubscribeEmailChangeMsgDescriptionHead2"></span><br />
-                    {/* <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead3"></span><br /> */}
                   </h3>
+
                   <form>
-                    <div className="col-12">
-                      <div className="row justify-content-center">
-                        <div className="row">
-                          {/* left side column */}
-                          <div className="col-md-6">
-                            <h3 className="form-label text-center">
-                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead3"></span><br />
-                            </h3>
-                            <div className='col-12'>
-                              <div className='row p-2'>
-                                <input type="text" className="form-control form-control-lg text-center w-100" id="userFName" placeholder="Victor" title="Please enter your first name" required style={{ minWidth: '250px' }} />
-                              </div>
-                            </div>
-                            <br />
+                    <div className="col-12 mx-auto" style={{ maxWidth: "520px" }}>
+                      {/* First Name */}
+                      <div className="mb-3">
+                        <h3 className="form-label text-start">
+                          <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead3"></span>
+                        </h3>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm text-center mx-auto fs-6"
+                          id="userFName"
+                          placeholder="Victor"
+                          title="Please enter your first name"
+                          required
+                          style={{ width: "320px", maxWidth: "100%" }}
+                        />
+                      </div>
 
-                            {/* <h3 className="form-label text-center">
-                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead5"></span><br />
-                            </h3>
-                            <div className='col-12'>
-                              <div className='row p-2'>
-                                <input type="text" className="form-control form-control-lg text-center w-100" id="userContactNumber" placeholder="07xxxxxxxx" title="Please enter a valid telephone number" pattern="^(\+?1[-.\s]?)?\(?[0-9]{3}\)?[-.\s]?[0-9]{3}[-.\s]?[0-9]{4}$" required style={{ minWidth: '250px' }} />
-                              </div>
-                            </div>
-                            <br /> */}
-                            <h3 className="form-label text-center">
-                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead5"></span><br />
-                            </h3>
-                            <div className="col-12">
-                              <div className="row p-2">
-                                <input
-                                  type="text"
-                                  className="form-control form-control-lg text-center w-100"
-                                  id="userContactNumber"
-                                  placeholder="07xxxxxxxx"
-                                  title="Please enter a 10-digit phone number"
-                                  inputMode="numeric"
-                                  maxLength={10}
-                                  pattern="^\d{10}$"
-                                  onInput={(e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10); }}
-                                  required
-                                  style={{ minWidth: '250px' }}
-                                />
-                                {/* <div className="invalid-feedback" style={{fontSize: "8px"}}>Contact number must be exactly 10 digits.</div> */}
-                              </div>
-                            </div>
-                            <br />
+                      {/* Last Name */}
+                      <div className="mb-3">
+                        <h3 className="form-label text-start">
+                          <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead4"></span>
+                        </h3>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm text-center mx-auto fs-6"
+                          id="userLName"
+                          placeholder="Tylor"
+                          title="Please enter your last name"
+                          required
+                          style={{ width: "320px", maxWidth: "100%" }}
+                        />
+                      </div>
 
+                      {/* Contact Number */}
+                      <div className="mb-3">
+                        <h3 className="form-label text-start">
+                          <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead5"></span>
+                        </h3>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm text-center mx-auto fs-6"
+                          id="userContactNumber"
+                          placeholder="07xxxxxxxx"
+                          title="Please enter a 10-digit phone number"
+                          inputMode="numeric"
+                          maxLength={10}
+                          pattern="^\d{10}$"
+                          onInput={(e) => { e.target.value = e.target.value.replace(/\D/g, '').slice(0, 10); }}
+                          required
+                          style={{ width: "320px", maxWidth: "100%" }}
+                        />
+                      </div>
 
-                            {/* <h3 className="form-label text-center">
-                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead6"></span><br />
-                            </h3>
-                            <div className='col-12'>
-                              <div className='row p-2 pb-0'>
-                                <input type="email" className="form-control form-control-lg text-center w-100" id="userEmail" placeholder="example@gmail.com" title="Please enter a valid email address" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required style={{ minWidth: '250px' }} />
-                              </div>
-                            </div>
-                            <h3 className="form-label text-left pt-0">
-                              <span className="text07" id="adminSubscribeEmailChangeMsgDescriptionHead7"></span><br />
-                            </h3>
-                          </div> */}
-                            <h3 className="form-label text-center">
-                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead6"></span><br />
-                            </h3>
-                            <div className="col-12">
-                              <div className="row p-2 pb-0">
-                                <input
-                                  type="email"
-                                  className="form-control form-control-lg text-center w-100"
-                                  id="userEmail"
-                                  placeholder="example@gmail.com"
-                                  title="Please enter a valid email address"
-                                  required
-                                  style={{ minWidth: '250px' }}
-                                />
-                                {/* <div className="invalid-feedback">Please enter a valid email address.</div> */}
-                              </div>
-                            </div>
-                            <h3 className="form-label text-left pt-0">
-                              <span className="text07" id="adminSubscribeEmailChangeMsgDescriptionHead7"></span><br />
-                            </h3>
-                          </div>
+                      {/* City */}
+                      <div className="mb-3">
+                        <h3 className="form-label text-start">
+                          <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead8"></span>
+                        </h3>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm text-center mx-auto fs-6"
+                          id="city"
+                          placeholder="Kurunegala"
+                          title="Please enter your city"
+                          required
+                          style={{ width: "320px", maxWidth: "100%" }}
+                        />
+                      </div>
 
+                      {/* Email */}
+                      <div className="mb-1">
+                        <h3 className="form-label text-start">
+                          <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead6"></span>
+                        </h3>
+                        <input
+                          type="email"
+                          className="form-control form-control-sm text-center mx-auto fs-6"
+                          id="userEmail"
+                          placeholder="example@gmail.com"
+                          title="Please enter a valid email address"
+                          required
+                          style={{ width: "320px", maxWidth: "100%" }}
+                        />
+                      </div>
 
-                          {/* right side column */}
-                          <div className="col-md-6">
-                            <h3 className="form-label text-center">
-                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead4"></span><br />
-                            </h3>
-                            <div className='col-12'>
-                              <div className='row p-2'>
-                                <input type="text" className="form-control form-control-lg text-center w-100" id="userLName" placeholder="Tylor" title="Please enter your last name" required style={{ minWidth: '250px' }} />
-                              </div>
-                            </div>
-                            <br />
-                            <h3 className="form-label text-center">
-                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead8"></span><br />
-                            </h3>
-                            <div className='col-12'>
-                              <div className='row p-2'>
-                                <input type="text" className="form-control form-control-lg text-center w-100" id="city" placeholder="Colombo" title="Please enter your last name" required style={{ minWidth: '250px' }} />
-                              </div>
-                            </div>
-                            <br />
-                            <h3 className="form-label text-center">
-                              <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead9"></span><br />
-                            </h3>
-                            <div className='col-12'>
-                              <div className='row p-2'>
-                                <input type="text" className="form-control form-control-lg text-center w-100" id="address" placeholder="Colombo" title="Please enter your last name" required style={{ minWidth: '250px' }} />
-                              </div>
-                            </div>
-                            <br />
-                          </div>
+                      {/* Email note */}
+                      <h3 className="form-label text-start pt-1">
+                        <span className="text07" id="adminSubscribeEmailChangeMsgDescriptionHead7"></span>
+                      </h3>
+
+                      {/* Address */}
+                      <div className="mb-3">
+                        <h3 className="form-label text-start">
+                          <span className="text03" id="adminSubscribeEmailChangeMsgDescriptionHead9"></span>
+                        </h3>
+                        <input
+                          type="text"
+                          className="form-control form-control-sm text-center mx-auto fs-6"
+                          id="address"
+                          placeholder="No.107, Dambakandawatte"
+                          title="Please enter your address"
+                          required
+                          style={{ width: "320px", maxWidth: "100%" }}
+                        />
+                      </div>
+
+                      {/* Buttons */}
+                      <div className="row justify-content-center mt-3 g-3">
+                        <div className="col-12 col-sm-5">
+                          <button type="button" className="btn btn-secondary w-100" data-bs-dismiss="modal">
+                            CANCEL
+                          </button>
                         </div>
-
-                        <div className="row justify-content-center mt-3 gap-4">
-                          <div className="col-5 p-2">
-                            <div className="row justify-content-center">
-                              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
-                                CANCEL
-                              </button>
-                            </div>
-                          </div>
-                          <div className="col-5 p-2">
-                            <div className="row justify-content-center">
-                              <button type="button" className="btn btn-success" onClick={emailConfirmation}>CONFIRM</button>
-                            </div>
-                          </div>
+                        <div className="col-12 col-sm-5">
+                          <button type="button" className="btn btn-success w-100" onClick={emailConfirmation}>
+                            CONFIRM
+                          </button>
                         </div>
                       </div>
                     </div>
                   </form>
+
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+
 
       <div class="modal justify-content-center align-content-center" tabIndex="-1" id="admin_product_subscribe_warning_message_modal">
         <div class="modal-dialog position-relative p-3" style={{ maxWidth: "450px" }}>
