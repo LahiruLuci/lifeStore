@@ -257,7 +257,7 @@ export async function POST(request) {
   // make return/cancel pages that close themselves and notify opener
   const return_url = `http://localhost:3000/payhere-redirect?status=success&order_id=${order_id}`;
   const cancel_url = `http://localhost:3000/payhere-redirect?status=cancelled&order_id=${order_id}`;
-  const notify_url = "https://0b1a96bd70bd.ngrok-free.app/api/payhere-notify";
+  const notify_url = "http://localhost:3000/api/payhere-notify";
 
   // Build PayHere redirect form
 const form = `
