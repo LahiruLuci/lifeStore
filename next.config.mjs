@@ -6,8 +6,8 @@ const nextConfig = {
         'MYSQL_HOST': '127.0.0.1',
         'MYSQL_PORT': '3307',
         'MYSQL_DATABASE': 'lifestore_db',
-        'MYSQL_USER': 'root',
-        'MYSQL_PASSWORD': '', //k000oH)YW~OG,1%(y(eZ
+        'MYSQL_USER': 'lifestore',
+        'MYSQL_PASSWORD': 'Db!7xV9@rQ2#Lm8z', //k000oH)YW~OG,1%(y(eZ
         'LICENSE_SECRET':'super-long-random-secret',
         'NEXT_PUBLIC_URL': 'http://localhost:3000',
         'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
