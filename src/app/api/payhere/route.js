@@ -255,9 +255,9 @@ export async function POST(request) {
     .toUpperCase();
 
   // make return/cancel pages that close themselves and notify opener
-  const return_url = `http://localhost:3000/payhere-redirect?status=success&order_id=${order_id}`;
-  const cancel_url = `http://localhost:3000/payhere-redirect?status=cancelled&order_id=${order_id}`;
-  const notify_url = "http://localhost:3000/api/payhere-notify";
+  const return_url = `https://kaspersky-annual.slt.lk/payhere-redirect?status=success&order_id=${order_id}`;
+  const cancel_url = `https://kaspersky-annual.slt.lk/payhere-redirect?status=cancelled&order_id=${order_id}`;
+  const notify_url = "https://kaspersky-annual.slt.lk/api/payhere-notify";
 
   // Build PayHere redirect form
 const form = `
