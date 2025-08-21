@@ -64,15 +64,15 @@ const nextConfig = {
     images:{
         remotePatterns:[
             {
-                protocol: 'http',
-                hostname: '127.0.0.1',
-                port: '3000',
+                protocol: 'https',
+                hostname: 'kaspersky-annual.slt.lk',
+                port: '',
                 pathname: '/img/**',
             },
             {
-                protocol: 'http', 
-                hostname: '127.0.0.1',
-                port: '3000',
+                protocol: 'https', 
+                hostname: 'kaspersky-annual.slt.lk',
+                port: '',
                 pathname: '/productImages/**',
             }
         ],
