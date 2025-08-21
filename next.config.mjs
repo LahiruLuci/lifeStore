@@ -9,8 +9,8 @@ const nextConfig = {
         'MYSQL_USER': 'lifestore',
         'MYSQL_PASSWORD': 'Db!7xV9@rQ2#Lm8z', //k000oH)YW~OG,1%(y(eZ
         'LICENSE_SECRET':'super-long-random-secret',
-        'NEXT_PUBLIC_URL': 'http://localhost:3000',
-        'NEXT_PUBLIC_URL2': 'http://127.0.0.1:3000',
+        'NEXT_PUBLIC_URL': 'https://kaspersky-annual.slt.lk',
+        'NEXT_PUBLIC_URL2': 'https://kaspersky-annual.slt.lk',
         'X_SECRET': 'Za5awxYpg4Clx6uDsjWEg',
         'SECRET_CODE': 'dawyydgbi123129%^&98SEvseE',
         'SECRET_CODE2': 'iq8q156286y&*(8lI6%7657GBk',
