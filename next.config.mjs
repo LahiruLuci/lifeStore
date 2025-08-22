@@ -18,8 +18,8 @@ const nextConfig = {
         'SECRET_CODE4' : 'Bf9#Xq8@Lm&(27yVp$61zNkR',
         'SECRET_CODE5' : 'Qw7@Tp9#Lm&(35xYv$82zNkR',
 
-        'PAYHERE_MERCHANT_ID':'1231260',
-        'PAYHERE_SECRET':'Mzc5Nzc4NjczNDkxMTgxMTQwNTA5MDIwODkwMjQ1MTkyMDg0NQ==',
+        'PAYHERE_MERCHANT_ID':'212500',
+        'PAYHERE_SECRET':'NTQ1MDM4ODcyMTYyOTkxODkxMzIyNjQ4NzUxMDcxNTU5MDU2MTk2',
 
 
         'NEXT_PUBLIC_URL3': '/routes/userSearch?SLTBBID=',
