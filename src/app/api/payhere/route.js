@@ -267,7 +267,7 @@ const form = `
       <meta charset="utf-8">
   </head>
   <body>
-      <form id="payhere-form" method="post" action="https://sandbox.payhere.lk/pay/checkout">
+      <form id="payhere-form" method="post" action="https://www.payhere.lk/pay/checkout">
           <input type="hidden" name="merchant_id" value="${merchant_id}" />
           <input type="hidden" name="return_url" value="${return_url}" />
           <input type="hidden" name="cancel_url" value="${cancel_url}" />
