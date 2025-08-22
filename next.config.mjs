@@ -19,7 +19,7 @@ const nextConfig = {
         'SECRET_CODE5' : 'Qw7@Tp9#Lm&(35xYv$82zNkR',
 
         'PAYHERE_MERCHANT_ID':'212500',
-        'PAYHERE_SECRET':'MTU2ODUwODc0MjIzOTA0OTIzMTg3NTA2NTc5OTE2NTIxODIyMjg=',
+        'PAYHERE_SECRET':'NTQ1MDM4ODcyMTYyOTkxODkxMzIyNjQ4NzUxMDcxNTU5MDU2MTk2',
 
 
         'NEXT_PUBLIC_URL3': '/routes/userSearch?SLTBBID=',
