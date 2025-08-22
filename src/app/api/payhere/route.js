@@ -221,170 +221,81 @@
 
 
 
-// // Updated route.js for PayHere - Auto-close tab and notify opener
-// import md5 from "crypto-js/md5";
-
-// export async function POST(request) {
-//   const body = await request.json();
-
-//   const {
-//     first_name,
-//     last_name,
-//     email,
-//     phone,
-//     address,
-//     city,
-//     order_id,
-//     items,
-//     amount,
-//     currency = "LKR",
-//   } = body;
-
-//   const merchant_id = process.env.PAYHERE_MERCHANT_ID;
-//   const merchant_secret = process.env.PAYHERE_SECRET;
-
-//   // Generate hash
-//   const hashedSecret = md5(merchant_secret).toString().toUpperCase();
-//   const amountFormatted = parseFloat(amount)
-//     .toLocaleString("en-us", { minimumFractionDigits: 2 })
-//     .replaceAll(",", "");
-//   const hash = md5(
-//     merchant_id + order_id + amountFormatted + currency + hashedSecret
-//   )
-//     .toString()
-//     .toUpperCase();
-
-//   // make return/cancel pages that close themselves and notify opener
-//   const return_url = `https://kaspersky-annual.slt.lk/payhere-redirect?status=success&order_id=${order_id}`;
-//   const cancel_url = `https://kaspersky-annual.slt.lk/payhere-redirect?status=cancelled&order_id=${order_id}`;
-//   const notify_url = "https://kaspersky-annual.slt.lk/api/payhere-notify";
-
-//   // Build PayHere redirect form
-// const form = `
-//   <!DOCTYPE html>
-//   <html>
-//   <head>
-//       <meta charset="utf-8">
-//   </head>
-//   <body>
-//       <form id="payhere-form" method="post" action="https://www.payhere.lk/pay/checkout">
-//           <input type="hidden" name="merchant_id" value="${merchant_id}" />
-//           <input type="hidden" name="return_url" value="${return_url}" />
-//           <input type="hidden" name="cancel_url" value="${cancel_url}" />
-//           <input type="hidden" name="notify_url" value="${notify_url}" />
-//           <input type="hidden" name="order_id" value="${order_id}" />
-//           <input type="hidden" name="items" value="${items}" />
-//           <input type="hidden" name="currency" value="${currency}" />
-//           <input type="hidden" name="amount" value="${amount}" />
-//           <input type="hidden" name="first_name" value="${first_name}" />
-//           <input type="hidden" name="last_name" value="${last_name}" />
-//           <input type="hidden" name="email" value="${email}" />
-//           <input type="hidden" name="phone" value="${phone}" />
-//           <input type="hidden" name="address" value="${address}" />
-//           <input type="hidden" name="city" value="${city}" />
-//           <input type="hidden" name="country" value="Sri Lanka" />
-//           <input type="hidden" name="hash" value="${hash}" />
-//       </form>
-
-//       <script>
-//           document.getElementById('payhere-form').submit();
-//       </script>
-//   </body>
-//   </html>
-// `;
-
-
-//   return new Response(form, {
-//     headers: { "Content-Type": "text/html" },
-//     status: 200,
-//   });
-// }
-
-
-
-// payhere/route.js
+// Updated route.js for PayHere - Auto-close tab and notify opener
 import md5 from "crypto-js/md5";
-
-function to2dpString(val) {
-  const n = Number(String(val).replace(/,/g, ""));
-  if (!Number.isFinite(n)) throw new Error(`Invalid amount: ${val}`);
-  return n.toFixed(2); // canonical 2dp string
-}
-const U = s => String(s ?? "").trim().toUpperCase();
 
 export async function POST(request) {
   const body = await request.json();
 
   const {
-    first_name = "",
-    last_name = "",
-    email = "",
-    phone = "",
-    address = "",
-    city = "",
+    first_name,
+    last_name,
+    email,
+    phone,
+    address,
+    city,
     order_id,
-    items = "",
+    items,
     amount,
     currency = "LKR",
   } = body;
 
-  const merchant_id = (process.env.PAYHERE_MERCHANT_ID || "").trim();
-  const merchant_secret = (process.env.PAYHERE_SECRET || "").trim();
-  if (!merchant_id) throw new Error("PAYHERE_MERCHANT_ID missing");
-  if (!merchant_secret) throw new Error("PAYHERE_SECRET missing");
-  if (!order_id) throw new Error("order_id is required");
+  const merchant_id = process.env.PAYHERE_MERCHANT_ID;
+  const merchant_secret = process.env.PAYHERE_SECRET;
 
-  const amount2dp = to2dpString(amount);
-  const cur = U(currency);
-
+  // Generate hash
   const hashedSecret = md5(merchant_secret).toString().toUpperCase();
-  const raw = merchant_id + String(order_id) + amount2dp + cur + hashedSecret;
-  const hash = md5(raw).toString().toUpperCase();
+  const amountFormatted = parseFloat(amount)
+    .toLocaleString("en-us", { minimumFractionDigits: 2 })
+    .replaceAll(",", "");
+  const hash = md5(
+    merchant_id + order_id + amountFormatted + currency + hashedSecret
+  )
+    .toString()
+    .toUpperCase();
 
-  const base = "https://kaspersky-annual.slt.lk";
-  const return_url = `${base}/payhere-redirect?status=success&order_id=${encodeURIComponent(order_id)}`;
-  const cancel_url = `${base}/payhere-redirect?status=cancelled&order_id=${encodeURIComponent(order_id)}`;
-  const notify_url = `${base}/api/payhere-notify`;
+  // make return/cancel pages that close themselves and notify opener
+  const return_url = `https://kaspersky-annual.slt.lk/payhere-redirect?status=success&order_id=${order_id}`;
+  const cancel_url = `https://kaspersky-annual.slt.lk/payhere-redirect?status=cancelled&order_id=${order_id}`;
+  const notify_url = "https://kaspersky-annual.slt.lk/api/payhere-notify";
 
-  // IMPORTANT: match this to your credentials (LIVE vs SANDBOX)
-  const PAYHERE_CHECKOUT_URL = "https://www.payhere.lk/pay/checkout";
-  // Sandbox would be: "https://sandbox.payhere.lk/pay/checkout"
-
-  const htmlEscape = (s) =>
-    String(s)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#39;");
-
-  const form = `
+  // Build PayHere redirect form
+const form = `
   <!DOCTYPE html>
   <html>
-  <head><meta charset="utf-8"></head>
+  <head>
+      <meta charset="utf-8">
+  </head>
   <body>
-    <form id="payhere-form" method="post" action="${PAYHERE_CHECKOUT_URL}">
-      <input type="hidden" name="merchant_id" value="${htmlEscape(merchant_id)}" />
-      <input type="hidden" name="return_url" value="${htmlEscape(return_url)}" />
-      <input type="hidden" name="cancel_url" value="${htmlEscape(cancel_url)}" />
-      <input type="hidden" name="notify_url" value="${htmlEscape(notify_url)}" />
-      <input type="hidden" name="order_id" value="${htmlEscape(order_id)}" />
-      <input type="hidden" name="items" value="${htmlEscape(items)}" />
-      <input type="hidden" name="currency" value="${cur}" />
-      <input type="hidden" name="amount" value="${amount2dp}" />
-      <input type="hidden" name="first_name" value="${htmlEscape(first_name)}" />
-      <input type="hidden" name="last_name" value="${htmlEscape(last_name)}" />
-      <input type="hidden" name="email" value="${htmlEscape(email)}" />
-      <input type="hidden" name="phone" value="${htmlEscape(phone)}" />
-      <input type="hidden" name="address" value="${htmlEscape(address)}" />
-      <input type="hidden" name="city" value="${htmlEscape(city)}" />
-      <input type="hidden" name="country" value="Sri Lanka" />
-      <input type="hidden" name="hash" value="${hash}" />
-    </form>
-    <script>document.getElementById('payhere-form').submit();</script>
+      <form id="payhere-form" method="post" action="https://www.payhere.lk/pay/checkout">
+          <input type="hidden" name="merchant_id" value="${merchant_id}" />
+          <input type="hidden" name="return_url" value="${return_url}" />
+          <input type="hidden" name="cancel_url" value="${cancel_url}" />
+          <input type="hidden" name="notify_url" value="${notify_url}" />
+          <input type="hidden" name="order_id" value="${order_id}" />
+          <input type="hidden" name="items" value="${items}" />
+          <input type="hidden" name="currency" value="${currency}" />
+          <input type="hidden" name="amount" value="${amount}" />
+          <input type="hidden" name="first_name" value="${first_name}" />
+          <input type="hidden" name="last_name" value="${last_name}" />
+          <input type="hidden" name="email" value="${email}" />
+          <input type="hidden" name="phone" value="${phone}" />
+          <input type="hidden" name="address" value="${address}" />
+          <input type="hidden" name="city" value="${city}" />
+          <input type="hidden" name="country" value="Sri Lanka" />
+          <input type="hidden" name="hash" value="${hash}" />
+      </form>
+
+      <script>
+          document.getElementById('payhere-form').submit();
+      </script>
   </body>
   </html>
-  `;
+`;
 
-  return new Response(form, { headers: { "Content-Type": "text/html" }, status: 200 });
+
+  return new Response(form, {
+    headers: { "Content-Type": "text/html" },
+    status: 200,
+  });
 }
