@@ -2368,7 +2368,7 @@ setTimeout(() => {
                     </div>
                     <span className="title18 text-start">ANNUAL PLAN</span><br />
                     <span className="title14">LKR {amount}</span><br />
-                    <span className="title02 text-center">All prices are exclusive of taxes</span>
+                    <span className="title02 text-center">All prices are inclusive of taxes</span>
                   </div>
                 </div>
                 <div className="col-lg-7 col-12 p-3">
