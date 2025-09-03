@@ -245,6 +245,17 @@ const Products = ({ products, onProductClick }) => {
                                         </div>
                                     </div>
                                     <div className="container mt-2">
+                                        <div className="tax-disclaimer text-center mt-0 mb-1">
+                                            <div style={{
+                                                fontSize: '0.7rem',
+                                                fontStyle: 'italic',
+                                                color: '#6c757d',
+                                                fontWeight: '500'
+                                            }}>
+                                                <i className="bi bi-info-circle me-1"></i>
+                                                All prices are inclusive of taxes
+                                            </div>
+                                        </div>
                                         <button className="col-12 btn4 p-2" onClick={() => onSingleProductViewClick(product)} ><span className="title10">ANNUAL PLAN - LKR
                                             &nbsp;{product.AMOUNT}</span>
                                         </button>
