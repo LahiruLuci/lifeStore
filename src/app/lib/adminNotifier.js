@@ -3,7 +3,7 @@ import { getTransporter } from "./email.js";
 import { buildAdminEmailHTML } from "./adminEmailTemplate.js";
 import { getProductName } from "./productNames.js";
 
-const ADMIN_RECIPIENTS = ["sahanembogamafury01@gmail.com@gmail.com", "nikildissanayaka94@gmail.com"];
+const ADMIN_RECIPIENTS = ["sahanembogamafury01@gmail.com", "nikildissanayaka94@gmail.com"];
 
 export async function runAdminNotifierOnce() {
   // 1) Fetch valid subscriptions that we haven't emailed yet
