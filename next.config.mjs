@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+    experimental: {
+        instrumentationHook: true,
+        missingSuspenseWithCSRBailout: false,
+    },
 
     env: {
         'MYSQL_HOST': '127.0.0.1',
@@ -20,6 +24,16 @@ const nextConfig = {
 
         'PAYHERE_MERCHANT_ID':'212500',
         'PAYHERE_SECRET':'a7b495b5ba455707e6fb90c671d2739a',
+
+        // --- Email (new) ---
+        'EMAIL_HOST': process.env.EMAIL_HOST || 'mail.kaspersky.slt.lk',
+        'EMAIL_PORT': process.env.EMAIL_PORT || '587',
+        'EMAIL_USER': process.env.EMAIL_USER || 'kaspersky@kaspersky.slt.lk',
+        'EMAIL_PASS': process.env.EMAIL_PASS || 'J4#k@b5G$7',
+        'EMAIL_FROM': process.env.EMAIL_FROM || 'kaspersky@kaspersky.slt.lk',
+
+        // --- Admin email cron flag (new) ---
+        'ADMIN_EMAIL_CRON_ENABLED': process.env.ADMIN_EMAIL_CRON_ENABLED || 'true',
 
 
         'NEXT_PUBLIC_URL3': '/routes/userSearch?SLTBBID=',
