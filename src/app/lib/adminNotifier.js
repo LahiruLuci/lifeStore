@@ -72,6 +72,7 @@ export async function runAdminNotifierOnce() {
         });
         await logAdminEmail(r.ORDERID, recipient);
         emailedCount++;
+        await new Promise(r => setTimeout(r, 1000));
       } catch (err) {
         // Do not throw; continue to next recipient/order.
         console.error(`[ADMIN-NOTIFY] Failed to email ${recipient} for order ${r.ORDERID}:`, err?.message);
