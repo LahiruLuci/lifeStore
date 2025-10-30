@@ -2485,6 +2485,8 @@ setTimeout(() => {
         </div>
       </div>
 
+      {/* container or box for customer details entering */}
+
       <div className="modal justify-content-center align-content-center" tabIndex="-1" id="admin_product_subscribe_email_change_message_modal">
         <div className="modal-dialog position-relative p-3" style={{ maxWidth: "650px" }}>
           <div className="modal-content">
@@ -2633,6 +2635,148 @@ setTimeout(() => {
         </div>
       </div>
 
+      {/* container or box for customer details entering */}
+
+
+
+      {/* styles for the customer data entering box or container */}
+
+      <style>
+        {`
+/* ===============================
+   ADMIN EMAIL CHANGE MODAL STYLES
+=================================*/
+
+#admin_product_subscribe_email_change_message_modal .modal-dialog {
+  max-width: 650px;
+  margin: 1.5rem auto;
+  transition: all 0.3s ease-in-out;
+}
+
+#admin_product_subscribe_email_change_message_modal .modal-content {
+  border: none;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+  animation: fadeInUp 0.4s ease-in-out;
+}
+
+#admin_product_subscribe_email_change_message_modal .modal-header {
+  background: linear-gradient(90deg, #198754, #28a745);
+  border-bottom: none;
+  padding: 1rem 1.25rem;
+}
+
+#admin_product_subscribe_email_change_message_modal .modal-header .modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  display: center;
+  align-items: center;
+}
+
+#admin_product_subscribe_email_change_message_modal .modal-header .btn-close {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+#admin_product_subscribe_email_change_message_modal .modal-header .btn-close:hover {
+  opacity: 1;
+}
+
+#admin_product_subscribe_email_change_message_modal .modal-body {
+  padding: 2rem 1.5rem;
+  background: #ffffff;
+}
+
+#admin_product_subscribe_email_change_message_modal input.form-control {
+  border-radius: 0.6rem;
+  border: 1.5px solid #ced4da;
+  transition: all 0.2s ease;
+  box-shadow: none;
+}
+
+#admin_product_subscribe_email_change_message_modal input.form-control:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+#admin_product_subscribe_email_change_message_modal h3.form-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #444;
+}
+
+#admin_product_subscribe_email_change_message_modal .btn {
+  border-radius: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 0.5rem 1rem;
+  transition: all 0.25s ease;
+}
+
+#admin_product_subscribe_email_change_message_modal .btn-success {
+  background: linear-gradient(90deg, #198754, #28a745);
+  border: none;
+}
+
+#admin_product_subscribe_email_change_message_modal .btn-success:hover {
+  background: linear-gradient(90deg, #157347, #1f8f3c);
+  transform: translateY(-2px);
+}
+
+#admin_product_subscribe_email_change_message_modal .btn-secondary {
+  background: #6c757d;
+  border: none;
+}
+
+#admin_product_subscribe_email_change_message_modal .btn-secondary:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+/* Subtext color */
+#admin_product_subscribe_email_change_message_modal .text07 {
+  font-size: 0.85rem;
+  color: #e74c3c;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 576px) {
+  #admin_product_subscribe_email_change_message_modal .modal-dialog {
+    margin: 1rem;
+  }
+
+  #admin_product_subscribe_email_change_message_modal .modal-body {
+    padding: 1.25rem;
+  }
+
+  #admin_product_subscribe_email_change_message_modal input.form-control {
+    width: 100% !important;
+  }
+
+  #admin_product_subscribe_email_change_message_modal .btn {
+    width: 100%;
+  }
+}
+`}
+      </style>
+
+
+      {/* styles for the customer data entering box box or container  */}
 
 
       <div class="modal justify-content-center align-content-center" tabIndex="-1" id="admin_product_subscribe_warning_message_modal">
