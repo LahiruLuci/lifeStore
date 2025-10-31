@@ -4,6 +4,7 @@ const nextConfig = {
     experimental: {
         instrumentationHook: true,
         missingSuspenseWithCSRBailout: false,
+        serverComponentsExternalPackages: ['mysql2', 'nodemailer'],
     },
 
     env: {
@@ -91,9 +92,9 @@ const nextConfig = {
             }
         ],
     },
-    experimental: {
-        missingSuspenseWithCSRBailout: false,
-    },
+    // experimental: {
+    //     missingSuspenseWithCSRBailout: false,
+    // },
 };
 
 export default nextConfig;
