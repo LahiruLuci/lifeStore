@@ -111,7 +111,7 @@
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
-import pool from "../../../config/mysql";
+import pool from "../../config/mysql";
 
 export async function GET(request) {
   try {

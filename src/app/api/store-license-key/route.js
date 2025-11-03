@@ -1,4 +1,4 @@
-import pool from "../../../config/mysql";
+import pool from "../../config/mysql";
 
 export async function POST(request) {
   try {

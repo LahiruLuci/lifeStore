@@ -28,76 +28,7 @@
 // }
 
 
-// import nodemailer from "nodemailer";
-
-// // Optional: one-time startup warning if anything looks missing.
-// // (Safe to keep; won't crash your app.)
-// (() => {
-//   const host = process.env.EMAIL_HOST;
-//   const port = process.env.EMAIL_PORT;
-//   const user = process.env.EMAIL_USER;
-//   const from = process.env.EMAIL_FROM;
-
-//   if (!host || !port || !user || !from) {
-//     console.warn("[EMAIL] Missing one or more EMAIL_* env vars. Emails will fail until set.", {
-//       EMAIL_HOST: host,
-//       EMAIL_PORT: port,
-//       EMAIL_USER: user,
-//       EMAIL_FROM: from,
-//     });
-//   }
-// })();
-
-// // Reuse a single transporter across calls (dev + prod)
-// const globalForEmail = globalThis;
-// let cachedTransporter = globalForEmail.__emailTransporter || null;
-
-// /**
-//  * Returns a configured Nodemailer transporter.
-//  * Throws if required env vars are not present at runtime.
-//  */
-// export function getTransporter() {
-//   if (cachedTransporter) return cachedTransporter;
-
-//   const host = process.env.EMAIL_HOST;
-//   const port = process.env.EMAIL_PORT;
-//   const user = process.env.EMAIL_USER;
-//   const pass = process.env.EMAIL_PASS; // optional
-//   const from = process.env.EMAIL_FROM;
-
-//   if (!host || !port || !user || !from) {
-//     throw new Error("Email is not configured. Please set EMAIL_* env vars.");
-//   }
-
-//   const transporter = nodemailer.createTransport({
-//     host,
-//     port: Number(port ?? 587),
-//     secure: false, // STARTTLS on 587
-//     auth: pass ? { user, pass } : undefined,
-//     tls: { rejectUnauthorized: false }, // useful if corp mail uses self-signed chain
-//   });
-
-//   // Cache for subsequent calls
-//   cachedTransporter = transporter;
-//   globalForEmail.__emailTransporter = transporter;
-
-//   return transporter;
-// }
-
-// /**
-//  * Convenience helper for the "from" address, if you need it elsewhere.
-//  */
-// export function getFromAddress() {
-//   return process.env.EMAIL_FROM || "";
-// }
-
-
-
-
-
-
-
-// src/lib/email.js
+import nodemailer from "nodemailer";
 
 // Optional: one-time startup warning if anything looks missing.
 // (Safe to keep; won't crash your app.)
@@ -123,10 +54,9 @@ let cachedTransporter = globalForEmail.__emailTransporter || null;
 
 /**
  * Returns a configured Nodemailer transporter.
- * Lazy-loads nodemailer to avoid bundling Node core deps at build.
  * Throws if required env vars are not present at runtime.
  */
-export async function getTransporter() {
+export function getTransporter() {
   if (cachedTransporter) return cachedTransporter;
 
   const host = process.env.EMAIL_HOST;
@@ -139,20 +69,18 @@ export async function getTransporter() {
     throw new Error("Email is not configured. Please set EMAIL_* env vars.");
   }
 
-  // ⬇️ Lazy import so webpack doesn’t pull Node core modules during build
-  const mod = await import("nodemailer");
-  const nodemailer = mod.default ?? mod;
-
   const transporter = nodemailer.createTransport({
     host,
     port: Number(port ?? 587),
     secure: false, // STARTTLS on 587
     auth: pass ? { user, pass } : undefined,
-    tls: { rejectUnauthorized: false }, // helpful with corp/self-signed chains
+    tls: { rejectUnauthorized: false }, // useful if corp mail uses self-signed chain
   });
 
+  // Cache for subsequent calls
   cachedTransporter = transporter;
   globalForEmail.__emailTransporter = transporter;
+
   return transporter;
 }
 

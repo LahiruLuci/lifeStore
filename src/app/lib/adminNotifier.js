@@ -1,4 +1,4 @@
-import pool from "../config/mysql.js";
+import pool from "../app/config/mysql.js";
 import { getTransporter } from "./email.js";
 import { buildAdminEmailHTML } from "./adminEmailTemplate.js";
 import { getProductName } from "./productNames.js";
