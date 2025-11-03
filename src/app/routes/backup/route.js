@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import pool from "../../config/mysql";
+import pool from "../../../config/mysql";
 
 export async function POST(request) {
     const { email, sltbbid, productCode, SECRETCODE } = await request.json();

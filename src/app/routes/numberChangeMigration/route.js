@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import pool from "../../config/mysql";
+import pool from "../../../config/mysql";
 
 export default async function POST(request){
     const {bbid, newBbid} = await request.json();

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import pool from "../../config/mysql";
+import pool from "../../../config/mysql";
 import fs from 'fs';
 import path from 'path';
 
