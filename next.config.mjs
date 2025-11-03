@@ -6,6 +6,15 @@ const nextConfig = {
         missingSuspenseWithCSRBailout: false,
         serverComponentsExternalPackages: ['mysql2'],
     },
+    webpack: (config, { isServer }) => {
+        if (isServer) {
+            // Ensure nodemailer is NOT bundled at build; resolve at runtime from node_modules
+            config.externals = Array.isArray(config.externals)
+                ? [...config.externals, 'nodemailer']
+                : config.externals;
+        }
+        return config;
+    },
 
     env: {
         'MYSQL_HOST': '127.0.0.1',
