@@ -39,7 +39,7 @@ export async function runAdminNotifierOnce() {
     return { checked: 0, emailed: 0 };
   }
 
-  const transporter = getTransporter();
+  const transporter = await getTransporter();
   let emailedCount = 0;
 
   for (const r of rows) {
