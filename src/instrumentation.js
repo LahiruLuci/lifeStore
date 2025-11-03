@@ -44,8 +44,8 @@
 
 import "server-only";
 import cron from "node-cron";
-import { ensureTables } from "./app/db/ensure-tables.js";
-import { runAdminNotifierOnce } from "./app/lib/adminNotifier.js";
+import { ensureTables } from "./db/ensure-tables.js";
+import { runAdminNotifierOnce } from "./lib/adminNotifier.js";
 
 export async function register() {
   // Skip during build

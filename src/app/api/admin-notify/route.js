@@ -22,8 +22,8 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 import { NextResponse } from "next/server";
-import { ensureTables } from "../../db/ensure-tables.js";
-import { runAdminNotifierOnce } from "../../lib/adminNotifier.js";
+import { ensureTables } from "../../../db/ensure-tables.js";
+import { runAdminNotifierOnce } from "../../../lib/adminNotifier.js";
 
 export async function GET() {
   try {
