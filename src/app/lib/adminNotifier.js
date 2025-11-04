@@ -99,7 +99,7 @@
 
 // src/app/lib/adminNotifier.js
 import "server-only";
-import pool from "../../config/mysql.js";
+import pool from "../config/mysql.js";
 import { buildAdminEmailHTML } from "./adminEmailTemplate.js";
 import { getProductName } from "./productNames.js";
 
