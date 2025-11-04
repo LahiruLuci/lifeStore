@@ -27,7 +27,7 @@
 //   });
 // }
 
-
+import "server-only";
 import nodemailer from "nodemailer";
 
 // Optional: one-time startup warning if anything looks missing.

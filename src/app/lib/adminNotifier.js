@@ -1,3 +1,4 @@
+import "server-only";
 import pool from "../config/mysql.js";
 import { getTransporter } from "./email.js";
 import { buildAdminEmailHTML } from "./adminEmailTemplate.js";
