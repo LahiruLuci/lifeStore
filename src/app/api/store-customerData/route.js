@@ -79,6 +79,7 @@ export async function POST(request) {
     const data = await request.json();
 
     const db = await pool.getConnection();
+    await db.query("SET time_zone = '+05:30'"); // <-- add this line
 
     const query = `
       INSERT INTO subscription 
