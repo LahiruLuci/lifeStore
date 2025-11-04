@@ -4,7 +4,7 @@ const nextConfig = {
     experimental: {
         instrumentationHook: true,
         missingSuspenseWithCSRBailout: false,
-        serverExternalPackages: ['nodemailer'],
+        serverComponentsExternalPackages: ['nodemailer'],
     },
 
     env: {
