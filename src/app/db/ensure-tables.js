@@ -1,3 +1,5 @@
+import "server-only";
+
 import pool from "../config/mysql.js";
 
 export async function ensureTables() {

@@ -31,7 +31,7 @@
 // export default pool;
 
 
-
+import "server-only";
 // config/mysql.js (ESM)
 import mysql from "mysql2/promise";
 
