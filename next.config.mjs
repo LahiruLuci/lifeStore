@@ -8,7 +8,7 @@ const nextConfig = {
     },
 
     webpack: (config, { isServer }) => {
-        // --- Ensure Node core 'node:*' specifiers resolve cleanly on server
+        // Map node: specifiers on server so webpack doesn't choke
         if (isServer) {
             config.resolve = config.resolve || {};
             config.resolve.alias = {
@@ -18,15 +18,16 @@ const nextConfig = {
                 'node:path': 'path',
                 'node:stream': 'stream',
                 'node:tls': 'tls',
+                'node:net': 'net',
             };
 
-            // Externalize server-only libs so Webpack doesn't bundle them
+            // Externalize server-only libs (and their subpaths)
             const externals = Array.isArray(config.externals)
                 ? config.externals
                 : [config.externals].filter(Boolean);
 
             externals.push(({ request }, callback) => {
-                if (request === 'nodemailer' || request === 'node-cron' || request === 'mysql2') {
+                if (/^(nodemailer|node-cron|mysql2)(\/.*)?$/.test(request || '')) {
                     return callback(null, 'commonjs ' + request);
                 }
                 callback();
@@ -34,13 +35,14 @@ const nextConfig = {
 
             config.externals = externals;
         } else {
-            // If any client path accidentally imports these, stub them out
+            // Hard-stub if any client path accidentally imports them
             config.resolve = config.resolve || {};
             config.resolve.alias = {
                 ...(config.resolve.alias || {}),
                 nodemailer: false,
                 'node-cron': false,
                 mysql2: false,
+                'mysql2/promise': false,
             };
         }
 
