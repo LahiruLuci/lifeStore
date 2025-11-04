@@ -4,9 +4,8 @@ const nextConfig = {
     experimental: {
         instrumentationHook: true,
         missingSuspenseWithCSRBailout: false,
+        serverExternalPackages: ['nodemailer'],
     },
-
-    serverExternalPackages: ['nodemailer'],
 
     env: {
         'MYSQL_HOST': '127.0.0.1',
