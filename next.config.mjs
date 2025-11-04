@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-    // experimental: {
-    //     instrumentationHook: true,
-    //     missingSuspenseWithCSRBailout: false,
-    //     serverComponentsExternalPackages: ['mysql2'],
-    // },
+    experimental: {
+        instrumentationHook: true,
+        missingSuspenseWithCSRBailout: false,
+    },
 
     env: {
         'MYSQL_HOST': '127.0.0.1',
