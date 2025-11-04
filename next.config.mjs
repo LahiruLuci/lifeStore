@@ -7,6 +7,32 @@ const nextConfig = {
         serverComponentsExternalPackages: ['nodemailer'],
     },
 
+    // ⬇️ ensure nodemailer never gets bundled
+    webpack: (config, { isServer }) => {
+        if (isServer) {
+            const externals = Array.isArray(config.externals)
+                ? config.externals
+                : [config.externals].filter(Boolean);
+
+            externals.push(function (_context, request, callback) {
+                if (request === 'nodemailer') {
+                    return callback(null, 'commonjs nodemailer'); // externalize at runtime
+                }
+                callback();
+            });
+
+            config.externals = externals;
+        } else {
+            // if any client path accidentally imports nodemailer, hard-fail to false
+            config.resolve = config.resolve || {};
+            config.resolve.alias = {
+                ...(config.resolve.alias || {}),
+                nodemailer: false,
+            };
+        }
+        return config;
+    },
+
     env: {
         'MYSQL_HOST': '127.0.0.1',
         'MYSQL_PORT': '3307',
