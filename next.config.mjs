@@ -7,29 +7,43 @@ const nextConfig = {
         serverComponentsExternalPackages: ['nodemailer'],
     },
 
-    // ⬇️ ensure nodemailer never gets bundled
     webpack: (config, { isServer }) => {
+        // --- Ensure Node core 'node:*' specifiers resolve cleanly on server
         if (isServer) {
+            config.resolve = config.resolve || {};
+            config.resolve.alias = {
+                ...(config.resolve.alias || {}),
+                'node:crypto': 'crypto',
+                'node:fs': 'fs',
+                'node:path': 'path',
+                'node:stream': 'stream',
+                'node:tls': 'tls',
+            };
+
+            // Externalize server-only libs so Webpack doesn't bundle them
             const externals = Array.isArray(config.externals)
                 ? config.externals
                 : [config.externals].filter(Boolean);
 
-            externals.push(function (_context, request, callback) {
-                if (request === 'nodemailer') {
-                    return callback(null, 'commonjs nodemailer'); // externalize at runtime
+            externals.push(({ request }, callback) => {
+                if (request === 'nodemailer' || request === 'node-cron' || request === 'mysql2') {
+                    return callback(null, 'commonjs ' + request);
                 }
                 callback();
             });
 
             config.externals = externals;
         } else {
-            // if any client path accidentally imports nodemailer, hard-fail to false
+            // If any client path accidentally imports these, stub them out
             config.resolve = config.resolve || {};
             config.resolve.alias = {
                 ...(config.resolve.alias || {}),
                 nodemailer: false,
+                'node-cron': false,
+                mysql2: false,
             };
         }
+
         return config;
     },
 
