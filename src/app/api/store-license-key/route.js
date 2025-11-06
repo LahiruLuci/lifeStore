@@ -22,6 +22,8 @@ export async function POST(request) {
     }
 
     const db = await pool.getConnection();
+    await db.query("SET time_zone = '+05:30'");
+
     
     // Update the subscription record with the license key
     const query = `UPDATE subscription SET LICENSEKEY = ? WHERE ORDERID = ?`;

@@ -57,6 +57,8 @@ export async function POST(request) {
     const currentDataTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     const db = await pool.getConnection();
+    await db.query("SET time_zone = '+05:30'");
+
     let query = `UPDATE subscription SET PAYMENTID = ?, AMOUNT = ?, PAYHERESTATUSCODE = ?, CREATEDDATETIME = ? WHERE ORDERID = ?`;
 
     const values = [

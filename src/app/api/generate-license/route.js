@@ -123,6 +123,7 @@ export async function POST(request) {
     
     // Get order details including amount from database
     const db = await pool.getConnection();
+    await db.query("SET time_zone = '+05:30'"); //new
     
     const checkQuery = `SELECT * FROM subscription WHERE ORDERID = ?`;
     const [existingRows] = await db.query(checkQuery, [orderId]);
@@ -253,6 +254,8 @@ export async function POST(request) {
     console.log("Step 5: Storing license key in database...");
     
     const db2 = await pool.getConnection();
+    await db.query("SET time_zone = '+05:30'"); //new
+
     
     // Update with license key
     const updateQuery = `UPDATE subscription SET LICENSEKEY = ? WHERE ORDERID = ?`;

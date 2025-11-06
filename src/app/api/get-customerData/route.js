@@ -133,6 +133,8 @@ export async function GET(request) {
     }
 
     const db = await pool.getConnection();
+    await db.query("SET time_zone = '+05:30'");
+
     try {
       const [rows] = await db.query(
         'SELECT * FROM subscription WHERE ORDERID = ?',
