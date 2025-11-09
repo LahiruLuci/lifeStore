@@ -54,18 +54,20 @@ export async function POST(request) {
     // You can log it (for now) or store in DB
     console.log("PayHere Notification Received:", paymentData);
 
-    const currentDataTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    // const currentDataTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
     const db = await pool.getConnection();
     await db.query("SET time_zone = '+05:30'");
 
-    let query = `UPDATE subscription SET PAYMENTID = ?, AMOUNT = ?, PAYHERESTATUSCODE = ?, CREATEDDATETIME = ? WHERE ORDERID = ?`;
+    //let query = `UPDATE subscription SET PAYMENTID = ?, AMOUNT = ?, PAYHERESTATUSCODE = ?, CREATEDDATETIME = ? WHERE ORDERID = ?`;
+    let query = `UPDATE subscription SET PAYMENTID = ?, AMOUNT = ?, PAYHERESTATUSCODE = ? WHERE ORDERID = ?`;
+
 
     const values = [
       paymentData.payment_id,
       paymentData.payhere_amount,
       paymentData.status_code,
-      currentDataTime,
+      //currentDataTime,
       paymentData.order_id,
     ];
 
