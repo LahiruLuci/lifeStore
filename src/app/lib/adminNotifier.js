@@ -223,7 +223,7 @@ import pool from "../config/mysql.js";
 import { buildAdminEmailHTML } from "./adminEmailTemplate.js";
 import { getProductName } from "./productNames.js";
 
-const ADMIN_RECIPIENTS = ["sahanembogamafury01@gmail.com", "nikildissanayaka94@gmail.com"];
+const ADMIN_RECIPIENTS = ["sahanembogamafury01@gmail.com", "nikildissanayaka94@gmail.com", "lakwinda@slt.com.lk", "isuruhw@slt.com.lk", "diroshani@slt.com.lk", "ruchiras@slt.com.lk"];
 
 const LIMIT = 200;
 const DELAY_MS = Number(process.env.ADMIN_EMAIL_DELAY_MS ?? 5000);
