@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import pool from "../../../../config/mysql";
 import { getProductName } from "../../../../lib/productNames";
 
