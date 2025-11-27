@@ -185,9 +185,9 @@
 //     let warning_message_modal = document.getElementById("warning_message_modal");
 //     let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
 
-    
 
-    
+
+
 //     // Inside emailConfirmation function, after storing customer data:
 //     if (first_name && last_name && phone && email && address && city && order_id && items && currency) {
 //       const response = await fetch("../api/payhere", {
@@ -886,7 +886,7 @@
 //     fetchProducts();
 //   }, []);
 
-  
+
 //   //setup the products details in admin view
 //   const handleProductClick = async (product) => {
 //     setUser(localStorage.getItem('customer_id'));
@@ -1020,9 +1020,9 @@
 //     let warning_message_modal = document.getElementById("warning_message_modal");
 //     let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
 
-    
 
-    
+
+
 //     // Inside emailConfirmation function, after storing customer data:
 //     if (first_name && last_name && phone && email && address && city && order_id && items && currency) {
 //       const response = await fetch("../api/payhere", {
@@ -1090,11 +1090,11 @@
 //         if (customerData.PAYHERESTATUSCODE === 2) {
 //           // SUCCESS - Status code 2
 //           console.log("Payment Successful! Starting license key generation...");
-          
+
 //           if (phone && email) {
 //             try {
 //               console.log("Calling generate license API...");
-              
+
 //               const generateLicenseResponse = await fetch("../api/generate-license", {
 //                 method: "POST",
 //                 headers: {
@@ -1109,22 +1109,22 @@
 //               });
 
 //               const generateLicenseResult = await generateLicenseResponse.json();
-              
+
 //               if (generateLicenseResult.success) {
 //                 console.log("License key generated and stored successfully!");
-                
+
 //                 // Show success message
 //                 successMessageModal = new bootstrap.Modal(success_message_modal);
 //                 successMsgDescriptionHead.innerText = "Product Subscribed Successfully! License key has been generated and sent to your email.";
 //                 successMessageModal.show();
-                
+
 //               } else {
 //                 console.error("License generation failed:", generateLicenseResult.error);
 //                 warningMessageModal = new bootstrap.Modal(warning_message_modal);
 //                 warningMsgDescriptionHead.innerText = `License generation failed: ${generateLicenseResult.error}`;
 //                 warningMessageModal.show();
 //               }
-              
+
 //             } catch (error) {
 //               console.error('Error generating license:', error);
 //               warningMessageModal = new bootstrap.Modal(warning_message_modal);
@@ -1757,51 +1757,51 @@ export default function ProductList() {
   }, []);
 
   useEffect(() => {
-  const handleMessage = (event) => {
-    if (event.data?.status) {
-      if (event.data.status === "success") {
-        console.log("✅ Payment success:", event.data.orderId);
+    const handleMessage = (event) => {
+      if (event.data?.status) {
+        if (event.data.status === "success") {
+          console.log("✅ Payment success:", event.data.orderId);
 
-        let success_message_modal = document.getElementById("success_message_modal");
-        let successMessageModal = new bootstrap.Modal(success_message_modal);
-        let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
+          let success_message_modal = document.getElementById("success_message_modal");
+          let successMessageModal = new bootstrap.Modal(success_message_modal);
+          let successMsgDescriptionHead = document.getElementById("successMsgDescriptionHead");
 
-       successMsgDescriptionHead.innerText =
-  "Payment Successful!\nCheck your email for the license key.";
+          successMsgDescriptionHead.innerText =
+            "Payment Successful!\nCheck your email for the license key.";
 
-        
-        success_message_modal.addEventListener("hidden.bs.modal", () => {
-          document.body.classList.remove("modal-open");
-          document.querySelectorAll(".modal-backdrop").forEach(el => el.remove());
-        });
 
-        successMessageModal.show();
+          success_message_modal.addEventListener("hidden.bs.modal", () => {
+            document.body.classList.remove("modal-open");
+            document.querySelectorAll(".modal-backdrop").forEach(el => el.remove());
+          });
 
-      } else if (event.data.status === "cancelled") {
-        console.log("❌ Payment cancelled:", event.data.orderId);
+          successMessageModal.show();
 
-        let warning_message_modal = document.getElementById("warning_message_modal");
-        let warningMessageModal = new bootstrap.Modal(warning_message_modal);
-        let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
+        } else if (event.data.status === "cancelled") {
+          console.log("❌ Payment cancelled:", event.data.orderId);
 
-        warningMsgDescriptionHead.innerText = 
-          "Payment failed. Please check your payment details and try again.";
+          let warning_message_modal = document.getElementById("warning_message_modal");
+          let warningMessageModal = new bootstrap.Modal(warning_message_modal);
+          let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
 
-        warning_message_modal.addEventListener("hidden.bs.modal", () => {
-          document.body.classList.remove("modal-open");
-          document.querySelectorAll(".modal-backdrop").forEach(el => el.remove());
-        });
+          warningMsgDescriptionHead.innerText =
+            "Payment failed. Please check your payment details and try again.";
 
-        warningMessageModal.show();
+          warning_message_modal.addEventListener("hidden.bs.modal", () => {
+            document.body.classList.remove("modal-open");
+            document.querySelectorAll(".modal-backdrop").forEach(el => el.remove());
+          });
+
+          warningMessageModal.show();
+        }
       }
-    }
-  };
+    };
 
-  window.addEventListener("message", handleMessage);
-  return () => window.removeEventListener("message", handleMessage);
-}, []);
+    window.addEventListener("message", handleMessage);
+    return () => window.removeEventListener("message", handleMessage);
+  }, []);
 
-  
+
   //setup the products details in admin view
   const handleProductClick = async (product) => {
     setUser(localStorage.getItem('customer_id'));
@@ -1917,55 +1917,55 @@ export default function ProductList() {
   };
 
   // --- Validation helpers (phone: exactly 10 digits; email: basic RFC pattern) ---
-const phoneRe = /^\d{10}$/;
-const emailRe = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+  const phoneRe = /^\d{10}$/;
+  const emailRe = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
-function setInvalid(el, msg) {
-  if (!el) return;
-  el.classList.add("is-invalid");
-  el.setCustomValidity(msg);
-  el.reportValidity();
-}
-
-function clearInvalid(el) {
-  if (!el) return;
-  el.classList.remove("is-invalid");
-  el.setCustomValidity("");
-}
-
-function validateContactAndEmail() {
-  const phoneEl = document.getElementById("userContactNumber");
-  const emailEl = document.getElementById("userEmail");
-
-  const phone = (phoneEl?.value || "").trim();
-  const email = (emailEl?.value || "").trim();
-
-  let ok = true;
-
-  if (!phoneRe.test(phone)) {
-    setInvalid(phoneEl, "Contact number must be exactly 10 digits.");
-    ok = false;
-  } else {
-    clearInvalid(phoneEl);
+  function setInvalid(el, msg) {
+    if (!el) return;
+    el.classList.add("is-invalid");
+    el.setCustomValidity(msg);
+    el.reportValidity();
   }
 
-  if (!emailRe.test(email)) {
-    setInvalid(emailEl, "Please enter a valid email address.");
-    ok = false;
-  } else {
-    clearInvalid(emailEl);
+  function clearInvalid(el) {
+    if (!el) return;
+    el.classList.remove("is-invalid");
+    el.setCustomValidity("");
   }
 
-  if (!ok) {
-    document
-      .querySelector("#admin_product_subscribe_email_change_message_modal .is-invalid")
-      ?.focus();
+  function validateContactAndEmail() {
+    const phoneEl = document.getElementById("userContactNumber");
+    const emailEl = document.getElementById("userEmail");
+
+    const phone = (phoneEl?.value || "").trim();
+    const email = (emailEl?.value || "").trim();
+
+    let ok = true;
+
+    if (!phoneRe.test(phone)) {
+      setInvalid(phoneEl, "Contact number must be exactly 10 digits.");
+      ok = false;
+    } else {
+      clearInvalid(phoneEl);
+    }
+
+    if (!emailRe.test(email)) {
+      setInvalid(emailEl, "Please enter a valid email address.");
+      ok = false;
+    } else {
+      clearInvalid(emailEl);
+    }
+
+    if (!ok) {
+      document
+        .querySelector("#admin_product_subscribe_email_change_message_modal .is-invalid")
+        ?.focus();
+    }
+    return ok;
   }
-  return ok;
-}
 
 
-   //lifestore function to confirm email and payment
+  //lifestore function to confirm email and payment
   const emailConfirmation = async () => {
     // Validate before doing anything
     if (!validateContactAndEmail()) return;
@@ -1991,9 +1991,9 @@ function validateContactAndEmail() {
     let warning_message_modal = document.getElementById("warning_message_modal");
     let warningMsgDescriptionHead = document.getElementById("warningMsgDescriptionHead");
 
-    
 
-    
+
+
     // Inside emailConfirmation function, after storing customer data:
     if (first_name && last_name && phone && email && address && city && order_id && items && currency) {
       const response = await fetch("../api/payhere", {
@@ -2043,112 +2043,112 @@ function validateContactAndEmail() {
           throw new Error('Failed to store order');
         }
 
-     // Set up an interval to check payment status
-const checkPaymentStatus = setInterval(async () => {
-  try {
-    const statusResponse = await fetch(`../api/get-customerData?orderId=${order_id}`);
-    const statusData = await statusResponse.json();
+        // Set up an interval to check payment status
+        const checkPaymentStatus = setInterval(async () => {
+          try {
+            const statusResponse = await fetch(`../api/get-customerData?orderId=${order_id}`);
+            const statusData = await statusResponse.json();
 
-    if (statusData.success && statusData.data) {
-      const customerData = statusData.data;
-      console.log("Current customer data:", customerData);
+            if (statusData.success && statusData.data) {
+              const customerData = statusData.data;
+              console.log("Current customer data:", customerData);
 
-      // Check if payment status exists and is not 0 (pending)
-      if (customerData.PAYHERESTATUSCODE && customerData.PAYHERESTATUSCODE !== 0) {
-        clearInterval(checkPaymentStatus); // Stop checking
+              // Check if payment status exists and is not 0 (pending)
+              if (customerData.PAYHERESTATUSCODE && customerData.PAYHERESTATUSCODE !== 0) {
+                clearInterval(checkPaymentStatus); // Stop checking
 
-        // Handle ALL payment statuses
-        if (customerData.PAYHERESTATUSCODE === 2) {
-          // SUCCESS - Status code 2
-          console.log("Payment Successful! Starting license key generation...");
-          
-          if (phone && email) {
-            try {
-              console.log("Calling generate license API...");
-              
-              const generateLicenseResponse = await fetch("../api/generate-license", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  email: email,
-                  productCode: pCode,
-                  phone: phone,
-                  orderId: order_id
-                })
-              });
+                // Handle ALL payment statuses
+                if (customerData.PAYHERESTATUSCODE === 2) {
+                  // SUCCESS - Status code 2
+                  console.log("Payment Successful! Starting license key generation...");
 
-              const generateLicenseResult = await generateLicenseResponse.json();
-              
-              if (generateLicenseResult.success) {
-                console.log("License key generated and stored successfully!");
-                
-                // Show success message
-                successMessageModal = new bootstrap.Modal(success_message_modal);
-                successMsgDescriptionHead.innerText = "Product Subscribed Successfully! License key has been generated and sent to your email.";
-                successMessageModal.show();
-                
-              } else {
-                console.error("License generation failed:", generateLicenseResult.error);
-                warningMessageModal = new bootstrap.Modal(warning_message_modal);
-                warningMsgDescriptionHead.innerText = `License generation failed: ${generateLicenseResult.error}`;
-                warningMessageModal.show();
+                  if (phone && email) {
+                    try {
+                      console.log("Calling generate license API...");
+
+                      const generateLicenseResponse = await fetch("../api/generate-license", {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          email: email,
+                          productCode: pCode,
+                          phone: phone,
+                          orderId: order_id
+                        })
+                      });
+
+                      const generateLicenseResult = await generateLicenseResponse.json();
+
+                      if (generateLicenseResult.success) {
+                        console.log("License key generated and stored successfully!");
+
+                        // Show success message
+                        successMessageModal = new bootstrap.Modal(success_message_modal);
+                        successMsgDescriptionHead.innerText = "Product Subscribed Successfully! License key has been generated and sent to your email.";
+                        successMessageModal.show();
+
+                      } else {
+                        console.error("License generation failed:", generateLicenseResult.error);
+                        warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                        warningMsgDescriptionHead.innerText = `License generation failed: ${generateLicenseResult.error}`;
+                        warningMessageModal.show();
+                      }
+
+                    } catch (error) {
+                      console.error('Error generating license:', error);
+                      warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                      warningMsgDescriptionHead.innerText = `License generation error: ${error.message}`;
+                      warningMessageModal.show();
+                    }
+                  } else {
+                    console.error("Missing phone or email");
+                    warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                    warningMsgDescriptionHead.innerText = "Enter all the details!";
+                    warningMessageModal.show();
+                  }
+                }
+                else if (customerData.PAYHERESTATUSCODE === -1) {
+                  // CANCELLED - Status code -1
+                  console.log("Payment was cancelled by user");
+                  warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                  warningMsgDescriptionHead.innerText = "Payment was cancelled. Please try again if you wish to purchase this product.";
+                  warningMessageModal.show();
+                }
+                else if (customerData.PAYHERESTATUSCODE === -2) {
+                  // FAILED - Status code -2  
+                  console.log("Payment failed");
+                  warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                  warningMsgDescriptionHead.innerText = "Payment failed. Please check your payment details and try again.";
+                  warningMessageModal.show();
+                }
+                else if (customerData.PAYHERESTATUSCODE === -3) {
+                  // CHARGED BACK - Status code -3
+                  console.log("Payment was charged back");
+                  warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                  warningMsgDescriptionHead.innerText = "Payment was charged back. Please contact support for assistance.";
+                  warningMessageModal.show();
+                }
+                else {
+                  // ANY OTHER STATUS CODE
+                  console.log("Unknown payment status:", customerData.PAYHERESTATUSCODE);
+                  warningMessageModal = new bootstrap.Modal(warning_message_modal);
+                  warningMsgDescriptionHead.innerText = `Payment status unknown (Code: ${customerData.PAYHERESTATUSCODE}). Please contact support.`;
+                  warningMessageModal.show();
+                }
               }
-              
-            } catch (error) {
-              console.error('Error generating license:', error);
-              warningMessageModal = new bootstrap.Modal(warning_message_modal);
-              warningMsgDescriptionHead.innerText = `License generation error: ${error.message}`;
-              warningMessageModal.show();
             }
-          } else {
-            console.error("Missing phone or email");
-            warningMessageModal = new bootstrap.Modal(warning_message_modal);
-            warningMsgDescriptionHead.innerText = "Enter all the details!";
-            warningMessageModal.show();
+          } catch (error) {
+            console.error('Error checking payment status:', error);
           }
-        } 
-        else if (customerData.PAYHERESTATUSCODE === -1) {
-          // CANCELLED - Status code -1
-          console.log("Payment was cancelled by user");
-          warningMessageModal = new bootstrap.Modal(warning_message_modal);
-          warningMsgDescriptionHead.innerText = "Payment was cancelled. Please try again if you wish to purchase this product.";
-          warningMessageModal.show();
-        }
-        else if (customerData.PAYHERESTATUSCODE === -2) {
-          // FAILED - Status code -2  
-          console.log("Payment failed");
-          warningMessageModal = new bootstrap.Modal(warning_message_modal);
-          warningMsgDescriptionHead.innerText = "Payment failed. Please check your payment details and try again.";
-          warningMessageModal.show();
-        }
-        else if (customerData.PAYHERESTATUSCODE === -3) {
-          // CHARGED BACK - Status code -3
-          console.log("Payment was charged back");
-          warningMessageModal = new bootstrap.Modal(warning_message_modal);
-          warningMsgDescriptionHead.innerText = "Payment was charged back. Please contact support for assistance.";
-          warningMessageModal.show();
-        }
-        else {
-          // ANY OTHER STATUS CODE
-          console.log("Unknown payment status:", customerData.PAYHERESTATUSCODE);
-          warningMessageModal = new bootstrap.Modal(warning_message_modal);
-          warningMsgDescriptionHead.innerText = `Payment status unknown (Code: ${customerData.PAYHERESTATUSCODE}). Please contact support.`;
-          warningMessageModal.show();
-        }
-      }
-    }
-  } catch (error) {
-    console.error('Error checking payment status:', error);
-  }
-}, 5000); // Check every 5 seconds
+        }, 5000); // Check every 5 seconds
 
-// Stop checking after 5 minutes (300000 ms) to prevent infinite checking
-setTimeout(() => {
-  clearInterval(checkPaymentStatus);
-  console.log("Payment status checking timeout - stopped checking after 5 minutes");
-}, 300000);
+        // Stop checking after 5 minutes (300000 ms) to prevent infinite checking
+        setTimeout(() => {
+          clearInterval(checkPaymentStatus);
+          console.log("Payment status checking timeout - stopped checking after 5 minutes");
+        }, 300000);
 
       } catch (error) {
         console.error("Error storing order:", error);
@@ -2398,6 +2398,157 @@ setTimeout(() => {
             </div>
           </div>
         </div>
+        <style jsx>{`
+  #singleAdminProductViewId {
+    animation: fadeIn 0.4s ease;
+  }
+
+  /* CARD WRAPPER */
+  .cardBoxView {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(22px) saturate(180%);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+    border: 1px solid rgba(255,255,255,0.45);
+    transition: 0.3s ease;
+  }
+
+  .cardBoxView:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.22);
+  }
+
+  /* TITLE LEFT FIX */
+  .title18 {
+    margin-left: 180px;
+    text-align: left;
+  }
+
+  /* PRODUCT IMAGE */
+  .productImage {
+    border-radius: 18px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.25);
+    transition: 0.3s ease;
+  }
+
+  .productImage:hover {
+    transform: scale(1.03);
+  }
+
+  /* TEXT STYLES */
+  .title15 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #003366;
+  }
+
+  .title18 {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #006c3a;
+  }
+
+  .title14 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #003366;
+  }
+
+  .title16 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #004a8f;
+  }
+
+  .title02 {
+    font-size: 0.85rem;
+    color: #444;
+  }
+
+  /* ===============================
+     FEATURE LIST (UPDATED)
+     =============================== */
+  .CardfeatureText {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(14px);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start; /* ⭐ icon stays at top */
+    gap: 14px;               /* ⭐ spacing between icon + text */
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+    transition: 0.25s ease;
+  }
+
+  .CardfeatureText:hover {
+    transform: translateX(6px);
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.20);
+  }
+
+  /* FEATURE TEXT FIX */
+  .title17 {
+    line-height: 1.45; /* ⭐ adds more space when 2 lines */
+    display: block;
+  }
+
+  /* Check Icon */
+  .checkView {
+    font-size: 20px;
+    color: #009639;
+    font-weight: bold;
+    margin-top: 3px;  /* ⭐ aligns perfectly with top text */
+  }
+
+  /* BUY BUTTON */
+  .btn9 {
+    background: linear-gradient(135deg, #009639, #007a2d);
+    color: white;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    transition: 0.25s ease;
+    box-shadow: 0 6px 20px rgba(0,150,57,0.3);
+  }
+
+  .btn9:hover {
+    background: linear-gradient(135deg, #00b44a, #008f38);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,150,57,0.45);
+  }
+
+  /* BACK BUTTON */
+  .title21 {
+    cursor: pointer;
+    color: #004a8f;
+    font-weight: 700;
+    transition: 0.2s ease;
+  }
+
+  .title21:hover {
+    color: #009639;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .title14 { font-size: 1.6rem; }
+    .title15 { font-size: 1.6rem; }
+    .productImage { border-radius: 14px; }
+    .btn9 { width: 100%; }
+    .title18 { margin-left: 0; }
+  }
+`}</style>
+
       </div>
 
       {/* <div class="modal justify-content-center align-content-center" tabIndex="-1" id="admin_product_subscribe_selection_message_modal">
@@ -2643,6 +2794,7 @@ setTimeout(() => {
 
       <style>
         {`
+
 /* ===============================
    ADMIN EMAIL CHANGE MODAL STYLES
 =================================*/
@@ -2816,6 +2968,8 @@ setTimeout(() => {
           </div>
         </div>
       </div>
+
+
       <WarningMessageModal />
       <SuccessMessageModal />
 
@@ -2850,6 +3004,7 @@ setTimeout(() => {
           </div>
         </div>
       </div>
+
     </>
   );
 }
